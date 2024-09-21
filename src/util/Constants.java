@@ -69,6 +69,13 @@ public final class Constants {
     public static final int TOP_LEFT_X = 0, TOP_LEFT_Y = 0, TEXT_LOCATION_X = 350, TEXT_LOCATION_Y = 18;
 
     /**
+     * Pause screen constants.
+     */
+    public static final int PAUSE_FONT_SIZE = 32;
+    public static final String PAUSE_MESSAGE = "paused -- press space to continue";
+
+
+    /**
      * Private constructor for the class.
      */
     private Constants() {

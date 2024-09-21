@@ -4,16 +4,27 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
 
+/**
+ * Class to run all animations.
+ * Responsible for the running of general type.
+ */
 public class AnimationRunner {
     private GUI gui;
     private int framesPerSecond = 60;
     private Sleeper sleeper = new Sleeper();
 
+    /**
+     * Constructor for the class.
+     * @param gui - GUI we will use to show the user.
+     */
     public AnimationRunner(GUI gui) {
         this.gui = gui;
     }
 
-    // ...
+    /**
+     * Run a given animation.
+     * @param animation - animation to run.
+     */
     public void run(Animation animation) {
         int millisecondsPerFrame = 1000 / this.framesPerSecond;
         double dt;

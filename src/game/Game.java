@@ -2,10 +2,10 @@ package game;
 
 import animation.Animation;
 import animation.AnimationRunner;
+import animation.CountdownAnimation;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
-import biuoop.Sleeper;
 import graphics.*;
 import geometry.Ball;
 import geometry.Point;
@@ -195,9 +195,10 @@ public class Game implements Animation {
      * Function to start the animation of the game.
      */
     public void run() {
-        this.running = true;
         //Start animation. End the animation when there are no blocks remaining.
         this.runner = new AnimationRunner(this.gui);
+        this.runner.run(new CountdownAnimation(2, 3, sprites));
+        this.running = true;
         this.runner.run(this);
 
         if (ballRemover.noBallsRemain()) {
