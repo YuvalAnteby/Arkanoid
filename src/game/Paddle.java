@@ -9,7 +9,7 @@ import geometry.Point;
 import geometry.Rectangle;
 import graphics.Sprite;
 import collision.Collidable;
-import physics.Velocity;
+import animation.Velocity;
 import util.Constants;
 
 import java.awt.Color;

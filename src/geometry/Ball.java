@@ -9,7 +9,7 @@ import game.Game;
 import game.GameEnvironment;
 import graphics.Sprite;
 import collision.CollisionInfo;
-import physics.Velocity;
+import animation.Velocity;
 
 import java.awt.Color;
 import java.util.ArrayList;

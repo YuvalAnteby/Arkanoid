@@ -40,4 +40,14 @@ public class BlockRemover implements HitListener {
         beingHit.removeFromGame(this.game);
         this.remainingBlocks.decrease(1);
     }
+
+    /**
+     * Check if there are blocks remaining in the game.
+     * @return true if there are no blocks anymore, otherwise false.
+     */
+    public boolean noBlocksRemain() {
+        return this.remainingBlocks.getValue() <= 0;
+    }
+
+
 }

@@ -26,6 +26,8 @@ public final class Constants {
     public static final Color BACKGROUND_COLOR = new Color(0, 128, 128);
     //GUI name.
     public static final String GUI_NAME = "Arkanoid";
+    //FPS of the game.
+    public static final int FRAMES_PER_SECOND = 60;
 
     /**
         Boundaries constants.

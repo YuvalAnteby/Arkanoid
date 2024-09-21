@@ -4,7 +4,7 @@ import game.Block;
 import geometry.Ball;
 import geometry.Point;
 import geometry.Rectangle;
-import physics.Velocity;
+import animation.Velocity;
 
 /**
  * Interface to be used for objects that take part in collisions. (E.G: blocks and balls).

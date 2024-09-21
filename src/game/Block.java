@@ -8,7 +8,7 @@ import graphics.Sprite;
 import collision.Collidable;
 import collision.HitListener;
 import collision.HitNotifier;
-import physics.Velocity;
+import animation.Velocity;
 
 import java.awt.Color;
 import java.util.ArrayList;

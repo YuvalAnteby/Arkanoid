@@ -1,17 +1,16 @@
 package game;
 
+import animation.Animation;
+import animation.AnimationRunner;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
-import graphics.BallRemover;
-import graphics.BlockRemover;
+import graphics.*;
 import geometry.Ball;
 import geometry.Point;
 import geometry.Rectangle;
-import graphics.Sprite;
-import graphics.SpriteCollection;
 import collision.Collidable;
-import physics.Velocity;
+import animation.Velocity;
 import score.ScoreIndicator;
 import score.ScoreTrackingListener;
 import util.Constants;
@@ -24,8 +23,9 @@ import java.util.Random;
  * Class to handle the game's sprites animation and GUI creation.
  * @author Yuval Anteby
  */
-public class Game {
-
+public class Game implements Animation {
+    private AnimationRunner runner;
+    private boolean running;
     private SpriteCollection sprites;
     private GameEnvironment environment;
     private GUI gui;
@@ -192,37 +192,36 @@ public class Game {
      * Function to start the animation of the game.
      */
     public void run() {
-        //Start the GUI and sleeper.
-        Sleeper sleeper = new Sleeper();
-        //Set FPS.
-        int framesPerSecond = 60;
-        int millisecondsPerFrame = 1000 / framesPerSecond;
+        this.running = true;
         //Start animation. End the animation when there are no blocks remaining.
-        while (blockRemover.getRemainingBlocks().getValue() > 0 && ballRemover.getRemainingBalls().getValue() > 0) {
-            long startTime = System.currentTimeMillis(); // timing
-            DrawSurface d = gui.getDrawSurface();
-            this.sprites.drawAllOn(d);
-            gui.show(d);
-            this.sprites.notifyAllTimePassed();
-            // timing
-            long usedTime = System.currentTimeMillis() - startTime;
-            long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
-            if (milliSecondLeftToSleep > 0) {
-                sleeper.sleepFor(milliSecondLeftToSleep);
-            }
-        }
-        //Add extra points for clearing all the blocks (if needed).
-        if (blockRemover.getRemainingBlocks().getValue() <= 0) {
-            this.scoreTrackingListener.levelCleared();
-        }
-        if (ballRemover.getRemainingBalls().getValue() <= 0) {
+        this.runner = new AnimationRunner(this.gui);
+        this.runner.run(this);
+
+        if (ballRemover.noBallsRemain()) {
             System.out.println("Player lost. " + scoreTrackingListener.toString());
         }
-        if (blockRemover.getRemainingBlocks().getValue() <= 0) {
+        if (blockRemover.noBlocksRemain()) {
+            //Add extra points for clearing all the blocks (if needed).
+            this.scoreTrackingListener.levelCleared();
             System.out.println("Player won! " + scoreTrackingListener.toString());
         }
         //Close the gui window.
         this.gui.close();
+    }
+
+    @Override
+    public boolean shouldStop() {
+        return !this.running;
+    }
+
+    @Override
+    public void doOneFrame(DrawSurface d) {
+        this.sprites.drawAllOn(d);
+        gui.show(d);
+        this.sprites.notifyAllTimePassed();
+        if (blockRemover.noBlocksRemain() || ballRemover.noBallsRemain()) {
+            this.running = false;
+        }
     }
 
     /**

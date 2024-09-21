@@ -39,4 +39,12 @@ public class BallRemover implements HitListener {
             this.remainingBalls.decrease(1);
         }
     }
+
+    /**
+     * Check if there are balls remaining in the game.
+     * @return true if there are no balls anymore, otherwise false.
+     */
+    public boolean noBallsRemain() {
+        return this.remainingBalls.getValue() <= 0;
+    }
 }
