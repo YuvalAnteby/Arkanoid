@@ -62,7 +62,7 @@ public final class Constants {
      * Score indicator constants.
      */
     //Sizes
-    public static final int SCORE_WIDTH = 800, SCORE_FONT_SIZE = 20;
+    public static final int SCORE_WIDTH = GUI_WIDTH, SCORE_FONT_SIZE = 20;
     //Colors
     public static final Color TEXT_COLOR = Color.BLACK, SCORE_BACKGROUND_COLOR = Color.LIGHT_GRAY;
     //Location

@@ -4,6 +4,7 @@ import animation.Animation;
 import animation.AnimationRunner;
 import biuoop.DrawSurface;
 import biuoop.GUI;
+import biuoop.KeyboardSensor;
 import biuoop.Sleeper;
 import graphics.*;
 import geometry.Ball;
@@ -13,6 +14,7 @@ import collision.Collidable;
 import animation.Velocity;
 import score.ScoreIndicator;
 import score.ScoreTrackingListener;
+import screens.PauseScreen;
 import util.Constants;
 import util.Counter;
 
@@ -33,7 +35,7 @@ public class Game implements Animation {
     private BallRemover ballRemover;
     private ScoreTrackingListener scoreTrackingListener;
     private ScoreIndicator scoreIndicator;
-
+    private KeyboardSensor keyboard;
     /**
      * Constructor for the game, will create a new sprite collection and environment and set the GUI size.
      */
@@ -41,6 +43,7 @@ public class Game implements Animation {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.gui = new GUI(Constants.GUI_NAME, Constants.GUI_WIDTH, Constants.GUI_HEIGHT);
+        this.keyboard = gui.getKeyboardSensor();
     }
 
     /**
@@ -217,10 +220,12 @@ public class Game implements Animation {
     @Override
     public void doOneFrame(DrawSurface d) {
         this.sprites.drawAllOn(d);
-        gui.show(d);
         this.sprites.notifyAllTimePassed();
         if (blockRemover.noBlocksRemain() || ballRemover.noBallsRemain()) {
             this.running = false;
+        }
+        if (this.keyboard.isPressed("p") || this.keyboard.isPressed("P")) {
+            this.runner.run(new PauseScreen(this.keyboard));
         }
     }
 
