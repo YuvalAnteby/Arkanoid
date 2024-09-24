@@ -27,7 +27,6 @@ public class AnimationRunner {
      */
     public void run(Animation animation) {
         int millisecondsPerFrame = 1000 / this.framesPerSecond;
-        double dt;
         while (!animation.shouldStop()) {
             long startTime = System.currentTimeMillis(); // timing
             DrawSurface d = this.gui.getDrawSurface();

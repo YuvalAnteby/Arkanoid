@@ -5,7 +5,7 @@ import collision.HitListener;
 import collision.HitNotifier;
 import game.Block;
 import util.Constants;
-import game.Game;
+import game.GameLevel;
 import game.GameEnvironment;
 import graphics.Sprite;
 import collision.CollisionInfo;
@@ -226,7 +226,7 @@ public class Ball implements Sprite, HitNotifier {
      * Add the ball to the game as a sprite.
      * @param g - instance of a game.
      */
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addSprite(this);
     }
 
@@ -247,11 +247,11 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Function to remove this ball from the game.
-     * @param game - game reference to remove the ball from.
+     * @param gameLevel - game reference to remove the ball from.
      */
-    public void removeFromGame(Game game) {
-        if (game != null) {
-            game.removeSprite(this);
+    public void removeFromGame(GameLevel gameLevel) {
+        if (gameLevel != null) {
+            gameLevel.removeSprite(this);
             for (int i = 0; i < this.hitListeners.size(); i++) {
                 removeHitListener(this.hitListeners.get(i));
             }

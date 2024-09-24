@@ -78,13 +78,7 @@ public class Paddle implements Sprite, Collidable {
 
     @Override
     public void drawOn(DrawSurface d) {
-        d.setColor(block.getColor());
-        Rectangle thisRec = this.shape;
-        d.fillRectangle((int) thisRec.getUpperLeft().getX(), (int) thisRec.getUpperLeft().getY(),
-                (int) thisRec.getWidth(), (int) thisRec.getHeight());
-        d.setColor(Color.black);
-        d.drawRectangle((int) thisRec.getUpperLeft().getX(), (int) thisRec.getUpperLeft().getY(),
-                (int) thisRec.getWidth(), (int) thisRec.getHeight());
+        this.block.drawOn(d);
     }
 
     @Override
@@ -97,10 +91,6 @@ public class Paddle implements Sprite, Collidable {
         if (this.keyboard.isPressed(KeyboardSensor.RIGHT_KEY) || this.keyboard.isPressed("d")
                 || this.keyboard.isPressed("D")) {
             moveRight();
-        }
-        //Exist game on enter press.
-        if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-            this.gui.close();
         }
     }
 
@@ -155,7 +145,7 @@ public class Paddle implements Sprite, Collidable {
      * Add the block to the game a sprite and a collidable object.
      * @param g     - the game reference we add to.
      */
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addCollidable(this);
         g.addSprite(this);
     }

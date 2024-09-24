@@ -58,7 +58,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
      * Add the block to the game a sprite and a collidable object.
      * @param g     - the game reference we add to.
      */
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addCollidable(this);
         g.addSprite(this);
     }
@@ -67,7 +67,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
      * Add the background as only a sprite to the game.
      * @param g     - the game reference we add to.
      */
-    public void addBackground(Game g) {
+    public void addBackground(GameLevel g) {
         g.addSprite(this);
     }
 
@@ -82,12 +82,12 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * Function to remove this block from the game.
-     * @param game - game reference to remove the block from.
+     * @param gameLevel - game reference to remove the block from.
      */
-    public void removeFromGame(Game game) {
-        if (game != null) {
-            game.removeCollidable(this);
-            game.removeSprite(this);
+    public void removeFromGame(GameLevel gameLevel) {
+        if (gameLevel != null) {
+            gameLevel.removeCollidable(this);
+            gameLevel.removeSprite(this);
             for (int i = 0; i < this.hitListeners.size(); i++) {
                 removeHitListener(this.hitListeners.get(i));
             }
@@ -160,7 +160,6 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     @Override
     public void timePassed() {
-
     }
 
     @Override

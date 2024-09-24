@@ -1,7 +1,7 @@
 package score;
 
 import biuoop.DrawSurface;
-import game.Game;
+import game.GameLevel;
 import graphics.Sprite;
 import util.Constants;
 import util.Counter;
@@ -33,7 +33,7 @@ public class ScoreIndicator implements Sprite {
      * Add the score indicator to the game as a sprite.
      * @param g - instance of a game.
      */
-    public void addToGame(Game g) {
+    public void addToGame(GameLevel g) {
         g.addSprite(this);
     }
 

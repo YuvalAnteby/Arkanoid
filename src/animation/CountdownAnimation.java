@@ -3,6 +3,7 @@ package animation;
 import biuoop.DrawSurface;
 import biuoop.Sleeper;
 import graphics.SpriteCollection;
+import util.Constants;
 
 import java.awt.*;
 
@@ -45,8 +46,10 @@ public class CountdownAnimation implements Animation {
 
         //hold the count for second
         d.setColor(Color.WHITE);
-        //draw the number of seconds left
-        d.drawText(d.getWidth() / 2, d.getHeight() / 2 + 100, Integer.toString(this.from - this.passed), 100);
+        //draw the number of seconds left at the centered, slightly to the bottom to be below the blocks.
+        int topLeftX = Constants.GUI_WIDTH / 2;
+        int topLeftY = (Constants.GUI_HEIGHT / 2) + 100;
+        d.drawText(topLeftX, topLeftY, Integer.toString(this.from - this.passed), 100);
         sleep.sleepFor((long) ((this.seconds / this.from) * 1000));
         this.passed++;
 
