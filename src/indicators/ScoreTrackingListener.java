@@ -1,4 +1,4 @@
-package score;
+package indicators;
 
 import collision.HitListener;
 import game.Block;

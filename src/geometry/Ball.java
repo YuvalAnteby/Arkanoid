@@ -42,19 +42,6 @@ public class Ball implements Sprite, HitNotifier {
     }
 
     /**
-     * Constructor for static balls.
-     * @param center - the center point of the ball.
-     * @param r - integer value of the radius of the ball.
-     * @param color - color of the ball to be filled by.
-     */
-    public Ball(Point center, int r, Color color) {
-        this.center = center;
-        this.r = r;
-        this.color = color;
-        this.velocity = new Velocity(0, 0);
-    }
-
-    /**
      * Constructor for the ball class using integers for center point.
      * @param x - x value of the center.
      * @param y - y value of the center.

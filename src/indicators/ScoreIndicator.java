@@ -1,4 +1,4 @@
-package score;
+package indicators;
 
 import biuoop.DrawSurface;
 import game.GameLevel;
@@ -39,11 +39,11 @@ public class ScoreIndicator implements Sprite {
 
     @Override
     public void drawOn(DrawSurface d) {
-        d.setColor(Constants.SCORE_BACKGROUND_COLOR);
-        d.fillRectangle(Constants.TOP_LEFT_X, Constants.TOP_LEFT_Y, Constants.SCORE_WIDTH, Constants.SCORE_FONT_SIZE);
+        d.setColor(Constants.INDICATOR_BACKGROUND_COLOR);
+        d.fillRectangle(Constants.TOP_LEFT_X, Constants.TOP_LEFT_Y, Constants.INDICATOR_WIDTH, Constants.TEXT_SIZE);
         d.setColor(Constants.TEXT_COLOR);
         String scoreText = "Score: " + this.scoreCounter.toString();
-        d.drawText(Constants.TEXT_LOCATION_X, Constants.TEXT_LOCATION_Y, scoreText, Constants.SCORE_FONT_SIZE);
+        d.drawText(Constants.SCORE_X, Constants.SCORE_Y, scoreText, Constants.TEXT_SIZE);
     }
 
     @Override

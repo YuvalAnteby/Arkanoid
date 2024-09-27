@@ -12,14 +12,16 @@ import geometry.Point;
 import geometry.Rectangle;
 import collision.Collidable;
 import animation.Velocity;
+import indicators.LevelNameIndicator;
 import levels.LevelInformation;
-import score.ScoreIndicator;
-import score.ScoreTrackingListener;
+import indicators.ScoreIndicator;
+import indicators.ScoreTrackingListener;
 import screens.PauseScreen;
 import util.Constants;
 import util.Counter;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -108,7 +110,7 @@ public class GameLevel implements Animation {
      * Will create balls, paddle, blocks etc.
      */
     public void initialize() {
-
+        addSprite(levelInformation.getBackground());
         initScoreTracking();
         //Create the boundaries of the GUI.
         generateBounds();
@@ -119,7 +121,7 @@ public class GameLevel implements Animation {
         generatePaddle();
         //Create the ball.
         generateBalls();
-        addSprite(levelInformation.getBackground());
+
     }
 
     /**
@@ -128,6 +130,8 @@ public class GameLevel implements Animation {
     private void initScoreTracking() {
         ScoreIndicator scoreIndicator = new ScoreIndicator(new Counter());
         scoreIndicator.addToGame(this);
+        LevelNameIndicator levelNameIndicator = new LevelNameIndicator(levelInformation.levelName());
+        levelNameIndicator.addToGame(this);
     }
 
     /**
@@ -147,26 +151,23 @@ public class GameLevel implements Animation {
     }
 
     /**
-     * Generate blocks to be the boundaries and background of the GUI.
+     * Generate blocks to be the boundaries of the GUI.
      */
     private void generateBounds() {
         final Color color = Constants.BOUNDS_COLOR;
         final int boundWidth = Constants.BOUNDS_WIDTH, boundHeight = Constants.BOUNDS_HEIGHT;
         final int guiWidth = Constants.GUI_WIDTH, guiHeight = Constants.GUI_HEIGHT;
-        final int fontSize = Constants.SCORE_FONT_SIZE;
-        //Background
-        Rectangle backgroundRect = new Rectangle(new Point(0, fontSize), guiWidth, guiHeight);
-        Block backgroundBlock = new Block(backgroundRect, Constants.BACKGROUND_COLOR);
-        backgroundBlock.addBackground(this);
-
+        final int fontSize = Constants.TEXT_SIZE;
         Block[] bounds = {
+                //Left Boundary
                 new Block(new Rectangle(new Point(0, fontSize), boundWidth, guiHeight), color),
+                //Right boundary
                 new Block(new Rectangle(new Point(guiWidth - boundHeight, fontSize), boundWidth, guiHeight), color),
-                new Block(new Rectangle(new Point(0, fontSize), guiWidth, boundHeight), color),
+                //Top boundary
                 new Block(new Rectangle(new Point(0, fontSize), guiWidth, boundHeight), color)
-
         };
         for (Block b : bounds) {
+            b.setBoundary(true);
             b.addToGame(this);
         }
     }
@@ -175,14 +176,17 @@ public class GameLevel implements Animation {
      * Generate balls for the level.
      */
     private void generateBalls() {
-        this.ballRemover.getRemainingBalls().increase(Constants.BALLS_AMOUNT);
-        Ball[] ballsArray = new Ball[Constants.BALLS_AMOUNT];
-        for (int i = 0; i < ballsArray.length; i++) {
-            Point startPos = Point.randomPoint(Constants.MIN_X, Constants.MAX_X, Constants.MIN_Y, Constants.MAX_Y);
-            Ball ball = new Ball(startPos, Constants.DEFAULT_RADIUS, randomColor(), Velocity.randomVelocity());
-            ball.setGameEnvironment(this.environment);
-            ball.addToGame(this);
-            ball.addHitListener(this.ballRemover);
+        List<Velocity> velocities = levelInformation.initialBallVelocities();
+        int numOfBalls = levelInformation.numberOfBalls();
+        int centerX = Constants.GUI_WIDTH / 2;
+        int centerY = Constants.GUI_HEIGHT - Constants.PADDLE_HEIGHT - 50;
+        for (int i = 0; i < numOfBalls; i++) {
+            Ball b = new Ball(centerX, centerY, Constants.DEFAULT_RADIUS, Constants.DEFAULT_COLOR, velocities.get(i));
+            //Add the ball to the game mechanics.
+            b.addToGame(this);
+            b.setGameEnvironment(this.environment);
+            b.addHitListener(this.ballRemover);
+            this.ballRemover.getRemainingBalls().increase(1);
         }
     }
 
@@ -197,8 +201,8 @@ public class GameLevel implements Animation {
         int width = Constants.PADDLE_WIDTH, height = Constants.PADDLE_HEIGHT;
         Color color = Constants.PADDLE_COLOR;
 
-        Rectangle paddleRec = new Rectangle(new Point(spawnX, spawnY), width, height);
-        Paddle paddle = new Paddle(new Block(paddleRec, color), this.gui, this.environment);
+        Rectangle paddleRectangle = new Rectangle(new Point(spawnX, spawnY), width, height);
+        Paddle paddle = new Paddle(paddleRectangle, color, keyboard);
         paddle.addToGame(this);
     }
 
@@ -222,8 +226,8 @@ public class GameLevel implements Animation {
     public void run() {
         //Start animation. End the animation when there are no blocks remaining.
         this.runner = new AnimationRunner(this.gui);
-        this.runner.run(new CountdownAnimation(2, 3, sprites));
         this.running = true;
+        this.runner.run(new CountdownAnimation(2, 3, sprites));
         this.runner.run(this);
     }
 
@@ -248,21 +252,6 @@ public class GameLevel implements Animation {
             System.out.println("Player lost. " + scoreCount.getValue());
         }
         keyboardClickCheck();
-    }
-
-    /**
-     * Create a random color for the balls.
-     * Will generate 3 random numbers for RGB of the color.
-     *
-     * @return - random color.
-     */
-    private Color randomColor() {
-        Random random = new Random();
-        // Generates a value between 0 and 255 for red, green and blue.
-        int red = random.nextInt(256);
-        int green = random.nextInt(256);
-        int blue = random.nextInt(256);
-        return new Color(red, green, blue);
     }
 
     /**

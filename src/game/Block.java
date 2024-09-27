@@ -25,6 +25,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
     private Color color;
     private List<HitListener> hitListeners = new ArrayList<>();
     private boolean deathBlock;
+    private boolean boundary;
 
     /**
      * Constructor for the block class.
@@ -35,6 +36,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
         this.rectangle = rectangle;
         this.color = color;
         this.deathBlock = false;
+        this.boundary = false;
     }
 
     /**
@@ -52,6 +54,14 @@ public class Block implements Collidable, Sprite, HitNotifier {
      */
     public void setDeathBlock(boolean isDeathBlock) {
         this.deathBlock = isDeathBlock;
+    }
+
+    /**
+     * Change this block to be a boundary block or not.
+     * @param isBoundary - true if the block is a boundary block, otherwise false.
+     */
+    public void setBoundary(boolean isBoundary) {
+        this.boundary = isBoundary;
     }
 
     /**
@@ -150,12 +160,15 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     @Override
     public void drawOn(DrawSurface d) {
+        int xTopLeft = (int) rectangle.getUpperLeft().getX(), yTopLeft = (int) rectangle.getUpperLeft().getY();
+        int width = (int) rectangle.getWidth(), height = (int) rectangle.getHeight();
         d.setColor(this.color);
-        d.fillRectangle((int) rectangle.getUpperLeft().getX(), (int) rectangle.getUpperLeft().getY(),
-                (int) rectangle.getWidth(), (int) rectangle.getHeight());
-        d.setColor(Color.black);
-        d.drawRectangle((int) rectangle.getUpperLeft().getX(), (int) rectangle.getUpperLeft().getY(),
-                (int) rectangle.getWidth(), (int) rectangle.getHeight());
+        d.fillRectangle(xTopLeft, yTopLeft, width, height);
+        //If the block is a boundary no need for the black borders.
+        if (!boundary) {
+            d.setColor(Color.black);
+            d.drawRectangle(xTopLeft, yTopLeft, width, height);
+        }
     }
 
     @Override

@@ -1,7 +1,6 @@
 package game;
 
 import biuoop.DrawSurface;
-import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import geometry.Ball;
 import geometry.Line;
@@ -21,24 +20,20 @@ import java.util.List;
  */
 public class Paddle implements Sprite, Collidable {
 
-    private KeyboardSensor keyboard;
-    private Block block;
+    private final KeyboardSensor keyboard;
+    private final Block block;
     private final Rectangle shape;
-    private GUI gui;
-    private GameEnvironment environment;
 
     /**
      * Constructor for the paddle.
-     * @param block         - block to be used as the paddle's shape.
-     * @param gui           - gui for the paddle to be drawn on.
-     * @param environment   - environment containing the calculation of objects.
+     * @param rec           - rectangle of the paddle.
+     * @param color         - color of the paddle.
+     * @param keyboard      - Keyboard sensor.
      */
-    public Paddle(Block block, GUI gui, GameEnvironment environment) {
-        this.block = block;
-        this.shape = block.getCollisionRectangle();
-        this.gui = gui;
-        this.keyboard = gui.getKeyboardSensor();
-        this.environment = environment;
+    public Paddle(Rectangle rec, Color color, KeyboardSensor keyboard) {
+        this.shape = rec;
+        this.block = new Block(rec, color);
+        this.keyboard = keyboard;
     }
 
     /**
@@ -46,17 +41,16 @@ public class Paddle implements Sprite, Collidable {
      * Upon reaching the left edge will go to the right.
      */
     public void moveLeft() {
-        Point topLeft;
-        double guiWidth = this.gui.getDrawSurface().getWidth();
-        //Make sure the paddle won't exist the gui.
+        double guiWidth = Constants.GUI_WIDTH;
+        //Make sure the paddle won't exit the gui.
+        double newX;
+        double newY = getCollisionRectangle().getUpperLeft().getY();
         if (getCollisionRectangle().getUpperLeft().getX() > 0) {
-            topLeft = new Point(getCollisionRectangle().getUpperLeft().getX() - Constants.MOVEMENT_SENSITIVITY,
-                    getCollisionRectangle().getUpperLeft().getY());
+            newX = getCollisionRectangle().getUpperLeft().getX() - Constants.MOVEMENT_SENSITIVITY;
         } else {
-            topLeft = new Point(guiWidth - Constants.BOUNDS_WIDTH - this.shape.getWidth(),
-                    this.getCollisionRectangle().getUpperLeft().getY());
+            newX = guiWidth - Constants.BOUNDS_WIDTH - this.shape.getWidth();
         }
-        this.shape.setUpperLeft(topLeft);
+        this.shape.setUpperLeft(new Point(newX, newY));
     }
 
     /**
@@ -64,16 +58,16 @@ public class Paddle implements Sprite, Collidable {
      * Upon reaching the right edge will go to the left.
      */
     public void moveRight() {
-        Point topLeft;
-        double guiWidth = this.gui.getDrawSurface().getWidth();
+        double guiWidth = Constants.GUI_WIDTH;
         //Make sure the paddle won't exist the gui.
+        double newX;
+        double newY =  this.getCollisionRectangle().getUpperLeft().getY();
         if (this.getCollisionRectangle().getUpperLeft().getX() + this.shape.getWidth() < guiWidth) {
-            topLeft = new Point(this.getCollisionRectangle().getUpperLeft().getX() + Constants.MOVEMENT_SENSITIVITY,
-                    this.getCollisionRectangle().getUpperLeft().getY());
+            newX = this.getCollisionRectangle().getUpperLeft().getX() + Constants.MOVEMENT_SENSITIVITY;
         } else {
-            topLeft = new Point(0, this.getCollisionRectangle().getUpperLeft().getY());
+            newX = 0;
         }
-        this.shape.setUpperLeft(topLeft);
+        this.shape.setUpperLeft(new Point(newX, newY));
     }
 
     @Override

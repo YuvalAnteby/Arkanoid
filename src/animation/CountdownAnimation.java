@@ -15,9 +15,9 @@ import java.awt.*;
  */
 public class CountdownAnimation implements Animation {
 
-    private double seconds;
-    private int from;
-    private SpriteCollection screen;
+    private final double seconds;
+    private final int from;
+    private final SpriteCollection screen;
     private boolean stop;
     private int passed;
 
@@ -37,19 +37,20 @@ public class CountdownAnimation implements Animation {
 
     @Override
     public void doOneFrame(DrawSurface d) {
-        if (this.passed == this.from) {
-            this.stop = true;
-        }
+        int topLeftX = Constants.GUI_WIDTH / 2 - Constants.BOUNDS_WIDTH;
+        int topLeftY = (Constants.GUI_HEIGHT / 2) + 100;
         //draws the screen
         Sleeper sleep = new Sleeper();
         this.screen.drawAllOn(d);
-
-        //hold the count for second
-        d.setColor(Color.WHITE);
         //draw the number of seconds left at the centered, slightly to the bottom to be below the blocks.
-        int topLeftX = Constants.GUI_WIDTH / 2;
-        int topLeftY = (Constants.GUI_HEIGHT / 2) + 100;
-        d.drawText(topLeftX, topLeftY, Integer.toString(this.from - this.passed), 100);
+        d.setColor(Color.WHITE);
+        if (this.passed == this.from) {
+            d.drawText(topLeftX, topLeftY, "Go!", 100);
+        } else if (this.passed > this.from) {
+            this.stop = true;
+        } else {
+            d.drawText(topLeftX, topLeftY, Integer.toString(this.from - this.passed), 100);
+        }
         sleep.sleepFor((long) ((this.seconds / this.from) * 1000));
         this.passed++;
 

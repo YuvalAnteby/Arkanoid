@@ -5,7 +5,7 @@ import biuoop.KeyboardSensor;
 import game.GameFlow;
 import levels.DirectHit;
 import levels.LevelInformation;
-import score.ScoreIndicator;
+import indicators.ScoreIndicator;
 import util.Constants;
 import util.Counter;
 

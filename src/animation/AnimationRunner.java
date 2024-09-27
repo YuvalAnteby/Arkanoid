@@ -3,6 +3,7 @@ package animation;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
+import util.Constants;
 
 /**
  * Class to run all animations.
@@ -10,7 +11,6 @@ import biuoop.Sleeper;
  */
 public class AnimationRunner {
     private GUI gui;
-    private int framesPerSecond = 60;
     private Sleeper sleeper = new Sleeper();
 
     /**
@@ -26,7 +26,7 @@ public class AnimationRunner {
      * @param animation - animation to run.
      */
     public void run(Animation animation) {
-        int millisecondsPerFrame = 1000 / this.framesPerSecond;
+        int millisecondsPerFrame = 1000 / Constants.FRAMES_PER_SECOND;
         while (!animation.shouldStop()) {
             long startTime = System.currentTimeMillis(); // timing
             DrawSurface d = this.gui.getDrawSurface();
