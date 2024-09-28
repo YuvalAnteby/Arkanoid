@@ -7,6 +7,7 @@ import java.awt.Color;
  * @author Yuval Anteby
  */
 public final class Constants {
+
     /**
         Paddle Constants.
      */
@@ -54,11 +55,10 @@ public final class Constants {
     public static final int SCORE_X = 300, SCORE_Y = TEXT_SIZE - 2;
     //TODO add lives
 
-
     /**
      * Pause screen constants.
      */
-    public static final int PAUSE_FONT_SIZE = 32;
+    public static final int MESSAGE_FONT_SIZE = 32;
     public static final String PAUSE_MESSAGE = "paused -- press space to continue";
 
 

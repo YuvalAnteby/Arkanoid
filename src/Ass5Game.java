@@ -31,7 +31,6 @@ public class Ass5Game {
         KeyboardSensor keyboard = gui.getKeyboardSensor();
         AnimationRunner animationRunner = new AnimationRunner(gui);
         Counter scoreCounter = new Counter();
-        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCounter);
 
         GameFlow gameFlow = new GameFlow(gui, animationRunner, keyboard, scoreCounter);
         gameFlow.runLevels(listOfLevels);
@@ -44,7 +43,7 @@ public class Ass5Game {
      */
     private static ArrayList<LevelInformation> getListOfLevels() {
         ArrayList<LevelInformation> listOfLevels = new ArrayList<>();
-        //listOfLevels.add(new DirectHit());
+        listOfLevels.add(new DirectHit());
         listOfLevels.add(new WideEasy());
         return listOfLevels;
     }

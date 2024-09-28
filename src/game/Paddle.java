@@ -24,6 +24,7 @@ public class Paddle implements Sprite, Collidable {
     private final Block block;
     private final Rectangle shape;
     private final int movementSensitivity;
+
     /**
      * Constructor for the paddle.
      * @param rec           - rectangle of the paddle.
@@ -39,36 +40,28 @@ public class Paddle implements Sprite, Collidable {
 
     /**
      * Move the paddle to the left.
-     * Upon reaching the left edge will go to the right.
      */
     public void moveLeft() {
-        double guiWidth = Constants.GUI_WIDTH;
-        //Make sure the paddle won't exit the gui.
-        double newX;
-        double newY = getCollisionRectangle().getUpperLeft().getY();
-        if (getCollisionRectangle().getUpperLeft().getX() > 0) {
-            newX = getCollisionRectangle().getUpperLeft().getX() - movementSensitivity;
-        } else {
-            newX = guiWidth - Constants.BOUNDS_WIDTH - this.shape.getWidth();
+        double minX = Constants.BOUNDS_WIDTH;
+        //Make sure the paddle won't exit the GUI and boundaries.
+        if (getCollisionRectangle().getUpperLeft().getX() > minX) {
+            double newX = getCollisionRectangle().getUpperLeft().getX() - movementSensitivity;
+            double newY = getCollisionRectangle().getUpperLeft().getY();
+            this.shape.setUpperLeft(new Point(newX, newY));
         }
-        this.shape.setUpperLeft(new Point(newX, newY));
     }
 
     /**
      * Move the paddle to the right.
-     * Upon reaching the right edge will go to the left.
      */
     public void moveRight() {
-        double guiWidth = Constants.GUI_WIDTH;
-        //Make sure the paddle won't exist the gui.
-        double newX;
-        double newY =  this.getCollisionRectangle().getUpperLeft().getY();
-        if (this.getCollisionRectangle().getUpperLeft().getX() + this.shape.getWidth() < guiWidth) {
-            newX = this.getCollisionRectangle().getUpperLeft().getX() + movementSensitivity;
-        } else {
-            newX = 0;
+        double maxX = Constants.GUI_WIDTH - Constants.BOUNDS_WIDTH;
+        //Make sure the paddle won't exist the GUI and boundaries.
+        if (this.getCollisionRectangle().getUpperLeft().getX() + this.shape.getWidth() < maxX) {
+            double newX = this.getCollisionRectangle().getUpperLeft().getX() + movementSensitivity;
+            double newY =  this.getCollisionRectangle().getUpperLeft().getY();
+            this.shape.setUpperLeft(new Point(newX, newY));
         }
-        this.shape.setUpperLeft(new Point(newX, newY));
     }
 
     @Override

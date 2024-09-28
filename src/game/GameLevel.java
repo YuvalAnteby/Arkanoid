@@ -16,6 +16,7 @@ import indicators.LevelNameIndicator;
 import levels.LevelInformation;
 import indicators.ScoreIndicator;
 import indicators.ScoreTrackingListener;
+import screens.KeyPressStoppableAnimation;
 import screens.PauseScreen;
 import util.Constants;
 import util.Counter;
@@ -128,7 +129,7 @@ public class GameLevel implements Animation {
      * Initialize variables related to the user's score.
      */
     private void initScoreTracking() {
-        ScoreIndicator scoreIndicator = new ScoreIndicator(new Counter());
+        ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCount);
         scoreIndicator.addToGame(this);
         LevelNameIndicator levelNameIndicator = new LevelNameIndicator(levelInformation.levelName());
         levelNameIndicator.addToGame(this);
@@ -196,7 +197,7 @@ public class GameLevel implements Animation {
      */
     public void generatePaddle() {
         //Starting value will be centered horizontally at the bottom of the screen.
-        double spawnX = (double) (Constants.GUI_WIDTH - Constants.PADDLE_WIDTH) / 2;
+        double spawnX = (double) (Constants.GUI_WIDTH - levelInformation.paddleWidth()) / 2;
         double spawnY = Constants.GUI_HEIGHT - Constants.BOUNDS_HEIGHT - Constants.PADDLE_HEIGHT;
         int height = Constants.PADDLE_HEIGHT;
         Color color = Constants.PADDLE_COLOR;
@@ -260,12 +261,12 @@ public class GameLevel implements Animation {
     private void keyboardClickCheck() {
         //Pause the game on 'p' press.
         if (this.keyboard.isPressed("p") || this.keyboard.isPressed("P")) {
-            this.runner.run(new PauseScreen(this.keyboard));
+            this.runner.run(new KeyPressStoppableAnimation(keyboard, "space", new PauseScreen()));
         }
-        //Exit game on 'enter' press.
-        if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-            this.gui.close();
-        }
+//        //Exit game on 'enter' press.
+//        if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
+//            this.gui.close();
+//        }
     }
 
     /**

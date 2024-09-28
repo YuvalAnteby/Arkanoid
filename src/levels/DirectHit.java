@@ -46,7 +46,7 @@ public class DirectHit implements LevelInformation {
 
     @Override
     public List<Velocity> initialBallVelocities() {
-        return List.of(new Velocity(0, -3));
+        return List.of(new Velocity(0, 3));
     }
 
     @Override

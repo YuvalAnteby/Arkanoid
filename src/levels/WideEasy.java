@@ -30,7 +30,7 @@ public class WideEasy implements LevelInformation {
     /**
      * Balls constants.
      */
-    private static final int NUM_OF_BALLS = 4;
+    private static final int NUM_OF_BALLS = 5;
 
     @Override
     public int numberOfBalls() {
@@ -43,6 +43,7 @@ public class WideEasy implements LevelInformation {
                 Velocity.fromAngleAndSpeed(60, 3),
                 Velocity.fromAngleAndSpeed(45, 3),
                 Velocity.fromAngleAndSpeed(0, 3),
+                Velocity.fromAngleAndSpeed(-30, 3),
                 Velocity.fromAngleAndSpeed(-60, 3));
     }
 
