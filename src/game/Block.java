@@ -22,7 +22,7 @@ import java.util.List;
 public class Block implements Collidable, Sprite, HitNotifier {
 
     private Rectangle rectangle;
-    private Color color;
+    private final Color color;
     private List<HitListener> hitListeners = new ArrayList<>();
     private boolean deathBlock;
     private boolean boundary;
@@ -110,7 +110,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
      */
     private void notifyHit(Ball hitter) {
         // Make a copy of the hitListeners before iterating over them.
-        List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
+        List<HitListener> listeners = new ArrayList<>(this.hitListeners);
         // Notify all listeners about a hit event:
         for (HitListener hl : listeners) {
             hl.hitEvent(this, hitter);

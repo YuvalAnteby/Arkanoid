@@ -8,6 +8,10 @@ import util.Counter;
 
 import java.util.List;
 
+/**
+ * Class to manage to flow between levels in the game.
+ * @author Yuval Anteby
+ */
 public class GameFlow {
     private final GUI gui;
     private final AnimationRunner animationRunner;
@@ -37,7 +41,7 @@ public class GameFlow {
     public void runLevels(List<LevelInformation> levels) {
         // ...
         for (LevelInformation levelInfo : levels) {
-            GameLevel level = new GameLevel(gui, keyboardSensor, levelInfo, animationRunner, scoreCounter);
+            GameLevel level = new GameLevel(gui, keyboardSensor, levelInfo, scoreCounter);
             level.initialize();
             level.run();
 

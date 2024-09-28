@@ -22,7 +22,6 @@ import util.Counter;
 
 import java.awt.Color;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Class to handle the game's sprites animation and GUI creation.
@@ -41,7 +40,6 @@ public class GameLevel implements Animation {
     /**
      * Score.
      */
-    private ScoreTrackingListener scoreTrackingListener;
     private final Counter scoreCount;
     private final Counter blocksRemaining = new Counter();
 
@@ -56,10 +54,12 @@ public class GameLevel implements Animation {
 
     /**
      * Constructor for the game, will create a new sprite collection and environment and set the GUI size.
-     * TODO parameters.
+     * @param gui           - GUI in use of the game.
+     * @param keyboard      - keyboard sensor.
+     * @param lvlInfo       - information needed about the level.
+     * @param scoreCounter  - counter of the score.
      */
-    public GameLevel(GUI gui, KeyboardSensor keyboard, LevelInformation lvlInfo, AnimationRunner animationRunner,
-                     Counter scoreCounter) {
+    public GameLevel(GUI gui, KeyboardSensor keyboard, LevelInformation lvlInfo, Counter scoreCounter) {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.levelInformation = lvlInfo;
@@ -198,11 +198,11 @@ public class GameLevel implements Animation {
         //Starting value will be centered horizontally at the bottom of the screen.
         double spawnX = (double) (Constants.GUI_WIDTH - Constants.PADDLE_WIDTH) / 2;
         double spawnY = Constants.GUI_HEIGHT - Constants.BOUNDS_HEIGHT - Constants.PADDLE_HEIGHT;
-        int width = Constants.PADDLE_WIDTH, height = Constants.PADDLE_HEIGHT;
+        int height = Constants.PADDLE_HEIGHT;
         Color color = Constants.PADDLE_COLOR;
 
-        Rectangle paddleRectangle = new Rectangle(new Point(spawnX, spawnY), width, height);
-        Paddle paddle = new Paddle(paddleRectangle, color, keyboard);
+        Rectangle paddleRectangle = new Rectangle(new Point(spawnX, spawnY), levelInformation.paddleWidth(), height);
+        Paddle paddle = new Paddle(paddleRectangle, color, keyboard, levelInformation.paddleSpeed());
         paddle.addToGame(this);
     }
 

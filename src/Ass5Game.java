@@ -6,6 +6,7 @@ import game.GameFlow;
 import levels.DirectHit;
 import levels.LevelInformation;
 import indicators.ScoreIndicator;
+import levels.WideEasy;
 import util.Constants;
 import util.Counter;
 
@@ -42,8 +43,9 @@ public class Ass5Game {
      * @return - list of levels.
      */
     private static ArrayList<LevelInformation> getListOfLevels() {
-        ArrayList<LevelInformation> listOfLevels = new ArrayList<LevelInformation>();
-        listOfLevels.add(new DirectHit());
+        ArrayList<LevelInformation> listOfLevels = new ArrayList<>();
+        //listOfLevels.add(new DirectHit());
+        listOfLevels.add(new WideEasy());
         return listOfLevels;
     }
 }

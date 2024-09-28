@@ -3,7 +3,7 @@ package util;
 import java.awt.Color;
 
 /**
- * Immutable class for default constant values to use across the project.
+ * Immutable and singleton class for default constant values to use across the project.
  * @author Yuval Anteby
  */
 public final class Constants {
@@ -13,9 +13,7 @@ public final class Constants {
     //Paddle color constant.
     public static final Color PADDLE_COLOR = Color.ORANGE;
     //Paddle size constant variables
-    public static final int PADDLE_WIDTH = 80, PADDLE_HEIGHT = 7;
-    //Sensitivity of the paddle's movement. The bigger the number the faster it'll move.
-    public static final int MOVEMENT_SENSITIVITY = 8;
+    public static final int PADDLE_WIDTH = 80, PADDLE_HEIGHT = 8;
 
     /**
         GUI constants.

@@ -14,32 +14,18 @@ import animation.Velocity;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-//TODO fix ball movement
+
 /**
  * Class to represent a ball in the GUI.
  * @author Yuval Anteby
  */
 public class Ball implements Sprite, HitNotifier {
     private Point center;
-    private int r;
+    private final int r;
     private Color color;
     private Velocity velocity;
     private GameEnvironment environment;
     private List<HitListener> hitListeners = new ArrayList<>();
-
-    /**
-     * Constructor for moving balls.
-     * @param center - the center point of the ball
-     * @param r - the radius of the ball.
-     * @param color - the color of the ball to be filled by.
-     * @param velocity - starting velocity of the ball.
-     */
-    public Ball(Point center, int r, Color color, Velocity velocity) {
-        this.center = center;
-        this.r = r;
-        this.color = color;
-        this.velocity = velocity;
-    }
 
     /**
      * Constructor for the ball class using integers for center point.
@@ -113,23 +99,6 @@ public class Ball implements Sprite, HitNotifier {
     }
 
     /**
-     * Change the ball's velocity variable by using a new velocity.
-     * @param v - the new velocity.
-     */
-    public void setVelocity(Velocity v) {
-        this.velocity = v;
-    }
-
-    /**
-     * Change the ball's velocity variable by using a new doubles.
-     * @param dx - speed of the x-axis.
-     * @param dy - speed of the y-axis.
-     */
-    public void setVelocity(double dx, double dy) {
-        this.velocity = new Velocity(dx, dy);
-    }
-
-    /**
      * Change the game environment variable of the ball.
      * @param gameEnvironment - new game environment for the ball.
      */
@@ -189,21 +158,24 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Check collision on GUI boundaries and adjust accordingly the center and velocity.
-     *
+     * The ball must stay entirely in the GUI, including the boundaries.
      */
     private void checkBoundaryCollision() {
         //Check top boundary.
-        if (this.center.getY() - this.r <= Constants.BOUNDS_HEIGHT) {
+        int minY = Constants.BOUNDS_HEIGHT + this.r;
+        if (this.center.getY() <= minY) {
             this.velocity.setDy(-this.velocity.getDy());
             this.center.setY(this.r + Constants.BOUNDS_HEIGHT);
         }
         //Check right boundary.
-        if (this.center.getX() + this.r + Constants.BOUNDS_WIDTH >= Constants.GUI_WIDTH) {
+        int maxX = Constants.GUI_WIDTH - Constants.BOUNDS_WIDTH - this.r;
+        if (this.center.getX() >= maxX) {
             this.velocity.setDx(-this.velocity.getDx());
             this.center.setX(Constants.GUI_WIDTH - this.r - Constants.BOUNDS_WIDTH);
         }
         //Check left boundary.
-        if (this.center.getX() - this.r <= Constants.BOUNDS_WIDTH) {
+        int minX = Constants.BOUNDS_WIDTH + this.r;
+        if (this.center.getX() <= minX) {
             this.velocity.setDx(-this.velocity.getDx());
             this.center.setX(this.r + Constants.BOUNDS_WIDTH);
         }

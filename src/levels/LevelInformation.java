@@ -17,7 +17,7 @@ public interface LevelInformation {
     int numberOfBalls();
 
     /**
-     *
+     * <p></p>.
      * Note that initialBallVelocities().size() == numberOfBalls()
      * @return - list of initial velocities of all balls.
      */

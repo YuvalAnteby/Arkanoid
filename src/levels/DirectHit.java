@@ -11,40 +11,52 @@ import util.Constants;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Level of a single block - Easy.
+ * @author Yuval Anteby
+ */
 public class DirectHit implements LevelInformation {
     /**
      * Blocks constants.
      */
-    private final static int BLOCK_WIDTH = 30;
-    private final static int BLOCK_HEIGHT = 30;
-    private final static Color BLOCK_COLOR = Color.RED;
-    private final static int X_BLOCK = (Constants.GUI_WIDTH / 2) - (BLOCK_WIDTH / 2);
-    private final static int Y_BLOCK = 150;
-
+    private static final int BLOCK_WIDTH = 30;
+    private static final int BLOCK_HEIGHT = 30;
+    private static final Color BLOCK_COLOR = Color.RED;
+    private static final int X_BLOCK = (Constants.GUI_WIDTH / 2) - (BLOCK_WIDTH / 2);
+    private static final int Y_BLOCK = 150;
+    /**
+     * Paddle constants.
+     */
+    private static final int PADDLE_WIDTH = 80;
+    private static final int PADDLE_SPEED = 5;
+    /**
+     * Balls constants.
+     */
+    private static final int NUM_OF_BALLS = 1;
     /**
      * Level Design constants.
      */
-    private final static Color BACKGROUND_COLOR = Color.BLACK;
-    private final static Color TARGET_COLOR = Color.BLUE;
+    private static final Color BACKGROUND_COLOR = Color.BLACK;
+    private static final Color TARGET_COLOR = Color.BLUE;
 
     @Override
     public int numberOfBalls() {
-        return 1;
+        return NUM_OF_BALLS;
     }
 
     @Override
     public List<Velocity> initialBallVelocities() {
-        return List.of(new Velocity(5, -5));
+        return List.of(new Velocity(0, -3));
     }
 
     @Override
     public int paddleSpeed() {
-        return 5;
+        return PADDLE_SPEED;
     }
 
     @Override
     public int paddleWidth() {
-        return 80;
+        return PADDLE_WIDTH;
     }
 
     @Override

@@ -23,17 +23,18 @@ public class Paddle implements Sprite, Collidable {
     private final KeyboardSensor keyboard;
     private final Block block;
     private final Rectangle shape;
-
+    private final int movementSensitivity;
     /**
      * Constructor for the paddle.
      * @param rec           - rectangle of the paddle.
      * @param color         - color of the paddle.
      * @param keyboard      - Keyboard sensor.
      */
-    public Paddle(Rectangle rec, Color color, KeyboardSensor keyboard) {
+    public Paddle(Rectangle rec, Color color, KeyboardSensor keyboard, int movementSensitivity) {
         this.shape = rec;
         this.block = new Block(rec, color);
         this.keyboard = keyboard;
+        this.movementSensitivity = movementSensitivity;
     }
 
     /**
@@ -46,7 +47,7 @@ public class Paddle implements Sprite, Collidable {
         double newX;
         double newY = getCollisionRectangle().getUpperLeft().getY();
         if (getCollisionRectangle().getUpperLeft().getX() > 0) {
-            newX = getCollisionRectangle().getUpperLeft().getX() - Constants.MOVEMENT_SENSITIVITY;
+            newX = getCollisionRectangle().getUpperLeft().getX() - movementSensitivity;
         } else {
             newX = guiWidth - Constants.BOUNDS_WIDTH - this.shape.getWidth();
         }
@@ -63,7 +64,7 @@ public class Paddle implements Sprite, Collidable {
         double newX;
         double newY =  this.getCollisionRectangle().getUpperLeft().getY();
         if (this.getCollisionRectangle().getUpperLeft().getX() + this.shape.getWidth() < guiWidth) {
-            newX = this.getCollisionRectangle().getUpperLeft().getX() + Constants.MOVEMENT_SENSITIVITY;
+            newX = this.getCollisionRectangle().getUpperLeft().getX() + movementSensitivity;
         } else {
             newX = 0;
         }
@@ -95,7 +96,7 @@ public class Paddle implements Sprite, Collidable {
 
     @Override
     public Block getCollisionBlock() {
-        return new Block(shape, Color.ORANGE);
+        return new Block(shape, Constants.PADDLE_COLOR);
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Class to represent a line in 2D made by two points.
+ * Will be used for the path calculation in the game.
  * @author Yuval Anteby
  */
 public class Line {
@@ -22,34 +23,6 @@ public class Line {
     public Line(Point start, Point end) {
         this.start = new Point(start.getX(), start.getY());
         this.end = new Point(end.getX(), end.getY());
-    }
-
-    /**
-     * Constructor for the line class made by 2 pairs of x,y.
-     * @param x1 - x value of where the line starts.
-     * @param y1 - y value of where the line starts.
-     * @param x2 - x value of where the line ends.
-     * @param y2 - y value of where the line ends.
-     */
-    public Line(double x1, double y1, double x2, double y2) {
-        this.start = new Point(x1, y1);
-        this.end = new Point(x2, y2);
-    }
-
-    /**
-     * Function to calculate the length of the line. (the distance between the start and end points).
-     * @return - the length of the line in double.
-     */
-    public double length() {
-        return this.start.distance(this.end);
-    }
-
-    /**
-     * Function to get the middle point of our line.
-     * @return - point in the middle of the line (between start and end points)
-     */
-    public Point middle() {
-        return new Point((this.start.getX() + this.end.getX()) / 2, (this.start.getY() + this.end.getY()) / 2);
     }
 
     /**
