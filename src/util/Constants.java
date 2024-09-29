@@ -9,57 +9,51 @@ import java.awt.Color;
 public final class Constants {
 
     /**
-        Paddle Constants.
-     */
-    //Paddle color constant.
-    public static final Color PADDLE_COLOR = Color.ORANGE;
-    //Paddle size constant variables
-    public static final int PADDLE_WIDTH = 80, PADDLE_HEIGHT = 8;
-
-    /**
-        GUI constants.
+        GUI size constants.
      **/
-    //Screen size constant variables.
     public static final int GUI_WIDTH = 800, GUI_HEIGHT = 600;
-    //GUI name.
+    /**
+     * Appears on the top of the window.
+     */
     public static final String GUI_NAME = "Arkanoid";
-    //FPS of the game.
+    /**
+     * FPS of the game.
+     */
     public static final int FRAMES_PER_SECOND = 60;
 
     /**
-        Boundaries constants.
+     * Boundaries color constant.
      */
-    //Boundaries color constant.
     public static final Color BOUNDS_COLOR = Color.GRAY;
-    //Boundaries size constant variables.
+    /**
+     * Boundaries size constants.
+     */
     public static final int BOUNDS_WIDTH = 10, BOUNDS_HEIGHT = 10;
 
     /**
-        Balls constants.
+     * Indicators sizes.
      */
-    //Default radius size.
-    public static final int DEFAULT_RADIUS = 8;
-    //Default color.
-    public static final Color DEFAULT_COLOR = Color.WHITE;
-
-    /**
-     * Indicator constants.
-     */
-    //Sizes
     public static final int INDICATOR_WIDTH = GUI_WIDTH, TEXT_SIZE = 20;
-    //Colors
+    /**
+     * Indicators location.
+     */
+    public static final int INDICATORS_X = 0, INDICATORS_Y = 0;
+    /**
+     * Indicators color.
+     */
     public static final Color TEXT_COLOR = Color.BLACK, INDICATOR_BACKGROUND_COLOR = Color.LIGHT_GRAY;
-    //Location
-    public static final int TOP_LEFT_X = 0, TOP_LEFT_Y = 0;
+    /**
+     * Indicators text location
+     */
     public static final int LEVEL_NAME_X = 70, LEVEL_NAME_Y = TEXT_SIZE - 2;
-    public static final int SCORE_X = 300, SCORE_Y = TEXT_SIZE - 2;
-    //TODO add lives
+    public static final int SCORE_X = 350, SCORE_Y = TEXT_SIZE - 2;
+    public static final int LIVES_X = 600, LIVES_Y = TEXT_SIZE -2;
+    public static final int STARTING_LIVES = 1;
 
     /**
-     * Pause screen constants.
+     * Key stoppable screen font size.
      */
     public static final int MESSAGE_FONT_SIZE = 32;
-    public static final String PAUSE_MESSAGE = "paused -- press space to continue";
 
 
     /**

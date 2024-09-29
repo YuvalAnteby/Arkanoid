@@ -6,6 +6,7 @@ import biuoop.KeyboardSensor;
 import levels.LevelInformation;
 import screens.EndScreen;
 import screens.KeyPressStoppableAnimation;
+import util.Constants;
 import util.Counter;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class GameFlow {
     private final AnimationRunner animationRunner;
     private final KeyboardSensor keyboardSensor;
     private final Counter scoreCounter;
+    private final Counter livesCounter;
     //TODO add high score table
-    //TODO add lives indicator
 
     /**
      * Constructor to take basic parameters in order for the game to run.
@@ -30,12 +31,15 @@ public class GameFlow {
      * @param animationRunner - animation runner for the screens.
      * @param keyboard        - keyboard sensor from the GUI.
      * @param scoreCounter    - counter for the score of the user.
+     * @param livesCounter    - counter for the lives of the user.
      */
-    public GameFlow(GUI gui, AnimationRunner animationRunner, KeyboardSensor keyboard, Counter scoreCounter) {
+    public GameFlow(GUI gui, AnimationRunner animationRunner, KeyboardSensor keyboard, Counter scoreCounter,
+                    Counter livesCounter) {
         this.gui = gui;
         this.animationRunner = animationRunner;
         this.keyboardSensor = keyboard;
         this.scoreCounter = scoreCounter;
+        this.livesCounter = livesCounter;
     }
 
     /**
@@ -45,9 +49,9 @@ public class GameFlow {
      */
     public void runLevels(List<LevelInformation> levels) {
         boolean didWin = true;
-
+        livesCounter.increase(Constants.STARTING_LIVES);
         for (LevelInformation levelInfo : levels) {
-            GameLevel level = new GameLevel(gui, keyboardSensor, levelInfo, scoreCounter);
+            GameLevel level = new GameLevel(gui, keyboardSensor, levelInfo, scoreCounter, livesCounter);
             level.initialize();
             level.run();
             if (level.shouldStop() && level.getLevelStatus().equals("lose")) {

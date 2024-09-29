@@ -31,8 +31,8 @@ public class Ass5Game {
         KeyboardSensor keyboard = gui.getKeyboardSensor();
         AnimationRunner animationRunner = new AnimationRunner(gui);
         Counter scoreCounter = new Counter();
-
-        GameFlow gameFlow = new GameFlow(gui, animationRunner, keyboard, scoreCounter);
+        Counter livesCounter = new Counter();
+        GameFlow gameFlow = new GameFlow(gui, animationRunner, keyboard, scoreCounter, livesCounter);
         gameFlow.runLevels(listOfLevels);
     }
 

@@ -38,10 +38,30 @@ public class Paddle implements Sprite, Collidable {
         this.movementSensitivity = movementSensitivity;
     }
 
+
+    /**
+     * Check if pressing keys for moving left.
+     * By default, the user can use the WASD and arrows keys.
+     * @return - true if user pressed the keys for left movement, otherwise false.
+     */
+    private boolean isPressingLeft() {
+        return this.keyboard.isPressed("a") || this.keyboard.isPressed("A")
+        || this.keyboard.isPressed(KeyboardSensor.LEFT_KEY);
+    }
+
+    /**
+     * Check if pressing keys for moving right.
+     * @return - true if user pressed the keys for right movement, otherwise false.
+     */
+    private boolean isPressingRight() {
+        return this.keyboard.isPressed("d") || this.keyboard.isPressed("D")
+                || this.keyboard.isPressed(KeyboardSensor.RIGHT_KEY);
+    }
+
     /**
      * Move the paddle to the left.
      */
-    public void moveLeft() {
+    private void moveLeft() {
         double minX = Constants.BOUNDS_WIDTH;
         //Make sure the paddle won't exit the GUI and boundaries.
         if (getCollisionRectangle().getUpperLeft().getX() > minX) {
@@ -54,7 +74,7 @@ public class Paddle implements Sprite, Collidable {
     /**
      * Move the paddle to the right.
      */
-    public void moveRight() {
+    private void moveRight() {
         double maxX = Constants.GUI_WIDTH - Constants.BOUNDS_WIDTH;
         //Make sure the paddle won't exist the GUI and boundaries.
         if (this.getCollisionRectangle().getUpperLeft().getX() + this.shape.getWidth() < maxX) {
@@ -72,12 +92,10 @@ public class Paddle implements Sprite, Collidable {
     @Override
     public void timePassed() {
         //Paddle movement
-        if (this.keyboard.isPressed(KeyboardSensor.LEFT_KEY) || this.keyboard.isPressed("a")
-                || this.keyboard.isPressed("A")) {
+        if (isPressingLeft()) {
             moveLeft();
         }
-        if (this.keyboard.isPressed(KeyboardSensor.RIGHT_KEY) || this.keyboard.isPressed("d")
-                || this.keyboard.isPressed("D")) {
+        if (isPressingRight()) {
             moveRight();
         }
     }
@@ -89,7 +107,7 @@ public class Paddle implements Sprite, Collidable {
 
     @Override
     public Block getCollisionBlock() {
-        return new Block(shape, Constants.PADDLE_COLOR);
+        return new Block(shape, this.block.getColor());
     }
 
     @Override

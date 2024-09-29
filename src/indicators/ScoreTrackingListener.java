@@ -10,7 +10,7 @@ import util.Counter;
  * @author Yuval Anteby
  */
 public class ScoreTrackingListener implements HitListener {
-    private Counter currentScore;
+    private final Counter currentScore;
 
     /**
      * Constructor for the listener.
@@ -27,14 +27,6 @@ public class ScoreTrackingListener implements HitListener {
      */
     public Counter getScoreCounter() {
         return this.currentScore;
-    }
-
-    /**
-     * Add points to the score for clearing all the blocks.
-     * According to the assigment the score will increase by 100 points.
-     */
-    public void levelCleared() {
-        this.currentScore.increase(100);
     }
 
     @Override

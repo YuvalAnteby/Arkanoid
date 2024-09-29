@@ -13,6 +13,7 @@ import geometry.Rectangle;
 import collision.Collidable;
 import animation.Velocity;
 import indicators.LevelNameIndicator;
+import indicators.LivesIndicator;
 import levels.LevelInformation;
 import indicators.ScoreIndicator;
 import indicators.ScoreTrackingListener;
@@ -31,7 +32,19 @@ import java.util.List;
  */
 public class GameLevel implements Animation {
     /**
-     * Animation and graphics.
+     * Paddle constants.
+     */
+    private static final Color PADDLE_COLOR = Color.ORANGE;
+    private static final int PADDLE_HEIGHT = 8;
+    private Paddle paddle;
+    /**
+     * Ball constants.
+     */
+    private static final int DEFAULT_RADIUS = 8;
+    public static final Color DEFAULT_COLOR = Color.WHITE;
+
+    /**
+     * Animation and graphics variables.
      */
     private final GUI gui;
     private AnimationRunner runner;
@@ -39,13 +52,13 @@ public class GameLevel implements Animation {
     private final SpriteCollection sprites;
 
     /**
-     * Score.
+     * Score variables.
      */
     private final Counter scoreCount;
     private final Counter blocksRemaining = new Counter();
-
+    private final Counter livesRemaining;
     /**
-     * Game management.
+     * Game management variables.
      */
     private final GameEnvironment environment;
     private BallRemover ballRemover;
@@ -55,19 +68,21 @@ public class GameLevel implements Animation {
 
     /**
      * Constructor for the game, will create a new sprite collection and environment and set the GUI size.
-     * @param gui           - GUI in use of the game.
-     * @param keyboard      - keyboard sensor.
-     * @param lvlInfo       - information needed about the level.
-     * @param scoreCounter  - counter of the score.
+     *
+     * @param gui          - GUI in use of the game.
+     * @param keyboard     - keyboard sensor.
+     * @param lvlInfo      - information needed about the level.
+     * @param scoreCounter - counter of the score.
      */
-    public GameLevel(GUI gui, KeyboardSensor keyboard, LevelInformation lvlInfo, Counter scoreCounter) {
+    public GameLevel(GUI gui, KeyboardSensor keyboard, LevelInformation lvlInfo, Counter scoreCounter,
+                     Counter livesCounter) {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.levelInformation = lvlInfo;
         this.gui = gui;
         this.keyboard = keyboard;
         this.scoreCount = scoreCounter;
-
+        this.livesRemaining = livesCounter;
     }
 
     /**
@@ -112,7 +127,7 @@ public class GameLevel implements Animation {
      */
     public void initialize() {
         addSprite(levelInformation.getBackground());
-        initScoreTracking();
+        initIndicatorsTracking();
         //Create the boundaries of the GUI.
         generateBounds();
         generateDeathZone();
@@ -122,17 +137,18 @@ public class GameLevel implements Animation {
         generatePaddle();
         //Create the ball.
         generateBalls();
-
     }
 
     /**
-     * Initialize variables related to the user's score.
+     * Initialize variables related to the indicators at the top of the screen.
      */
-    private void initScoreTracking() {
+    private void initIndicatorsTracking() {
         ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCount);
         scoreIndicator.addToGame(this);
         LevelNameIndicator levelNameIndicator = new LevelNameIndicator(levelInformation.levelName());
         levelNameIndicator.addToGame(this);
+        LivesIndicator livesIndicator = new LivesIndicator(livesRemaining);
+        livesIndicator.addToGame(this);
     }
 
     /**
@@ -180,9 +196,9 @@ public class GameLevel implements Animation {
         List<Velocity> velocities = levelInformation.initialBallVelocities();
         int numOfBalls = levelInformation.numberOfBalls();
         int centerX = Constants.GUI_WIDTH / 2;
-        int centerY = Constants.GUI_HEIGHT - Constants.PADDLE_HEIGHT - 50;
+        int centerY = Constants.GUI_HEIGHT - PADDLE_HEIGHT - 50;
         for (int i = 0; i < numOfBalls; i++) {
-            Ball b = new Ball(centerX, centerY, Constants.DEFAULT_RADIUS, Constants.DEFAULT_COLOR, velocities.get(i));
+            Ball b = new Ball(centerX, centerY, DEFAULT_RADIUS, DEFAULT_COLOR, velocities.get(i));
             //Add the ball to the game mechanics.
             b.addToGame(this);
             b.setGameEnvironment(this.environment);
@@ -193,18 +209,21 @@ public class GameLevel implements Animation {
 
     /**
      * Generate the paddle for the level.
-     * Location will be based on the size of the paddle and the size of the bounds.
      */
     public void generatePaddle() {
+        movePaddleToCenter();
+        paddle.addToGame(this);
+    }
+
+    /**
+     * Move the paddle to be horizontally centered.
+     */
+    private void movePaddleToCenter() {
         //Starting value will be centered horizontally at the bottom of the screen.
         double spawnX = (double) (Constants.GUI_WIDTH - levelInformation.paddleWidth()) / 2;
-        double spawnY = Constants.GUI_HEIGHT - Constants.BOUNDS_HEIGHT - Constants.PADDLE_HEIGHT;
-        int height = Constants.PADDLE_HEIGHT;
-        Color color = Constants.PADDLE_COLOR;
-
-        Rectangle paddleRectangle = new Rectangle(new Point(spawnX, spawnY), levelInformation.paddleWidth(), height);
-        Paddle paddle = new Paddle(paddleRectangle, color, keyboard, levelInformation.paddleSpeed());
-        paddle.addToGame(this);
+        double spawnY = Constants.GUI_HEIGHT - Constants.BOUNDS_HEIGHT - PADDLE_HEIGHT;
+        Rectangle paddleRect = new Rectangle(new Point(spawnX, spawnY), levelInformation.paddleWidth(), PADDLE_HEIGHT);
+        paddle = new Paddle(paddleRect, PADDLE_COLOR, keyboard, levelInformation.paddleSpeed());
     }
 
     /**
@@ -248,9 +267,15 @@ public class GameLevel implements Animation {
             this.running = false;
             this.levelStatus = "win";
         } else if (ballRemover.noBallsRemain()) {
-            this.running = false;
-            this.levelStatus = "lose";
-            System.out.println("Player lost. " + scoreCount.getValue());
+            if (livesRemaining.getValue() <= 0) {
+                this.running = false;
+                this.levelStatus = "lose";
+                System.out.println("Player lost. " + scoreCount.getValue());
+            } else {
+                movePaddleToCenter();
+                generateBalls();
+                livesRemaining.decrease(1);
+            }
         }
         keyboardClickCheck();
     }
@@ -263,10 +288,6 @@ public class GameLevel implements Animation {
         if (this.keyboard.isPressed("p") || this.keyboard.isPressed("P")) {
             this.runner.run(new KeyPressStoppableAnimation(keyboard, "space", new PauseScreen()));
         }
-//        //Exit game on 'enter' press.
-//        if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-//            this.gui.close();
-//        }
     }
 
     /**

@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Block implements Collidable, Sprite, HitNotifier {
 
-    private Rectangle rectangle;
+    private final Rectangle rectangle;
     private final Color color;
     private List<HitListener> hitListeners = new ArrayList<>();
     private boolean deathBlock;

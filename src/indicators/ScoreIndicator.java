@@ -11,7 +11,7 @@ import util.Counter;
  * @author Yuval Anteby
  */
 public class ScoreIndicator implements Sprite {
-    private Counter scoreCounter;
+    private final Counter scoreCounter;
 
     /**
      * Constructor for the class.
@@ -19,14 +19,6 @@ public class ScoreIndicator implements Sprite {
      */
     public ScoreIndicator(Counter scoreCounter) {
         this.scoreCounter = scoreCounter;
-    }
-
-    /**
-     * Getter for the score counter.
-     * @return counter instance of the score.
-     */
-    public Counter getScoreCounter() {
-        return scoreCounter;
     }
 
     /**
@@ -40,7 +32,7 @@ public class ScoreIndicator implements Sprite {
     @Override
     public void drawOn(DrawSurface d) {
         d.setColor(Constants.INDICATOR_BACKGROUND_COLOR);
-        d.fillRectangle(Constants.TOP_LEFT_X, Constants.TOP_LEFT_Y, Constants.INDICATOR_WIDTH, Constants.TEXT_SIZE);
+        d.fillRectangle(Constants.INDICATORS_X, Constants.INDICATORS_Y, Constants.INDICATOR_WIDTH, Constants.TEXT_SIZE);
         d.setColor(Constants.TEXT_COLOR);
         String scoreText = "Score: " + this.scoreCounter.toString();
         d.drawText(Constants.SCORE_X, Constants.SCORE_Y, scoreText, Constants.TEXT_SIZE);
