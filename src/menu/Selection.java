@@ -1,4 +1,4 @@
-package screens;
+package menu;
 
 public class Selection<T> {
 

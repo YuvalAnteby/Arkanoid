@@ -1,4 +1,4 @@
-package animation;
+package menu;
 
 public interface Task<T> {
     /**

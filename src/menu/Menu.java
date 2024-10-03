@@ -1,4 +1,4 @@
-package screens;
+package menu;
 
 import animation.Animation;
 
