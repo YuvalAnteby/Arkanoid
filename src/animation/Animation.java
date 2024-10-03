@@ -15,7 +15,7 @@ public interface Animation {
 
     /**
      * Check if the animation should stop.
-     * @return - true if should stop, otherwise false.
+     * @return - true if it should stop, otherwise false.
      */
     boolean shouldStop();
 }
