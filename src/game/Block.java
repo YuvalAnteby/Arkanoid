@@ -1,14 +1,14 @@
 package game;
 
 import biuoop.DrawSurface;
-import geometry.Ball;
-import geometry.Point;
-import geometry.Rectangle;
-import graphics.Sprite;
-import collision.Collidable;
-import collision.HitListener;
-import collision.HitNotifier;
-import animation.Velocity;
+import sprites.geometry.Ball;
+import sprites.geometry.Point;
+import sprites.geometry.Rectangle;
+import sprites.Sprite;
+import sprites.collision.Collidable;
+import sprites.collision.HitListener;
+import sprites.collision.HitNotifier;
+import sprites.Velocity;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -141,12 +141,12 @@ public class Block implements Collidable, Sprite, HitNotifier {
             throw new IllegalArgumentException("Null exception hit function");
         }
         double dx = currentVelocity.getDx(), dy = currentVelocity.getDy();
-        //Check horizontal lines collision.
+        //Check horizontal lines sprites.collision.
         if (this.rectangle.getTopLine().isContaining(collisionPoint)
                 || this.rectangle.getBottomLine().isContaining(collisionPoint)) {
             dy *= -1;
         }
-        //Check vertical lines collision.
+        //Check vertical lines sprites.collision.
         if (this.rectangle.getLeftLine().isContaining(collisionPoint)
                 || this.rectangle.getRightLine().isContaining(collisionPoint)) {
             dx *= -1;

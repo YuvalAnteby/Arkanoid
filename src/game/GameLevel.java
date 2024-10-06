@@ -6,19 +6,19 @@ import animation.CountdownAnimation;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
-import graphics.*;
-import geometry.Ball;
-import geometry.Point;
-import geometry.Rectangle;
-import collision.Collidable;
-import animation.Velocity;
-import indicators.LevelNameIndicator;
-import indicators.LivesIndicator;
-import levels.LevelInformation;
-import indicators.ScoreIndicator;
-import indicators.ScoreTrackingListener;
-import screens.KeyPressStoppableAnimation;
-import screens.PauseScreen;
+import sprites.*;
+import sprites.geometry.Ball;
+import sprites.geometry.Point;
+import sprites.geometry.Rectangle;
+import sprites.collision.Collidable;
+import sprites.Velocity;
+import sprites.indicators.LevelNameIndicator;
+import sprites.indicators.LivesIndicator;
+import game.levels.LevelInformation;
+import sprites.indicators.ScoreIndicator;
+import sprites.indicators.ScoreTrackingListener;
+import animation.screens.KeyPressStoppableAnimation;
+import animation.screens.PauseScreen;
 import util.Constants;
 import util.Counter;
 
@@ -140,7 +140,7 @@ public class GameLevel implements Animation {
     }
 
     /**
-     * Initialize variables related to the indicators at the top of the screen.
+     * Initialize variables related to the sprites.indicators at the top of the screen.
      */
     private void initIndicatorsTracking() {
         ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCount);

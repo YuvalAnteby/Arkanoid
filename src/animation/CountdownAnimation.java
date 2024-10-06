@@ -2,7 +2,7 @@ package animation;
 
 import biuoop.DrawSurface;
 import biuoop.Sleeper;
-import graphics.SpriteCollection;
+import sprites.SpriteCollection;
 import util.Constants;
 
 import java.awt.*;

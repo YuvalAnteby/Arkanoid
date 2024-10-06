@@ -2,13 +2,13 @@ package game;
 
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
-import geometry.Ball;
-import geometry.Line;
-import geometry.Point;
-import geometry.Rectangle;
-import graphics.Sprite;
-import collision.Collidable;
-import animation.Velocity;
+import sprites.geometry.Ball;
+import sprites.geometry.Line;
+import sprites.geometry.Point;
+import sprites.geometry.Rectangle;
+import sprites.Sprite;
+import sprites.collision.Collidable;
+import sprites.Velocity;
 import util.Constants;
 
 import java.awt.Color;

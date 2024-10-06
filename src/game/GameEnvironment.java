@@ -1,9 +1,9 @@
 package game;
 
-import geometry.Line;
-import geometry.Point;
-import collision.Collidable;
-import collision.CollisionInfo;
+import sprites.geometry.Line;
+import sprites.geometry.Point;
+import sprites.collision.Collidable;
+import sprites.collision.CollisionInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +61,10 @@ public class GameEnvironment {
     }
 
     /**
-     * Assuming the object is moving from the start point to the end point, check if there are any collision in its
-     * path. Add every collision to the list.
+     * Assuming the object is moving from the start point to the end point, check if there are any sprites.collision in its
+     * path. Add every sprites.collision to the list.
      * @param trajectory - a line of the movement from start to end.
-     * @return - the closest collision point to the start point of the trajectory. If there are no collisions - null.
+     * @return - the closest sprites.collision point to the start point of the trajectory. If there are no collisions - null.
      */
     public CollisionInfo getClosestCollision(Line trajectory) {
         CollisionInfo closestCollision = null;
