@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Class to represent a line in 2D made by two points.
  * Will be used for the path calculation in the game.
+ *
  * @author Yuval Anteby
  */
 public class Line {
@@ -17,8 +18,9 @@ public class Line {
 
     /**
      * Constructor for the line class made by two points.
-     * @param start - First point. (where the line starts).
-     * @param end - Second point. (where the line ends).
+     *
+     * @param start First point. (where the line starts).
+     * @param end   Second point. (where the line ends).
      */
     public Line(Point start, Point end) {
         this.start = new Point(start.getX(), start.getY());
@@ -28,7 +30,7 @@ public class Line {
     /**
      * Getter for the start point.
      *
-     * @return - start point of the line.
+     * @return start point of the line.
      */
     public Point start() {
         return new Point(this.start.getX(), this.start.getY());
@@ -37,7 +39,7 @@ public class Line {
     /**
      * Getter for the end point.
      *
-     * @return - end point of the line.
+     * @return end point of the line.
      */
     public Point end() {
         return new Point(this.end.getX(), this.end.getY());
@@ -47,7 +49,8 @@ public class Line {
      * Function to calculate the incline of our line.
      * (meant for calculation purposes).
      * Using the incline calculation from math classes: m = (y1 - y2) / (x1 - x2)
-     * @return - value of the incline in double.
+     *
+     * @return value of the incline in double.
      */
     public double incline() {
         if (this.start.getX() == this.end.getX()) {
@@ -60,7 +63,8 @@ public class Line {
      * Function to find the y value once x value is 0 regardless of if it's between the start and end point or not.
      * (meant for calculation purposes).
      * Using the equation: m = (y1 - yB) / (x1 - 0) we get to this calculation
-     * @return - value of y in double.
+     *
+     * @return value of y in double.
      */
     public double x0Point() {
         if (this.incline() == Double.POSITIVE_INFINITY) {
@@ -71,7 +75,8 @@ public class Line {
 
     /**
      * Find the min x value of the line.
-     * @return - double value of min x.
+     *
+     * @return double value of min x.
      */
     public double minX() {
         return Math.min(this.start.getX(), this.end.getX());
@@ -79,7 +84,8 @@ public class Line {
 
     /**
      * Find the max x value of the line.
-     * @return - double value of max x.
+     *
+     * @return double value of max x.
      */
     public double maxX() {
         return Math.max(this.start.getX(), this.end.getX());
@@ -87,7 +93,8 @@ public class Line {
 
     /**
      * Find the min y value of the line.
-     * @return - double value of min y.
+     *
+     * @return double value of min y.
      */
     public double minY() {
         return Math.min(this.start.getY(), this.end.getY());
@@ -95,7 +102,8 @@ public class Line {
 
     /**
      * Find the max y value of the line.
-     * @return - double value of max y.
+     *
+     * @return double value of max y.
      */
     public double maxY() {
         return Math.max(this.start.getY(), this.end.getY());
@@ -104,7 +112,7 @@ public class Line {
     /**
      * Check if the line is parallel to Y-axis.
      *
-     * @return - true if the line is parallel to Y-axis, otherwise false.
+     * @return true if the line is parallel to Y-axis, otherwise false.
      */
     public boolean isParallelY() {
         return Math.abs(this.start.getX() - this.end.getX()) < THRESHOLD;
@@ -113,7 +121,7 @@ public class Line {
     /**
      * Check if the line is parallel to X-axis.
      *
-     * @return - true if the line is parallel to X-axis, otherwise false.
+     * @return true if the line is parallel to X-axis, otherwise false.
      */
     public boolean isParallelX() {
         return Math.abs(this.start.getY() - this.end.getY()) < THRESHOLD;
@@ -122,8 +130,8 @@ public class Line {
     /**
      * Checks if a point is within the range of the finite line segment.
      *
-     * @param point - point to be checked.
-     * @return - true if the point is within the range, otherwise false.
+     * @param point point to be checked.
+     * @return true if the point is within the range, otherwise false.
      */
     public boolean inLineRange(Point point) {
         return ((point.getX() - minX() >= -THRESHOLD && maxX() - point.getX() >= -THRESHOLD)
@@ -133,8 +141,8 @@ public class Line {
     /**
      * Checks if a point is on the infinite line.
      *
-     * @param point - point to be checked.
-     * @return - true if the point is on the line, otherwise false.
+     * @param point point to be checked.
+     * @return true if the point is on the line, otherwise false.
      */
     public boolean isOnInfiniteLine(Point point) {
         if (Math.abs(incline() * point.getX() + x0Point() - point.getY()) <= THRESHOLD) {
@@ -146,8 +154,9 @@ public class Line {
     /**
      * Find the intersection point between 2 lines.
      * Using determinant calculations from linear algebra we can find if lines are intersection and where.
-     * @param other - line to check intersection with.
-     * @return - if exists the intersection point, otherwise null.
+     *
+     * @param other line to check intersection with.
+     * @return if exists the intersection point, otherwise null.
      */
     public Point intersectionWith(Line other) {
         //This line (AB) represented as a1x + b1y = c1.
@@ -180,8 +189,8 @@ public class Line {
     /**
      * Check if this line intersects with another line.
      *
-     * @param other - line to be checked with.
-     * @return - true if the lines intersect, otherwise false.
+     * @param other line to be checked with.
+     * @return true if the lines intersect, otherwise false.
      */
     public boolean isIntersecting(Line other) {
         Point intersectionPoint;
@@ -216,8 +225,8 @@ public class Line {
     /**
      * Checks if a line finite segment is within the range of another line finite segment.
      *
-     * @param other - line to be checked with.
-     * @return - true if the other line segment is within this line, false otherwise.
+     * @param other line to be checked with.
+     * @return true if the other line segment is within this line, false otherwise.
      */
     public boolean isContaining(Line other) {
         if (Math.abs(this.incline() - other.incline()) >= THRESHOLD
@@ -231,8 +240,9 @@ public class Line {
     /**
      * Find intersection points between lines when one or both are parallel to X,Y-axis.
      * We will take into account cases where one or both is parallel to any of the axis.
-     * @param other - line to be checked with.
-     * @return - intersection point if exists, otherwise null.
+     *
+     * @param other line to be checked with.
+     * @return intersection point if exists, otherwise null.
      */
     public Point findIntersectionParallelAxis(Line other) {
         Point intersectionPoint;
@@ -296,8 +306,8 @@ public class Line {
     /**
      * Finds the closest intersection point to the start of the line with a given rectangle.
      *
-     * @param rectangle - the rectangle to check for intersections with.
-     * @return - closest intersection point, otherwise null if there are no intersections.
+     * @param rectangle the rectangle to check for intersections with.
+     * @return closest intersection point, otherwise null if there are no intersections.
      */
     public Point closestIntersectionToStartOfLine(Rectangle rectangle) {
         List<Point> intersections = rectangle.intersectionPoints(this);
@@ -318,8 +328,9 @@ public class Line {
     /**
      * Find the intersection point for lines with equal inclines.
      * We will check if a point of one line is on the other's finite segment.
-     * @param other - line to be checked with.
-     * @return - if there is an intersection returns the point, otherwise null.
+     *
+     * @param other line to be checked with.
+     * @return if there is an intersection returns the point, otherwise null.
      */
     public Point intersectionSameIncline(Line other) {
         if (this.start.equals(other.start()) && !(this.inLineRange(other.end()) && !(other.inLineRange(this.end())))) {
@@ -340,8 +351,8 @@ public class Line {
     /**
      * Finds the intersection point for line which are not parallel to axis or each other.
      *
-     * @param other - line to be checked with.
-     * @return - if there is an intersection returns the point, otherwise null.
+     * @param other line to be checked with.
+     * @return if there is an intersection returns the point, otherwise null.
      */
     public Point intersectionPointForRegularLines(Line other) {
         //Check if start/ end points are the same between the lines, if they are then it's the intersection point.
@@ -371,8 +382,8 @@ public class Line {
     /**
      * Checks if a point is on the finite line.
      *
-     * @param point - point to be checked with.
-     * @return - true if the point lies on the line segment, otherwise false.
+     * @param point point to be checked with.
+     * @return true if the point lies on the line segment, otherwise false.
      */
     public boolean isContaining(Point point) {
         if (this.isParallelY()) {
@@ -400,7 +411,8 @@ public class Line {
 
     /**
      * divide line to 5 parts for paddle.
-     * @return - list of lines made of the 5 zones.
+     *
+     * @return list of lines made of the 5 zones.
      */
     public List<Line> divideTo5() {
         List<Line> zones = new ArrayList<>();

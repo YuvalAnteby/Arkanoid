@@ -7,6 +7,7 @@ import util.Constants;
 
 /**
  * Class to represent the level's name currently played.
+ *
  * @author Yuval Anteby
  */
 public class LevelNameIndicator implements Sprite {
@@ -15,7 +16,8 @@ public class LevelNameIndicator implements Sprite {
 
     /**
      * Constructor.
-     * @param levelName - name of the level currently played.
+     *
+     * @param levelName name of the level currently played.
      */
     public LevelNameIndicator(String levelName) {
         this.levelName = levelName;
@@ -23,7 +25,8 @@ public class LevelNameIndicator implements Sprite {
 
     /**
      * Add the name indicator to the game as a sprite.
-     * @param g - instance of a game.
+     *
+     * @param g instance of a game.
      */
     public void addToGame(GameLevel g) {
         g.addSprite(this);

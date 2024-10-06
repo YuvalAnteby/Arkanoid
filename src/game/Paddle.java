@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Class to represent the user controlled paddle. Balls will interact with it.
+ *
  * @author Yuval Anteby
  */
 public class Paddle implements Sprite, Collidable {
@@ -27,9 +28,11 @@ public class Paddle implements Sprite, Collidable {
 
     /**
      * Constructor for the paddle.
-     * @param rec           - rectangle of the paddle.
-     * @param color         - color of the paddle.
-     * @param keyboard      - Keyboard sensor.
+     *
+     * @param rec                 rectangle of the paddle.
+     * @param color               color of the paddle.
+     * @param keyboard            Keyboard sensor.
+     * @param movementSensitivity movement speed of the paddle, the higher the fast.
      */
     public Paddle(Rectangle rec, Color color, KeyboardSensor keyboard, int movementSensitivity) {
         this.shape = rec;
@@ -42,16 +45,18 @@ public class Paddle implements Sprite, Collidable {
     /**
      * Check if pressing keys for moving left.
      * By default, the user can use the WASD and arrows keys.
-     * @return - true if user pressed the keys for left movement, otherwise false.
+     *
+     * @return true if user pressed the keys for left movement, otherwise false.
      */
     private boolean isPressingLeft() {
         return this.keyboard.isPressed("a") || this.keyboard.isPressed("A")
-        || this.keyboard.isPressed(KeyboardSensor.LEFT_KEY);
+                || this.keyboard.isPressed(KeyboardSensor.LEFT_KEY);
     }
 
     /**
      * Check if pressing keys for moving right.
-     * @return - true if user pressed the keys for right movement, otherwise false.
+     *
+     * @return true if user pressed the keys for right movement, otherwise false.
      */
     private boolean isPressingRight() {
         return this.keyboard.isPressed("d") || this.keyboard.isPressed("D")
@@ -79,7 +84,7 @@ public class Paddle implements Sprite, Collidable {
         //Make sure the paddle won't exist the GUI and boundaries.
         if (this.getCollisionRectangle().getUpperLeft().getX() + this.shape.getWidth() < maxX) {
             double newX = this.getCollisionRectangle().getUpperLeft().getX() + movementSensitivity;
-            double newY =  this.getCollisionRectangle().getUpperLeft().getY();
+            double newY = this.getCollisionRectangle().getUpperLeft().getY();
             this.shape.setUpperLeft(new Point(newX, newY));
         }
     }
@@ -123,20 +128,14 @@ public class Paddle implements Sprite, Collidable {
                 //Check which zone was hit.
                 if (divide.get(j - 1).isContaining(collisionPoint)) {
                     //Change the velocity according to the zone's hit.
-                    switch (j) {
-                        case 1:
-                            return Velocity.fromAngleAndSpeed(300, currentVelocity.getSpeed());
-                        case 2:
-                            return Velocity.fromAngleAndSpeed(330, currentVelocity.getSpeed());
-                        case 3:
-                            return new Velocity(currentVelocity.getDx(), -currentVelocity.getDy());
-                        case 4:
-                            return Velocity.fromAngleAndSpeed(30, currentVelocity.getSpeed());
-                        case 5:
-                            return Velocity.fromAngleAndSpeed(60, currentVelocity.getSpeed());
-                        default:
-                            return currentVelocity;
-                    }
+                    return switch (j) {
+                        case 1 -> Velocity.fromAngleAndSpeed(300, currentVelocity.getSpeed());
+                        case 2 -> Velocity.fromAngleAndSpeed(330, currentVelocity.getSpeed());
+                        case 3 -> new Velocity(currentVelocity.getDx(), -currentVelocity.getDy());
+                        case 4 -> Velocity.fromAngleAndSpeed(30, currentVelocity.getSpeed());
+                        case 5 -> Velocity.fromAngleAndSpeed(60, currentVelocity.getSpeed());
+                        default -> currentVelocity;
+                    };
                 }
             }
         } else if (this.shape.getRightLine().isContaining(collisionPoint)
@@ -149,7 +148,8 @@ public class Paddle implements Sprite, Collidable {
 
     /**
      * Add the block to the game a sprite and a collidable object.
-     * @param g     - the game reference we add to.
+     *
+     * @param g the game reference we add to.
      */
     public void addToGame(GameLevel g) {
         g.addCollidable(this);

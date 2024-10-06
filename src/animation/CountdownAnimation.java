@@ -5,7 +5,7 @@ import biuoop.Sleeper;
 import sprites.SpriteCollection;
 import util.Constants;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Countdown for the start of the game.
@@ -23,9 +23,10 @@ public class CountdownAnimation implements Animation {
 
     /**
      * Constructor for the class.
-     * @param numOfSeconds  - number of seconds to display.
-     * @param countFrom     - start the count from.
-     * @param gameScreen    - sprites of the game to display in background.
+     *
+     * @param numOfSeconds number of seconds to display.
+     * @param countFrom    start the count from.
+     * @param gameScreen   sprites of the game to display in background.
      */
     public CountdownAnimation(double numOfSeconds, int countFrom, SpriteCollection gameScreen) {
         this.seconds = numOfSeconds;
@@ -37,8 +38,8 @@ public class CountdownAnimation implements Animation {
 
     @Override
     public void doOneFrame(DrawSurface d) {
-        int topLeftX = Constants.GUI_WIDTH / 2 - Constants.BOUNDS_WIDTH;
-        int topLeftY = (Constants.GUI_HEIGHT / 2) + 100;
+        int topLeftX = d.getWidth() / 2 - Constants.BOUNDS_WIDTH;
+        int topLeftY = (d.getHeight() / 2) + 100;
         //draws the screen
         Sleeper sleep = new Sleeper();
         this.screen.drawAllOn(d);

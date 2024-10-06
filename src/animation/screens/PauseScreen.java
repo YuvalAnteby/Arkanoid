@@ -4,21 +4,23 @@ import animation.Animation;
 import biuoop.DrawSurface;
 import util.Constants;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Screen that will be showed when the user pause the game.
+ *
+ * @author Yuval Anteby
  */
 public class PauseScreen implements Animation {
     private static final String PAUSE_MESSAGE = "Game Paused";
 
-    private boolean stop;
+    private boolean shouldStop;
 
     /**
      * Constructor for the screen.
      */
     public PauseScreen() {
-        this.stop = false;
+        this.shouldStop = false;
     }
 
     @Override
@@ -31,6 +33,6 @@ public class PauseScreen implements Animation {
 
     @Override
     public boolean shouldStop() {
-        return this.stop;
+        return this.shouldStop;
     }
 }

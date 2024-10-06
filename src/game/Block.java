@@ -17,20 +17,22 @@ import java.util.List;
 
 /**
  * Class to represent a block on the GUI. Will be of a rectangle shape and get a color.
+ *
  * @author Yuval Anteby
  */
 public class Block implements Collidable, Sprite, HitNotifier {
 
     private final Rectangle rectangle;
     private final Color color;
-    private List<HitListener> hitListeners = new ArrayList<>();
+    private final List<HitListener> hitListeners = new ArrayList<>();
     private boolean deathBlock;
     private boolean boundary;
 
     /**
      * Constructor for the block class.
-     * @param rectangle     - rectangle that the block is made of.
-     * @param color         - color that the block will be filled by.
+     *
+     * @param rectangle rectangle that the block is made of.
+     * @param color     color that the block will be filled by.
      */
     public Block(Rectangle rectangle, Color color) {
         this.rectangle = rectangle;
@@ -42,7 +44,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
     /**
      * Check if this block is a death block.
      * a hit with a death block will cause the ball to be removed from the game.
-     * @return - true if this block is a death block, otherwise false.
+     *
+     * @return true if this block is a death block, otherwise false.
      */
     public boolean isDeathBlock() {
         return this.deathBlock;
@@ -50,7 +53,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * Set this block as a death block or regular block.
-     * @param isDeathBlock - true if this block should be a death block, false if regular block.
+     *
+     * @param isDeathBlock true if this block should be a death block, false if regular block.
      */
     public void setDeathBlock(boolean isDeathBlock) {
         this.deathBlock = isDeathBlock;
@@ -58,7 +62,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * Change this block to be a boundary block or not.
-     * @param isBoundary - true if the block is a boundary block, otherwise false.
+     *
+     * @param isBoundary true if the block is a boundary block, otherwise false.
      */
     public void setBoundary(boolean isBoundary) {
         this.boundary = isBoundary;
@@ -66,7 +71,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * Add the block to the game a sprite and a collidable object.
-     * @param g     - the game reference we add to.
+     *
+     * @param g the game reference we add to.
      */
     public void addToGame(GameLevel g) {
         g.addCollidable(this);
@@ -74,17 +80,10 @@ public class Block implements Collidable, Sprite, HitNotifier {
     }
 
     /**
-     * Add the background as only a sprite to the game.
-     * @param g     - the game reference we add to.
-     */
-    public void addBackground(GameLevel g) {
-        g.addSprite(this);
-    }
-
-    /**
      * Check if this block and the provided ball have the same color.
-     * @param ball - ball to check it's color.
-     * @return - true if the block and ball has the same color, otherwise false.
+     *
+     * @param ball ball to check it's color.
+     * @return true if the block and ball has the same color, otherwise false.
      */
     public boolean ballColorMatch(Ball ball) {
         return this.getColor().equals(ball.getColor());
@@ -92,12 +91,14 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * Function to remove this block from the game.
-     * @param gameLevel - game reference to remove the block from.
+     *
+     * @param gameLevel game reference to remove the block from.
      */
     public void removeFromGame(GameLevel gameLevel) {
         if (gameLevel != null) {
             gameLevel.removeCollidable(this);
             gameLevel.removeSprite(this);
+            //Changing to iterator for (enhanced for) requires further code changes for it.
             for (int i = 0; i < this.hitListeners.size(); i++) {
                 removeHitListener(this.hitListeners.get(i));
             }
@@ -106,7 +107,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * Function to update all hit listeners upon a hit.
-     * @param hitter - the ball that hit the block.
+     *
+     * @param hitter the ball that hit the block.
      */
     private void notifyHit(Ball hitter) {
         // Make a copy of the hitListeners before iterating over them.
@@ -129,7 +131,8 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     /**
      * Getter for the block's color.
-     * @return - color of the block.
+     *
+     * @return color of the block.
      */
     public Color getColor() {
         return color;
@@ -141,12 +144,12 @@ public class Block implements Collidable, Sprite, HitNotifier {
             throw new IllegalArgumentException("Null exception hit function");
         }
         double dx = currentVelocity.getDx(), dy = currentVelocity.getDy();
-        //Check horizontal lines sprites.collision.
+        //Check horizontal lines collision.
         if (this.rectangle.getTopLine().isContaining(collisionPoint)
                 || this.rectangle.getBottomLine().isContaining(collisionPoint)) {
             dy *= -1;
         }
-        //Check vertical lines sprites.collision.
+        //Check vertical lines collision.
         if (this.rectangle.getLeftLine().isContaining(collisionPoint)
                 || this.rectangle.getRightLine().isContaining(collisionPoint)) {
             dx *= -1;

@@ -7,10 +7,11 @@ import java.util.List;
 
 /**
  * Class to contain a list of objects which use sprite interface.
+ *
  * @author Yuval Anteby
  */
 public class SpriteCollection {
-    private List<Sprite> spriteList;
+    private final List<Sprite> spriteList;
 
     /**
      * Default constructor for the class, will initialize a new array list.
@@ -21,7 +22,8 @@ public class SpriteCollection {
 
     /**
      * Add a new sprite to the list of the sprites list.
-     * @param s - a new sprite to be added.
+     *
+     * @param s a new sprite to be added.
      */
     public void addSprite(Sprite s) {
         if (s != null) {
@@ -31,7 +33,8 @@ public class SpriteCollection {
 
     /**
      * Remove a sprite object from the game environment.
-     * @param s - sprite object to be removed.
+     *
+     * @param s sprite object to be removed.
      */
     public void removeSprite(Sprite s) {
         if (s != null) {
@@ -43,6 +46,7 @@ public class SpriteCollection {
      * Notify every sprite that time passed.
      */
     public void notifyAllTimePassed() {
+        //Changing to iterator for (enhanced for) requires further code changes for it.
         for (int i = 0; i < spriteList.size(); i++) {
             spriteList.get(i).timePassed();
         }
@@ -50,10 +54,11 @@ public class SpriteCollection {
 
     /**
      * Call the draw animation for each sprite.
-     * @param d     - the draw surface of the gui.
+     *
+     * @param d the draw surface of the gui.
      */
     public void drawAllOn(DrawSurface d) {
-        for (Sprite sprite: spriteList) {
+        for (Sprite sprite : spriteList) {
             sprite.drawOn(d);
         }
     }

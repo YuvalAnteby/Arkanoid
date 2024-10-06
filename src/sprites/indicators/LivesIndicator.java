@@ -18,7 +18,7 @@ public class LivesIndicator implements Sprite {
     /**
      * Constructor for the class.
      *
-     * @param livesCounter - instance of the lives counter.
+     * @param livesCounter instance of the lives counter.
      */
     public LivesIndicator(Counter livesCounter) {
         this.livesCounter = livesCounter;
@@ -27,7 +27,7 @@ public class LivesIndicator implements Sprite {
     /**
      * Add the lives indicator to the game as a sprite.
      *
-     * @param g - instance of a game.
+     * @param g instance of a game.
      */
     public void addToGame(GameLevel g) {
         g.addSprite(this);

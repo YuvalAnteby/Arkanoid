@@ -8,16 +8,18 @@ import game.GameLevel;
 
 /**
  * Class in charge of removing blocks from the game, as well as keeping count of the number of blocks that remain.
+ *
  * @author Yuval Anteby
  */
 public class BlockRemover implements HitListener {
-    private GameLevel gameLevel;
-    private Counter remainingBlocks;
+    private final GameLevel gameLevel;
+    private final Counter remainingBlocks;
 
     /**
      * Constructor for the class.
-     * @param gameLevel            - game reference the block is in.
-     * @param remainingBlocks - number of remaining blocks in the game.
+     *
+     * @param gameLevel       game reference the block is in.
+     * @param remainingBlocks number of remaining blocks in the game.
      */
     public BlockRemover(GameLevel gameLevel, Counter remainingBlocks) {
         this.gameLevel = gameLevel;
@@ -26,7 +28,8 @@ public class BlockRemover implements HitListener {
 
     /**
      * Getter for the counter.
-     * @return - counter instance of remaining blocks.
+     *
+     * @return counter instance of remaining blocks.
      */
     public Counter getRemainingBlocks() {
         return remainingBlocks;
@@ -40,14 +43,4 @@ public class BlockRemover implements HitListener {
         beingHit.removeFromGame(this.gameLevel);
         this.remainingBlocks.decrease(1);
     }
-
-    /**
-     * Check if there are blocks remaining in the game.
-     * @return true if there are no blocks anymore, otherwise false.
-     */
-    public boolean noBlocksRemain() {
-        return this.remainingBlocks.getValue() <= 0;
-    }
-
-
 }

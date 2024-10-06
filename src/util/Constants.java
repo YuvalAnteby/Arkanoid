@@ -4,18 +4,16 @@ import java.awt.Color;
 
 /**
  * Immutable and singleton class for default constant values to use across the project.
+ *
  * @author Yuval Anteby
  */
 public final class Constants {
 
     /**
-        GUI size constants.
+     * GUI size constants.
      **/
     public static final int GUI_WIDTH = 800, GUI_HEIGHT = 600;
-    /**
-     * Appears on the top of the window.
-     */
-    public static final String GUI_NAME = "Arkanoid";
+
     /**
      * FPS of the game.
      */
@@ -43,11 +41,11 @@ public final class Constants {
      */
     public static final Color TEXT_COLOR = Color.BLACK, INDICATOR_BACKGROUND_COLOR = Color.LIGHT_GRAY;
     /**
-     * Indicators text location
+     * Indicators text location.
      */
     public static final int LEVEL_NAME_X = 70, LEVEL_NAME_Y = TEXT_SIZE - 2;
     public static final int SCORE_X = 350, SCORE_Y = TEXT_SIZE - 2;
-    public static final int LIVES_X = 600, LIVES_Y = TEXT_SIZE -2;
+    public static final int LIVES_X = 600, LIVES_Y = TEXT_SIZE - 2;
     public static final int STARTING_LIVES = 1;
 
     /**
@@ -57,7 +55,7 @@ public final class Constants {
 
 
     /**
-     * Private constructor for the class.
+     * Private constructor for the class. Prevent
      */
     private Constants() {
     }

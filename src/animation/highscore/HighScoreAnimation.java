@@ -6,16 +6,28 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 import java.util.List;
 
+/**
+ * Class for the high score screen animation.
+ *
+ * @author Yuval Anteby
+ */
 public class HighScoreAnimation implements Animation {
 
-    private static final int FONT_SIZE = 18;
-    private static final int VERTICAL_SPACING = 30;
-    private static final int HORIZONTAL_SPACING = 120;
-    private static final int RETURN_FONT_SIZE = 30;
+    /**
+     * Spacing between rows and column.
+     */
+    private static final int VERTICAL_SPACING = 30, HORIZONTAL_SPACING = 120;
+    /**
+     * Font sizes.
+     */
+    private static final int RETURN_FONT_SIZE = 30, FONT_SIZE = 18;
+    /**
+     * Key to return to the main menu.
+     */
     private static final String RETURN_KEY = "space";
 
 
@@ -27,7 +39,7 @@ public class HighScoreAnimation implements Animation {
     /**
      * Constructor for the class.
      *
-     * @param gui - GUI in use.
+     * @param gui GUI in use.
      */
     public HighScoreAnimation(GUI gui) {
         HighScoreManager manager = new HighScoreManager();
@@ -71,9 +83,9 @@ public class HighScoreAnimation implements Animation {
     /**
      * Show return option. If user press on the specified key return to the main menu.
      *
-     * @param d - surface to draw on.
-     * @param x - text's x value.
-     * @param y - text's y value.
+     * @param d surface to draw on.
+     * @param x text's x value.
+     * @param y text's y value.
      */
     private void drawReturnOption(DrawSurface d, int x, int y) {
         y += VERTICAL_SPACING / 2;
@@ -83,7 +95,7 @@ public class HighScoreAnimation implements Animation {
     /**
      * Check if the user presses the return key to stop the animation and return to the main menu.
      *
-     * @return - true if the user pressed the return key, otherwise false.
+     * @return true if the user pressed the return key, otherwise false.
      */
     private boolean checkForReturnToMenu() {
         return keyboardSensor.isPressed(RETURN_KEY);
@@ -93,10 +105,10 @@ public class HighScoreAnimation implements Animation {
      * Draw the row of a score.
      * Shows the attributes of a high score.
      *
-     * @param d       - surface to draw on.
-     * @param rowText - list of string to show in a row.
-     * @param x       - starting x value.
-     * @param y       - y value.
+     * @param d       surface to draw on.
+     * @param rowText list of string to show in a row.
+     * @param x       starting x value.
+     * @param y       y value.
      */
     private void drawScoreRow(DrawSurface d, List<String> rowText, int x, int y) {
         for (String s : rowText) {
@@ -113,7 +125,7 @@ public class HighScoreAnimation implements Animation {
     /**
      * Create the black background with the game's logo.
      *
-     * @param d - surface to draw on.
+     * @param d surface to draw on.
      */
     private void drawBackground(DrawSurface d) {
         //Create black background.

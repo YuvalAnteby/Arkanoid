@@ -7,6 +7,7 @@ import util.Counter;
 
 /**
  * Class to keep track of the user's score.
+ *
  * @author Yuval Anteby
  */
 public class ScoreTrackingListener implements HitListener {
@@ -15,18 +16,10 @@ public class ScoreTrackingListener implements HitListener {
     /**
      * Constructor for the listener.
      *
-     * @param scoreCounter - a counter for the user's score.
+     * @param scoreCounter a counter for the user's score.
      */
     public ScoreTrackingListener(Counter scoreCounter) {
         this.currentScore = scoreCounter;
-    }
-
-    /**
-     * Getter for the current score counter.
-     * @return - counter instance of the score.
-     */
-    public Counter getScoreCounter() {
-        return this.currentScore;
     }
 
     @Override

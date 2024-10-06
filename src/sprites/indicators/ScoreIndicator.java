@@ -8,6 +8,7 @@ import util.Counter;
 
 /**
  * Class to represent the score shown in the GUI.
+ *
  * @author Yuval Anteby
  */
 public class ScoreIndicator implements Sprite {
@@ -15,7 +16,8 @@ public class ScoreIndicator implements Sprite {
 
     /**
      * Constructor for the class.
-     * @param scoreCounter - instance of the score counter.
+     *
+     * @param scoreCounter instance of the score counter.
      */
     public ScoreIndicator(Counter scoreCounter) {
         this.scoreCounter = scoreCounter;
@@ -23,7 +25,8 @@ public class ScoreIndicator implements Sprite {
 
     /**
      * Add the score indicator to the game as a sprite.
-     * @param g - instance of a game.
+     *
+     * @param g instance of a game.
      */
     public void addToGame(GameLevel g) {
         g.addSprite(this);

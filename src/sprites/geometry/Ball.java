@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Class to represent a ball in the GUI.
+ *
  * @author Yuval Anteby
  */
 public class Ball implements Sprite, HitNotifier {
@@ -25,15 +26,16 @@ public class Ball implements Sprite, HitNotifier {
     private Color color;
     private Velocity velocity;
     private GameEnvironment environment;
-    private List<HitListener> hitListeners = new ArrayList<>();
+    private final List<HitListener> hitListeners = new ArrayList<>();
 
     /**
      * Constructor for the ball class using integers for center point.
-     * @param x - x value of the center.
-     * @param y - y value of the center.
-     * @param r - ball's radius.
-     * @param color - color of the ball to be filled by.
-     * @param velocity - the velocity of the ball for animations.
+     *
+     * @param x        x value of the center.
+     * @param y        y value of the center.
+     * @param r        ball's radius.
+     * @param color    color of the ball to be filled by.
+     * @param velocity the velocity of the ball for animations.
      */
     public Ball(int x, int y, int r, Color color, Velocity velocity) {
         this.center = new Point(x, y);
@@ -44,7 +46,8 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Get the x value of the center of this ball.
-     * @return - x integer value of the center point.
+     *
+     * @return x integer value of the center point.
      */
     public int getX() {
         return (int) this.center.getX();
@@ -52,7 +55,8 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Get the y value of the center of this ball.
-     * @return - y integer value of the center point.
+     *
+     * @return y integer value of the center point.
      */
     public int getY() {
         return (int) this.center.getY();
@@ -60,7 +64,8 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Get the radius size of this ball.
-     * @return - integer value of this ball's radius.
+     *
+     * @return integer value of this ball's radius.
      */
     public int getSize() {
         return this.r;
@@ -68,7 +73,8 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Get the color of the ball.
-     * @return - color of the ball.
+     *
+     * @return color of the ball.
      */
     public Color getColor() {
         return this.color;
@@ -76,7 +82,8 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Setter for the ball's color.
-     * @param color - new color for the ball.
+     *
+     * @param color new color for the ball.
      */
     public void setColor(Color color) {
         this.color = color;
@@ -84,23 +91,17 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Get the ball's velocity variable.
-     * @return - the ball's velocity.
+     *
+     * @return the ball's velocity.
      */
     public Velocity getVelocity() {
         return this.velocity;
     }
 
     /**
-     * Get the game environment used by the ball.
-     * @return - game environment of the ball.
-     */
-    public GameEnvironment getGameEnvironment() {
-        return environment;
-    }
-
-    /**
      * Change the game environment variable of the ball.
-     * @param gameEnvironment - new game environment for the ball.
+     *
+     * @param gameEnvironment new game environment for the ball.
      */
     public void setGameEnvironment(GameEnvironment gameEnvironment) {
         this.environment = gameEnvironment;
@@ -135,10 +136,11 @@ public class Ball implements Sprite, HitNotifier {
     }
 
     /**
-     * Move the ball to sprites.collision point and adjust to prevent sticking to blocks.
-     * @param collisionPoint - point of sprites.collision.
-     * @param velocity - current velocity of the ball.
-     * @return - the new center point of the ball.
+     * Move the ball to collision point and adjust to prevent sticking to blocks.
+     *
+     * @param collisionPoint point of sprites.collision.
+     * @param velocity       current velocity of the ball.
+     * @return the new center point of the ball.
      */
     public Point moveToCollision(Point collisionPoint, Velocity velocity) {
         double adjustedX = collisionPoint.getX();
@@ -157,7 +159,7 @@ public class Ball implements Sprite, HitNotifier {
     }
 
     /**
-     * Check sprites.collision on GUI boundaries and adjust accordingly the center and velocity.
+     * Check collision on GUI boundaries and adjust accordingly the center and velocity.
      * The ball must stay entirely in the GUI, including the boundaries.
      */
     private void checkBoundaryCollision() {
@@ -183,7 +185,8 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Add the ball to the game as a sprite.
-     * @param g - instance of a game.
+     *
+     * @param g instance of a game.
      */
     public void addToGame(GameLevel g) {
         g.addSprite(this);
@@ -192,8 +195,8 @@ public class Ball implements Sprite, HitNotifier {
     /**
      * Function to update all hit listeners upon a ball's GUI exit.
      *
-     * @param beingHit - the death block that the ball hit.
-     * @param exitBall - the ball that exist the GUI.
+     * @param beingHit the death block that the ball hit.
+     * @param exitBall the ball that exist the GUI.
      */
     private void notifyExit(Block beingHit, Ball exitBall) {
         // Make a copy of the hitListeners before iterating over them.
@@ -206,11 +209,13 @@ public class Ball implements Sprite, HitNotifier {
 
     /**
      * Function to remove this ball from the game.
-     * @param gameLevel - game reference to remove the ball from.
+     *
+     * @param gameLevel game reference to remove the ball from.
      */
     public void removeFromGame(GameLevel gameLevel) {
         if (gameLevel != null) {
             gameLevel.removeSprite(this);
+            //Changing to iterator for (enhanced for) requires further code changes for it.
             for (int i = 0; i < this.hitListeners.size(); i++) {
                 removeHitListener(this.hitListeners.get(i));
             }

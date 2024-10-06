@@ -4,17 +4,28 @@ import animation.Animation;
 import biuoop.DrawSurface;
 import util.Constants;
 
+/**
+ * Class to represent the end game screen. Will show the player if they won or lost and relevant info.
+ *
+ * @author Yuval Anteby
+ */
 public class EndScreen implements Animation {
 
-    private static final int MESSAGE_X = Constants.BOUNDS_WIDTH;
-    private static final int MESSAGE_Y = Constants.GUI_HEIGHT / 2;
-
+    /**
+     * Position of the message on the GUI.
+     */
+    private static final int MESSAGE_X = Constants.BOUNDS_WIDTH, MESSAGE_Y = Constants.GUI_HEIGHT / 2;
 
     private final int score;
     private final boolean isVictory;
 
+    /**
+     * Constructor.
+     *
+     * @param score     final score of the user.
+     * @param isVictory true if the user won the game, otherwise false.
+     */
     public EndScreen(int score, boolean isVictory) {
-
         this.score = score;
         this.isVictory = isVictory;
     }

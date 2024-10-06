@@ -8,11 +8,12 @@ import sprites.Sprite;
 import sprites.geometry.Rectangle;
 import util.Constants;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 /**
  * Level of a single block - Easy.
+ *
  * @author Yuval Anteby
  */
 public class DirectHit implements LevelInformation {
@@ -36,8 +37,7 @@ public class DirectHit implements LevelInformation {
     /**
      * Level Design constants.
      */
-    private static final Color BACKGROUND_COLOR = Color.BLACK;
-    private static final Color TARGET_COLOR = Color.BLUE;
+    private static final Color BACKGROUND_COLOR = Color.BLACK, TARGET_COLOR = Color.BLUE;
 
     @Override
     public int numberOfBalls() {
@@ -91,6 +91,7 @@ public class DirectHit implements LevelInformation {
 
     /**
      * Generate a black background by default for this level.
+     *
      * @param d - surface we draw on.
      */
     private void createBackground(DrawSurface d) {
@@ -101,6 +102,7 @@ public class DirectHit implements LevelInformation {
     /**
      * Create blue sprite in the shape of a target as part of the background.
      * NOTE: the target sprite cannot be interacted with.
+     *
      * @param d - surface we draw on.
      */
     private void createTargetSprite(DrawSurface d) {

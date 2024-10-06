@@ -3,22 +3,25 @@ package game;
 import animation.Animation;
 import animation.AnimationRunner;
 import animation.CountdownAnimation;
+import animation.screens.KeyPressStoppableAnimation;
+import animation.screens.PauseScreen;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
-import sprites.*;
+import game.levels.LevelInformation;
+import sprites.BallRemover;
+import sprites.BlockRemover;
+import sprites.Sprite;
+import sprites.SpriteCollection;
+import sprites.Velocity;
+import sprites.collision.Collidable;
 import sprites.geometry.Ball;
 import sprites.geometry.Point;
 import sprites.geometry.Rectangle;
-import sprites.collision.Collidable;
-import sprites.Velocity;
 import sprites.indicators.LevelNameIndicator;
 import sprites.indicators.LivesIndicator;
-import game.levels.LevelInformation;
 import sprites.indicators.ScoreIndicator;
 import sprites.indicators.ScoreTrackingListener;
-import animation.screens.KeyPressStoppableAnimation;
-import animation.screens.PauseScreen;
 import util.Constants;
 import util.Counter;
 
@@ -69,18 +72,17 @@ public class GameLevel implements Animation {
     /**
      * Constructor for the game, will create a new sprite collection and environment and set the GUI size.
      *
-     * @param gui          - GUI in use of the game.
-     * @param keyboard     - keyboard sensor.
-     * @param lvlInfo      - information needed about the level.
-     * @param scoreCounter - counter of the score.
+     * @param gui          GUI in use of the game.
+     * @param lvlInfo      information needed about the level.
+     * @param scoreCounter counter of the score.
+     * @param livesCounter counter of the user's lives.
      */
-    public GameLevel(GUI gui, KeyboardSensor keyboard, LevelInformation lvlInfo, Counter scoreCounter,
-                     Counter livesCounter) {
+    public GameLevel(GUI gui, LevelInformation lvlInfo, Counter scoreCounter, Counter livesCounter) {
         this.sprites = new SpriteCollection();
         this.environment = new GameEnvironment();
         this.levelInformation = lvlInfo;
         this.gui = gui;
-        this.keyboard = keyboard;
+        this.keyboard = gui.getKeyboardSensor();
         this.scoreCount = scoreCounter;
         this.livesRemaining = livesCounter;
     }
@@ -88,7 +90,7 @@ public class GameLevel implements Animation {
     /**
      * Add a new collidable object to the game's environment.
      *
-     * @param c - collidable to be added.
+     * @param c collidable to be added.
      */
     public void addCollidable(Collidable c) {
         this.environment.addCollidable(c);
@@ -97,7 +99,7 @@ public class GameLevel implements Animation {
     /**
      * Add a new sprite object to the game's environment.
      *
-     * @param s - sprite to be added.
+     * @param s sprite to be added.
      */
     public void addSprite(Sprite s) {
         this.sprites.addSprite(s);
@@ -106,7 +108,7 @@ public class GameLevel implements Animation {
     /**
      * Remove a collidable object from the game environment.
      *
-     * @param c - collidable to be removed.
+     * @param c collidable to be removed.
      */
     public void removeCollidable(Collidable c) {
         this.environment.removeCollidable(c);
@@ -115,7 +117,7 @@ public class GameLevel implements Animation {
     /**
      * Remove a sprite object from the game environment.
      *
-     * @param s - sprite object to be removed.
+     * @param s sprite object to be removed.
      */
     public void removeSprite(Sprite s) {
         this.sprites.removeSprite(s);
@@ -140,7 +142,7 @@ public class GameLevel implements Animation {
     }
 
     /**
-     * Initialize variables related to the sprites.indicators at the top of the screen.
+     * Initialize variables related to the indicators at the top of the screen.
      */
     private void initIndicatorsTracking() {
         ScoreIndicator scoreIndicator = new ScoreIndicator(scoreCount);
@@ -291,7 +293,7 @@ public class GameLevel implements Animation {
     }
 
     /**
-     * @return - 'win' if the user won the level, 'lose' if the user lost. Otherwise - 'playing'
+     * @return 'win' if the user won the level, 'lose' if the user lost. Otherwise - 'playing'
      */
     public String getLevelStatus() {
         return levelStatus;

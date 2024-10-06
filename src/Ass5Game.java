@@ -1,9 +1,8 @@
-
 import animation.AnimationRunner;
-import animation.highscore.HighScore;
 import animation.highscore.HighScoreAnimation;
-import animation.highscore.HighScoreManager;
-import animation.menu.*;
+import animation.menu.Menu;
+import animation.menu.MenuAnimation;
+import animation.menu.Task;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import game.GameFlow;
@@ -14,16 +13,21 @@ import util.Constants;
 import util.Counter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //TODO add more levels
 
 /**
- * Class containing the main function to initialize and start the animation.menu and game.
+ * Class containing the main function to initialize and start the menu and game.
  *
  * @author Yuval Anteby
  */
 public class Ass5Game {
+    /**
+     * Appears on the top of the GUI window.
+     */
+    private static final String GUI_NAME = "Arkanoid";
+
+    private static boolean shouldRun = true;
 
     /**
      * Main function.
@@ -32,12 +36,12 @@ public class Ass5Game {
      */
     public static void main(String[] args) {
         //Create the gui and sensors.
-        GUI gui = new GUI(Constants.GUI_NAME, Constants.GUI_WIDTH, Constants.GUI_HEIGHT);
+        GUI gui = new GUI(GUI_NAME, Constants.GUI_WIDTH, Constants.GUI_HEIGHT);
         KeyboardSensor keyboard = gui.getKeyboardSensor();
         AnimationRunner animationRunner = new AnimationRunner(gui);
-        while (true) {
+        while (shouldRun) {
             //Set up the animation.menu.
-            Menu<Task<Void>> menu = new MenuAnimation<>(Constants.GUI_NAME, keyboard, gui);
+            Menu<Task<Void>> menu = new MenuAnimation<>(keyboard, gui);
             addMenuOptions(menu, animationRunner, gui, keyboard);
             //Run the animation.menu.
             animationRunner.run(menu);
@@ -48,9 +52,9 @@ public class Ass5Game {
     }
 
     /**
-     * Create a list organized by the order of game.levels for a new full game.
+     * Create a list organized by the order of levels for a new full game.
      *
-     * @return - list of game.levels.
+     * @return list of levels.
      */
     private static ArrayList<LevelInformation> getListOfLevels() {
         ArrayList<LevelInformation> listOfLevels = new ArrayList<>();
@@ -69,9 +73,9 @@ public class Ass5Game {
      */
     private static void addMenuOptions(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui, KeyboardSensor ks) {
         //New complete game using our list of game.levels.
-        addNewGameOption(menu, runner, gui, ks);
+        addNewGameOption(menu, runner, gui);
         //View the high score table.
-        addHighScoreOption(menu, runner, gui);
+        addHighScoreOption(menu, gui);
         //Quit the game.
         addQuitOption(menu);
     }
@@ -79,17 +83,16 @@ public class Ass5Game {
     /**
      * Add the option of playing a new game to the animation.menu.
      *
-     * @param menu   - animation.menu variable.
-     * @param runner - animation runner of the animation.menu.
-     * @param gui    - GUI in use.
-     * @param ks     - keyboard sensor.
+     * @param menu   animation.menu variable.
+     * @param runner animation runner of the animation.menu.
+     * @param gui    GUI in use.
      */
-    private static void addNewGameOption(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui, KeyboardSensor ks) {
+    private static void addNewGameOption(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui) {
         String keyPress = "n", text = "New Game";
         Task newGame = () -> {
             Counter scoreCounter = new Counter();
             Counter livesCounter = new Counter();
-            GameFlow gameFlow = new GameFlow(gui, runner, ks, scoreCounter, livesCounter);
+            GameFlow gameFlow = new GameFlow(gui, runner, scoreCounter, livesCounter);
             gameFlow.runLevels(getListOfLevels());
             return null;
         };
@@ -99,11 +102,10 @@ public class Ass5Game {
     /**
      * Add the option of viewing the high score table to the animation.menu.
      *
-     * @param menu   - animation.menu variable.
-     * @param runner - animation runner of the animation.menu.
-     * @param gui    - GUI in use.
+     * @param menu animation.menu variable.
+     * @param gui  GUI in use.
      */
-    private static void addHighScoreOption(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui) {
+    private static void addHighScoreOption(Menu<Task<Void>> menu, GUI gui) {
         String keyPress = "h", text = "High Scores Table";
         Task highScore = () -> {
             HighScoreAnimation highScoreAnimation = new HighScoreAnimation(gui);
@@ -116,12 +118,13 @@ public class Ass5Game {
     /**
      * Add the option to quit the game to the animation.menu.
      *
-     * @param menu - animation.menu variable.
+     * @param menu animation.menu variable.
      */
     private static void addQuitOption(Menu<Task<Void>> menu) {
         String keyPress = "q", text = "Quit game";
         Task quit = () -> {
             System.exit(0);
+            shouldRun = false;
             return null;
         };
         menu.addMenuSelection(keyPress, text, quit);

@@ -5,11 +5,17 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to represent the animation of the menu.
+ *
+ * @param <T> generic of the menu's options.
+ * @author Yuval Anteby
+ */
 public class MenuAnimation<T> implements Menu<T> {
 
     private boolean shouldStop;
@@ -23,11 +29,10 @@ public class MenuAnimation<T> implements Menu<T> {
     /**
      * Instantiates a new Menu animation.
      *
-     * @param title         - title of option in the animation.menu.
-     * @param keyboard      - keyboard sensor.
-     * @param gui           - GUI in use.
+     * @param keyboard - keyboard sensor.
+     * @param gui      - GUI in use.
      */
-    public MenuAnimation(String title, KeyboardSensor keyboard, GUI gui) {
+    public MenuAnimation(KeyboardSensor keyboard, GUI gui) {
         this.list = new ArrayList<>();
         this.keyboard = keyboard;
         this.shouldStop = false;

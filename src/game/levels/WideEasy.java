@@ -8,7 +8,7 @@ import sprites.Sprite;
 import util.Constants;
 import sprites.geometry.Rectangle;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,7 +101,8 @@ public class WideEasy implements LevelInformation {
 
     /**
      * Generate a blue background by default for this level.
-     * @param d - surface we draw on.
+     *
+     * @param d surface we draw on.
      */
     private void createBackground(DrawSurface d) {
         d.setColor(new Color(0, 105, 148));
@@ -111,7 +112,8 @@ public class WideEasy implements LevelInformation {
     /**
      * Create blue sprite in the shape of a target as part of the background.
      * NOTE: the target sprite cannot be interacted with.
-     * @param d - surface we draw on.
+     *
+     * @param d surface we draw on.
      */
     private void createSunSprite(DrawSurface d) {
         int xSun = Constants.GUI_WIDTH / 4;
@@ -137,7 +139,8 @@ public class WideEasy implements LevelInformation {
 
     /**
      * Create sprite at the bottom of the screen to look like sand.
-     * @param d - surface we draw on.
+     *
+     * @param d surface we draw on.
      */
     private void createBeachSprite(DrawSurface d) {
         Color sandColor = new Color(203, 189, 147);

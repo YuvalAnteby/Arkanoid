@@ -13,11 +13,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class to manage high scores. Will manage saving and loading to the json save file.
+ *
+ * @author Yuval Anteby
+ */
 public class HighScoreManager {
     /**
      * Default file path.
      */
-    private static final String FILE_PATH = "./resources/highscores.json";
+    private static final String FILE_PATH = "./resources/highScores.json";
     /**
      * Max amount of high scores to appear on the screen.
      */
@@ -68,7 +73,7 @@ public class HighScoreManager {
     /**
      * Getter for the list of high-scores.
      *
-     * @return - list of high-scores.
+     * @return list of high-scores.
      */
     public List<HighScore> getHighScores() {
         return this.highScores;
@@ -78,8 +83,8 @@ public class HighScoreManager {
      * Add a new score to the file.
      * Will keep at most {@value MAX_HIGH_SCORES}, only the top values are kept.
      *
-     * @param name       - player's name.
-     * @param score      - player's score.
+     * @param name  player's name.
+     * @param score player's score.
      */
     public void addNewScore(String name, int score) {
         //Set the default date as today.
@@ -90,7 +95,8 @@ public class HighScoreManager {
     /**
      * Add a new score to the file.
      * Will keep at most {@value MAX_HIGH_SCORES}, only the top values are kept.
-     * @param newScore - new High score to add.
+     *
+     * @param newScore new High score to add.
      */
     public void addNewScore(HighScore newScore) {
         highScores.add(newScore);

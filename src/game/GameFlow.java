@@ -21,10 +21,10 @@ import java.util.List;
  */
 public class GameFlow {
 
-    private final static String ASK_NAME_TITLE = "New Game";
-    private final static String ASK_NAME_TEXT = "Enter your name";
-    private final static String INVALID_NAME_TEXT = "Invalid name. Enter your name";
-    private final static String DEFAULT_NAME = "Player";
+    private static final String ASK_NAME_TITLE = "New Game";
+    private static final String ASK_NAME_TEXT = "Enter your name";
+    private static final String INVALID_NAME_TEXT = "Invalid name. Enter your name";
+    private static final String DEFAULT_NAME = "Player";
 
     private final GUI gui;
     private final AnimationRunner animationRunner;
@@ -36,17 +36,15 @@ public class GameFlow {
     /**
      * Constructor to take basic parameters in order for the game to run.
      *
-     * @param gui             - GUI in use.
-     * @param animationRunner - animation runner for the animation.screens.
-     * @param keyboard        - keyboard sensor from the GUI.
-     * @param scoreCounter    - counter for the score of the user.
-     * @param livesCounter    - counter for the lives of the user.
+     * @param gui             GUI in use.
+     * @param animationRunner animation runner for the animation.screens.
+     * @param scoreCounter    counter for the score of the user.
+     * @param livesCounter    counter for the lives of the user.
      */
-    public GameFlow(GUI gui, AnimationRunner animationRunner, KeyboardSensor keyboard, Counter scoreCounter,
-                    Counter livesCounter) {
+    public GameFlow(GUI gui, AnimationRunner animationRunner, Counter scoreCounter, Counter livesCounter) {
         this.gui = gui;
         this.animationRunner = animationRunner;
-        this.keyboardSensor = keyboard;
+        this.keyboardSensor = gui.getKeyboardSensor();
         this.scoreCounter = scoreCounter;
         this.livesCounter = livesCounter;
     }
@@ -67,7 +65,7 @@ public class GameFlow {
     /**
      * Run all levels in the order we received.
      *
-     * @param levels - list of levels the user will play.
+     * @param levels list of levels the user will play.
      */
     public void runLevels(List<LevelInformation> levels) {
         //Initialize the high score variable.
@@ -77,7 +75,7 @@ public class GameFlow {
         livesCounter.increase(Constants.STARTING_LIVES);
         //Run the levels.
         for (LevelInformation levelInfo : levels) {
-            GameLevel level = new GameLevel(gui, keyboardSensor, levelInfo, scoreCounter, livesCounter);
+            GameLevel level = new GameLevel(gui, levelInfo, scoreCounter, livesCounter);
             level.initialize();
             level.run();
             //If the user lost (no lives remain and no balls on screen) then show the "lost" end screen.
@@ -96,7 +94,6 @@ public class GameFlow {
                     new KeyPressStoppableAnimation(keyboardSensor, "space",
                             new EndScreen(scoreCounter.getValue(), true)));
         }
-        //gui.close();
     }
 
     /**

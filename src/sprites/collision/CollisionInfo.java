@@ -4,6 +4,7 @@ import sprites.geometry.Point;
 
 /**
  * Class to contain a list of objects which use collidable interface.
+ *
  * @author Yuval Anteby
  */
 public class CollisionInfo {
@@ -13,8 +14,9 @@ public class CollisionInfo {
 
     /**
      * Constructor for the class.
-     * @param collisionPoint - the point of sprites.collision.
-     * @param collidable     - amn object we can collide with
+     *
+     * @param collisionPoint the point of sprites.collision.
+     * @param collidable     an object we can collide with
      */
     public CollisionInfo(Point collisionPoint, Collidable collidable) {
         this.collisionPoint = collisionPoint;
@@ -22,16 +24,18 @@ public class CollisionInfo {
     }
 
     /**
-     * Get the point at which the sprites.collision occurred.
-     * @return - point of sprites.collision.
+     * Get the point at which the collision occurred.
+     *
+     * @return point of sprites.collision.
      */
     public Point collisionPoint() {
         return collisionPoint;
     }
 
     /**
-     * Get the object which took part of the sprites.collision.
-     * @return - object that we collided with.
+     * Get the object which took part of the collision.
+     *
+     * @return object that we collided with.
      */
     public Collidable collisionObject() {
         return collidable;
