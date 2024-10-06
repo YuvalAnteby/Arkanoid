@@ -5,9 +5,9 @@ import animation.AnimationRunner;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
+import util.Constants;
 
-import javax.swing.ImageIcon;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -30,11 +30,11 @@ public class HighScoreAnimation implements Animation {
      */
     private static final String RETURN_KEY = "space";
 
-
     private final GUI gui;
     private final KeyboardSensor keyboardSensor;
     private final List<HighScore> highScores;
     private boolean shouldStop = false;
+    private boolean isAlreadyPressed = false;
 
     /**
      * Constructor for the class.
@@ -98,7 +98,15 @@ public class HighScoreAnimation implements Animation {
      * @return true if the user pressed the return key, otherwise false.
      */
     private boolean checkForReturnToMenu() {
-        return keyboardSensor.isPressed(RETURN_KEY);
+        if (keyboardSensor.isPressed(RETURN_KEY) && !isAlreadyPressed) {
+            this.isAlreadyPressed = true;
+            return true;
+        }
+        // Reset when key is released
+        if (!keyboardSensor.isPressed(RETURN_KEY)) {
+            this.isAlreadyPressed = false;
+        }
+        return false;
     }
 
     /**
@@ -131,9 +139,8 @@ public class HighScoreAnimation implements Animation {
         //Create black background.
         d.setColor(Color.BLACK);
         d.fillRectangle(0, 0, d.getWidth(), d.getHeight());
-        //Add Arkanoid logo.
-        ImageIcon icon = new ImageIcon("./resources/arkanoid-logo.jpg");
-        d.drawImage(0, 0, icon.getImage());
+        //Add the game logo image.
+        d.drawImage(0, 0, Constants.GAME_IMAGE);
     }
 
 }

@@ -4,9 +4,9 @@ import animation.AnimationRunner;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
+import util.Constants;
 
-import javax.swing.ImageIcon;
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,8 +95,7 @@ public class MenuAnimation<T> implements Menu<T> {
         d.setColor(Color.BLACK);
         d.fillRectangle(0, 0, d.getWidth(), d.getHeight());
         //Add Arkanoid logo.
-        ImageIcon icon = new ImageIcon("./resources/arkanoid-logo.jpg");
-        d.drawImage(0, 0, icon.getImage());
+        d.drawImage(0, 0, Constants.GAME_IMAGE);
     }
 
     @Override

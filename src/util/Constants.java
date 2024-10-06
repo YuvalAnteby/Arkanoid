@@ -1,6 +1,7 @@
 package util;
 
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Immutable and singleton class for default constant values to use across the project.
@@ -13,6 +14,11 @@ public final class Constants {
      * GUI size constants.
      **/
     public static final int GUI_WIDTH = 800, GUI_HEIGHT = 600;
+
+    /**
+     * Game logo as an image.
+     */
+    public static final Image GAME_IMAGE = new ImageIcon("./resources/arkanoid-logo.jpg").getImage();
 
     /**
      * FPS of the game.
