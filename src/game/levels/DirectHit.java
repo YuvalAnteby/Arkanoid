@@ -6,7 +6,7 @@ import game.Block;
 import sprites.geometry.Point;
 import sprites.Sprite;
 import sprites.geometry.Rectangle;
-import util.Constants;
+import util.GameConstants;
 
 import java.awt.Color;
 import java.util.List;
@@ -18,45 +18,40 @@ import java.util.List;
  */
 public class DirectHit implements LevelInformation {
     /**
-     * Blocks constants.
+     * Block's size.
      */
-    private static final int BLOCK_WIDTH = 30;
-    private static final int BLOCK_HEIGHT = 30;
+    private static final int BLOCK_WIDTH = 30, BLOCK_HEIGHT = 30;
+    /**
+     * Block's color.
+     */
     private static final Color BLOCK_COLOR = Color.RED;
-    private static final int X_BLOCK = (Constants.GUI_WIDTH / 2) - (BLOCK_WIDTH / 2);
-    private static final int Y_BLOCK = 150;
     /**
-     * Paddle constants.
+     * Block's location.
      */
-    private static final int PADDLE_WIDTH = 80;
-    private static final int PADDLE_SPEED = 5;
+    private static final int X_BLOCK = (GameConstants.GUI_WIDTH / 2) - (BLOCK_WIDTH / 2), Y_BLOCK = 150;
     /**
-     * Balls constants.
-     */
-    private static final int NUM_OF_BALLS = 1;
-    /**
-     * Level Design constants.
+     * Level Design colors.
      */
     private static final Color BACKGROUND_COLOR = Color.BLACK, TARGET_COLOR = Color.BLUE;
 
     @Override
     public int numberOfBalls() {
-        return NUM_OF_BALLS;
+        return 1;
     }
 
     @Override
     public List<Velocity> initialBallVelocities() {
-        return List.of(new Velocity(0, 3));
+        return List.of(new Velocity(0, 5));
     }
 
     @Override
     public int paddleSpeed() {
-        return PADDLE_SPEED;
+        return 5;
     }
 
     @Override
     public int paddleWidth() {
-        return PADDLE_WIDTH;
+        return 80;
     }
 
     @Override
@@ -92,31 +87,31 @@ public class DirectHit implements LevelInformation {
     /**
      * Generate a black background by default for this level.
      *
-     * @param d - surface we draw on.
+     * @param d surface we draw on.
      */
     private void createBackground(DrawSurface d) {
         d.setColor(BACKGROUND_COLOR);
-        d.fillRectangle(0, 0, Constants.GUI_WIDTH, Constants.GUI_HEIGHT);
+        d.fillRectangle(0, 0, GameConstants.GUI_WIDTH, GameConstants.GUI_HEIGHT);
     }
 
     /**
      * Create blue sprite in the shape of a target as part of the background.
      * NOTE: the target sprite cannot be interacted with.
      *
-     * @param d - surface we draw on.
+     * @param d surface we draw on.
      */
     private void createTargetSprite(DrawSurface d) {
         d.setColor(TARGET_COLOR);
         int r = 40;
         for (int i = 0; i < 3; i++) {
-            d.drawCircle(Constants.GUI_WIDTH / 2, Y_BLOCK + (BLOCK_HEIGHT / 2), r);
+            d.drawCircle(GameConstants.GUI_WIDTH / 2, Y_BLOCK + (BLOCK_HEIGHT / 2), r);
             r += 20;
         }
         int targetPadding = 10;
-        int xVerticalLines = Constants.GUI_WIDTH / 2;
+        int xVerticalLines = GameConstants.GUI_WIDTH / 2;
         int yHorizontalLines = Y_BLOCK + (BLOCK_HEIGHT / 2);
         //right line
-        int xRightLineStart = (Constants.GUI_WIDTH / 2) + (BLOCK_WIDTH / 2) + targetPadding;
+        int xRightLineStart = (GameConstants.GUI_WIDTH / 2) + (BLOCK_WIDTH / 2) + targetPadding;
         int xRightLineEnd = xRightLineStart + r;
         d.drawLine(xRightLineStart, yHorizontalLines, xRightLineEnd, yHorizontalLines);
         //top line

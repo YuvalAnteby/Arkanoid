@@ -9,10 +9,12 @@ import sprites.geometry.Rectangle;
 import sprites.Sprite;
 import sprites.collision.Collidable;
 import sprites.Velocity;
-import util.Constants;
 
 import java.awt.Color;
 import java.util.List;
+
+import static util.GameConstants.GUI_WIDTH;
+import static util.SpriteConstants.BOUND_WIDTH;
 
 /**
  * Class to represent the user controlled paddle. Balls will interact with it.
@@ -67,9 +69,8 @@ public class Paddle implements Sprite, Collidable {
      * Move the paddle to the left.
      */
     private void moveLeft() {
-        double minX = Constants.BOUNDS_WIDTH;
         //Make sure the paddle won't exit the GUI and boundaries.
-        if (getCollisionRectangle().getUpperLeft().getX() > minX) {
+        if (getCollisionRectangle().getUpperLeft().getX() > BOUND_WIDTH) {
             double newX = getCollisionRectangle().getUpperLeft().getX() - movementSensitivity;
             double newY = getCollisionRectangle().getUpperLeft().getY();
             this.shape.setUpperLeft(new Point(newX, newY));
@@ -80,13 +81,22 @@ public class Paddle implements Sprite, Collidable {
      * Move the paddle to the right.
      */
     private void moveRight() {
-        double maxX = Constants.GUI_WIDTH - Constants.BOUNDS_WIDTH;
+        double maxX = GUI_WIDTH - BOUND_WIDTH;
         //Make sure the paddle won't exist the GUI and boundaries.
         if (this.getCollisionRectangle().getUpperLeft().getX() + this.shape.getWidth() < maxX) {
             double newX = this.getCollisionRectangle().getUpperLeft().getX() + movementSensitivity;
             double newY = this.getCollisionRectangle().getUpperLeft().getY();
             this.shape.setUpperLeft(new Point(newX, newY));
         }
+    }
+
+    /**
+     * Change the paddle's location to be centered horizontally.
+     */
+    public void movePaddleToCenter() {
+        double newX = (GUI_WIDTH - this.shape.getWidth()) / 2;
+        double newY = shape.getUpperLeft().getY();
+        this.shape.setUpperLeft(new Point(newX, newY));
     }
 
     @Override
@@ -120,6 +130,7 @@ public class Paddle implements Sprite, Collidable {
         if (collisionPoint == null) {
             return currentVelocity;
         }
+        this.block.playRandomImpactSound();
         //divide the top line to 5 parts
         List<Line> divide = this.shape.getTopLine().divideTo5();
         // check if the point is on the top line
@@ -127,7 +138,8 @@ public class Paddle implements Sprite, Collidable {
             for (int j = 1; j < 6; j++) {
                 //Check which zone was hit.
                 if (divide.get(j - 1).isContaining(collisionPoint)) {
-                    //Change the velocity according to the zone's hit.
+                    //Change velocity according to hit. The rights zone will change the angle to the right. (same with
+                    //the left zones). The closer to the paddle's center the closer the angle will be to 90 (upwards).
                     return switch (j) {
                         case 1 -> Velocity.fromAngleAndSpeed(300, currentVelocity.getSpeed());
                         case 2 -> Velocity.fromAngleAndSpeed(330, currentVelocity.getSpeed());

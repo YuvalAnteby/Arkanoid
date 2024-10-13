@@ -15,7 +15,7 @@ public class Rectangle {
     private final double height;
 
     /**
-     * Constructor to create new rectangle.
+     * Constructor to create new rectangle using Point for the top left corner.
      *
      * @param upperLeft point variable of the top left point.
      * @param width     width of the rectangle.
@@ -25,6 +25,18 @@ public class Rectangle {
         this.upperLeft = upperLeft;
         this.width = width;
         this.height = height;
+    }
+
+    /**
+     * Constructor to create new rectangle using integers for the top left corner.
+     *
+     * @param x         x value of the top left corner
+     * @param y         y value of the top left corner
+     * @param width     width of the rectangle.
+     * @param height    height of rectangle.
+     */
+    public Rectangle(int x, int y, double width, double height) {
+        this(new Point(x, y), width, height);
     }
 
     /**

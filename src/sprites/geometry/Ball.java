@@ -4,7 +4,6 @@ import biuoop.DrawSurface;
 import sprites.collision.HitListener;
 import sprites.collision.HitNotifier;
 import game.Block;
-import util.Constants;
 import game.GameLevel;
 import game.GameEnvironment;
 import sprites.Sprite;
@@ -15,6 +14,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.GameConstants.GUI_WIDTH;
+import static util.SpriteConstants.BALL_RADIUS;
+import static util.SpriteConstants.BOUND_HEIGHT;
+import static util.SpriteConstants.BOUND_WIDTH;
+import static util.SpriteConstants.DEFAULT_COLOR;
+import static util.SpriteConstants.X_BALL;
+import static util.SpriteConstants.Y_BALL;
+
 /**
  * Class to represent a ball in the GUI.
  *
@@ -22,26 +29,36 @@ import java.util.List;
  */
 public class Ball implements Sprite, HitNotifier {
     private Point center;
-    private final int r;
+    private final int radius;
     private Color color;
     private Velocity velocity;
     private GameEnvironment environment;
     private final List<HitListener> hitListeners = new ArrayList<>();
 
     /**
-     * Constructor for the ball class using integers for center point.
+     * Constructor for the ball class using integers for the center point.
      *
      * @param x        x value of the center.
      * @param y        y value of the center.
-     * @param r        ball's radius.
+     * @param radius   ball's radius.
      * @param color    color of the ball to be filled by.
      * @param velocity the velocity of the ball for animations.
      */
-    public Ball(int x, int y, int r, Color color, Velocity velocity) {
+    public Ball(int x, int y, int radius, Color color, Velocity velocity) {
         this.center = new Point(x, y);
-        this.r = r;
+        this.radius = radius;
         this.color = color;
         this.velocity = velocity;
+    }
+
+    /**
+     * Constructor for the ball class using default values.
+     * default: X = half the screen's width, Y = above the paddle with spacing between them, radius = 8, color = white.
+     *
+     * @param velocity the velocity of the ball for animations.
+     */
+    public Ball(Velocity velocity) {
+        this(X_BALL, Y_BALL, BALL_RADIUS, DEFAULT_COLOR, velocity);
     }
 
     /**
@@ -67,8 +84,8 @@ public class Ball implements Sprite, HitNotifier {
      *
      * @return integer value of this ball's radius.
      */
-    public int getSize() {
-        return this.r;
+    public int getRadius() {
+        return this.radius;
     }
 
     /**
@@ -146,14 +163,14 @@ public class Ball implements Sprite, HitNotifier {
         double adjustedX = collisionPoint.getX();
         double adjustedY = collisionPoint.getY();
         if (velocity.getDx() < 0) {
-            adjustedX += this.r;
+            adjustedX += this.radius;
         } else if (velocity.getDx() > 0) {
-            adjustedX -= this.r;
+            adjustedX -= this.radius;
         }
         if (velocity.getDy() < 0) {
-            adjustedY += this.r;
+            adjustedY += this.radius;
         } else if (velocity.getDy() > 0) {
-            adjustedY -= this.r;
+            adjustedY -= this.radius;
         }
         return new Point(adjustedX, adjustedY);
     }
@@ -164,22 +181,22 @@ public class Ball implements Sprite, HitNotifier {
      */
     private void checkBoundaryCollision() {
         //Check top boundary.
-        int minY = Constants.BOUNDS_HEIGHT + this.r;
+        int minY = BOUND_HEIGHT + this.radius;
         if (this.center.getY() <= minY) {
             this.velocity.setDy(-this.velocity.getDy());
-            this.center.setY(this.r + Constants.BOUNDS_HEIGHT);
+            this.center.setY(this.radius + BOUND_HEIGHT);
         }
         //Check right boundary.
-        int maxX = Constants.GUI_WIDTH - Constants.BOUNDS_WIDTH - this.r;
+        int maxX = GUI_WIDTH - BOUND_WIDTH - this.radius;
         if (this.center.getX() >= maxX) {
             this.velocity.setDx(-this.velocity.getDx());
-            this.center.setX(Constants.GUI_WIDTH - this.r - Constants.BOUNDS_WIDTH);
+            this.center.setX(GUI_WIDTH - this.radius - BOUND_WIDTH);
         }
         //Check left boundary.
-        int minX = Constants.BOUNDS_WIDTH + this.r;
+        int minX = BOUND_WIDTH + this.radius;
         if (this.center.getX() <= minX) {
             this.velocity.setDx(-this.velocity.getDx());
-            this.center.setX(this.r + Constants.BOUNDS_WIDTH);
+            this.center.setX(this.radius + BOUND_WIDTH);
         }
     }
 
@@ -203,7 +220,7 @@ public class Ball implements Sprite, HitNotifier {
         List<HitListener> listeners = new ArrayList<>(this.hitListeners);
         // Notify all listeners about a hit event:
         for (HitListener hl : listeners) {
-            hl.hitEvent(beingHit, exitBall);
+            hl.onHit(beingHit, exitBall);
         }
     }
 
@@ -225,9 +242,9 @@ public class Ball implements Sprite, HitNotifier {
     @Override
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
-        surface.fillCircle(this.getX(), this.getY(), this.getSize());
+        surface.fillCircle(this.getX(), this.getY(), this.getRadius());
         surface.setColor(Color.BLACK);
-        surface.drawCircle(this.getX(), this.getY(), this.getSize());
+        surface.drawCircle(this.getX(), this.getY(), this.getRadius());
     }
 
     @Override
@@ -251,7 +268,7 @@ public class Ball implements Sprite, HitNotifier {
 
     @Override
     public String toString() {
-        return "center: " + center + ", r: " + r + ", color: " + color + ", velocity: " + velocity;
+        return "center: " + center + ", r: " + radius + ", color: " + color + ", velocity: " + velocity;
     }
 }
 

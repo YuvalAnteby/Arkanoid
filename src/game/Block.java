@@ -13,6 +13,9 @@ import sprites.Velocity;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static util.SoundConstants.HITS_SOUNDS;
 
 
 /**
@@ -115,7 +118,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
         List<HitListener> listeners = new ArrayList<>(this.hitListeners);
         // Notify all listeners about a hit event:
         for (HitListener hl : listeners) {
-            hl.hitEvent(this, hitter);
+            hl.onHit(this, hitter);
         }
     }
 
@@ -154,6 +157,7 @@ public class Block implements Collidable, Sprite, HitNotifier {
                 || this.rectangle.getRightLine().isContaining(collisionPoint)) {
             dx *= -1;
         }
+        playRandomImpactSound();
         //Remove the ball if the color of the ball is different from the block.
         if (!ballColorMatch(hitter)) {
             this.notifyHit(hitter);
@@ -161,6 +165,15 @@ public class Block implements Collidable, Sprite, HitNotifier {
         return new Velocity(dx, dy);
     }
 
+    /**
+     * Play a random impact sound.
+     * Will choose one from the array in SoundConstants class.
+     */
+    public void playRandomImpactSound() {
+        Random rnd = new Random();
+        int index = rnd.nextInt(HITS_SOUNDS.length);
+        HITS_SOUNDS[index].play();
+    }
     @Override
     public void drawOn(DrawSurface d) {
         int xTopLeft = (int) rectangle.getUpperLeft().getX(), yTopLeft = (int) rectangle.getUpperLeft().getY();

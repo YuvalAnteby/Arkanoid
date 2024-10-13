@@ -5,36 +5,32 @@ import biuoop.DrawSurface;
 import game.Block;
 import sprites.geometry.Point;
 import sprites.Sprite;
-import util.Constants;
+import util.GameConstants;
 import sprites.geometry.Rectangle;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.SpriteConstants.BOUND_WIDTH;
+
 /**
  * Level of a wide paddle with a single row of blocks - Easy.
+ * @author Yuval Anteby
  */
 public class WideEasy implements LevelInformation {
     /**
-     * Blocks constants.
+     * Blocks size.
      */
-    private static final int BLOCK_WIDTH = 52;
-    private static final int BLOCK_HEIGHT = 30;
+    private static final int BLOCK_WIDTH = 52, BLOCK_HEIGHT = 30;
+    /**
+     * Blocks Y value.
+     */
     private static final int BLOCK_Y = 250;
-    /**
-     * Paddle constants.
-     */
-    private static final int PADDLE_WIDTH = 400;
-    private static final int PADDLE_SPEED = 4;
-    /**
-     * Balls constants.
-     */
-    private static final int NUM_OF_BALLS = 5;
 
     @Override
     public int numberOfBalls() {
-        return NUM_OF_BALLS;
+        return 5;
     }
 
     @Override
@@ -49,12 +45,12 @@ public class WideEasy implements LevelInformation {
 
     @Override
     public int paddleSpeed() {
-        return PADDLE_SPEED;
+        return 4;
     }
 
     @Override
     public int paddleWidth() {
-        return PADDLE_WIDTH;
+        return 400;
     }
 
     @Override
@@ -87,7 +83,7 @@ public class WideEasy implements LevelInformation {
         };
         List<Block> blocks = new ArrayList<>();
         for (int i = 0; i < blockAmount; i++) {
-            int xBlock = i * BLOCK_WIDTH + Constants.BOUNDS_WIDTH;
+            int xBlock = i * BLOCK_WIDTH + BOUND_WIDTH;
             Rectangle rec = new Rectangle(new Point(xBlock, BLOCK_Y), BLOCK_WIDTH, BLOCK_HEIGHT);
             blocks.add(new Block(rec, blockColors[i / 2 % blockColors.length]));
         }
@@ -106,7 +102,7 @@ public class WideEasy implements LevelInformation {
      */
     private void createBackground(DrawSurface d) {
         d.setColor(new Color(0, 105, 148));
-        d.fillRectangle(0, 0, Constants.GUI_WIDTH, Constants.GUI_HEIGHT);
+        d.fillRectangle(0, 0, GameConstants.GUI_WIDTH, GameConstants.GUI_HEIGHT);
     }
 
     /**
@@ -116,8 +112,8 @@ public class WideEasy implements LevelInformation {
      * @param d surface we draw on.
      */
     private void createSunSprite(DrawSurface d) {
-        int xSun = Constants.GUI_WIDTH / 4;
-        int ySun = Constants.GUI_HEIGHT / 4;
+        int xSun = GameConstants.GUI_WIDTH / 4;
+        int ySun = GameConstants.GUI_HEIGHT / 4;
         Color raysColor = new Color(225, 217, 157);
         d.setColor(raysColor);
         for (int x = 10; x <= 780; x += 10) {
@@ -146,8 +142,8 @@ public class WideEasy implements LevelInformation {
         Color sandColor = new Color(203, 189, 147);
         int r = 80;
         int xValue = 0;
-        int yValue = Constants.GUI_HEIGHT;
-        int sandAmount = Constants.GUI_WIDTH / (r / 2);
+        int yValue = GameConstants.GUI_HEIGHT;
+        int sandAmount = GameConstants.GUI_WIDTH / (r / 2);
         for (int i = 0; i < sandAmount; i++) {
             d.setColor(sandColor);
             d.fillCircle(xValue, yValue, r);

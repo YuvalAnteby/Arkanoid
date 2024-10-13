@@ -36,7 +36,7 @@ public class BallRemover implements HitListener {
     }
 
     @Override
-    public void hitEvent(Block beingHit, Ball hitter) {
+    public void onHit(Block beingHit, Ball hitter) {
         if (beingHit.isDeathBlock()) {
             hitter.removeFromGame(this.gameLevel);
             this.remainingBalls.decrease(1);

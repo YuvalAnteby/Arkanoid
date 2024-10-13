@@ -1,18 +1,24 @@
 package game;
 
-import animation.AnimationRunner;
-import animation.highscore.HighScore;
-import animation.highscore.HighScoreManager;
+import game.animation.AnimationRunner;
+import menu.highscore.HighScore;
+import menu.highscore.HighScoreManager;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import game.levels.LevelInformation;
-import animation.screens.EndScreen;
-import animation.screens.KeyPressStoppableAnimation;
-import util.Constants;
+import game.animation.EndScreen;
+import game.animation.KeyPressStoppableAnimation;
+import util.GameConstants;
 import util.Counter;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import static util.SoundConstants.NAME_ENTRY;
+import static util.TextValuesEng.ASK_NAME_TEXT;
+import static util.TextValuesEng.ASK_NAME_TITLE;
+import static util.TextValuesEng.DEFAULT_NAME;
+import static util.TextValuesEng.INVALID_NAME_TEXT;
 
 /**
  * Class to manage to flow between levels in the game.
@@ -20,11 +26,6 @@ import java.util.List;
  * @author Yuval Anteby
  */
 public class GameFlow {
-
-    private static final String ASK_NAME_TITLE = "New Game";
-    private static final String ASK_NAME_TEXT = "Enter your name";
-    private static final String INVALID_NAME_TEXT = "Invalid name. Enter your name";
-    private static final String DEFAULT_NAME = "Player";
 
     private final GUI gui;
     private final AnimationRunner animationRunner;
@@ -53,6 +54,7 @@ public class GameFlow {
      * Get the user's name for saving the score and get current date.
      */
     private void initializeHighScore() {
+        NAME_ENTRY.playOnce();
         String name = this.gui.getDialogManager().showQuestionDialog(ASK_NAME_TITLE, ASK_NAME_TEXT, DEFAULT_NAME);
         //A name must have a text different from numbers only and must not be empty.
         while (name == null || name.isBlank() || name.chars().allMatch(Character::isDigit)) {
@@ -60,6 +62,7 @@ public class GameFlow {
         }
         LocalDate currentDate = LocalDate.now();
         highScore = new HighScore(name, currentDate);
+        NAME_ENTRY.stop();
     }
 
     /**
@@ -72,7 +75,7 @@ public class GameFlow {
         initializeHighScore();
         boolean didWin = true;
         //Set the starting amount of lives for the game.
-        livesCounter.increase(Constants.STARTING_LIVES);
+        livesCounter.increase(GameConstants.STARTING_LIVES);
         //Run the levels.
         for (LevelInformation levelInfo : levels) {
             GameLevel level = new GameLevel(gui, levelInfo, scoreCounter, livesCounter);

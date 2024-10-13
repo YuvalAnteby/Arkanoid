@@ -38,7 +38,7 @@ public class BlockRemover implements HitListener {
     // Blocks that are hit should be removed from the game.
     // Remember to remove this listener from the block that is being removed from the game.
     @Override
-    public void hitEvent(Block beingHit, Ball hitter) {
+    public void onHit(Block beingHit, Ball hitter) {
         hitter.setColor(beingHit.getColor());
         beingHit.removeFromGame(this.gameLevel);
         this.remainingBlocks.decrease(1);

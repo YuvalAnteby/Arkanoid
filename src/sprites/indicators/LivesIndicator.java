@@ -3,8 +3,12 @@ package sprites.indicators;
 import biuoop.DrawSurface;
 import game.GameLevel;
 import sprites.Sprite;
-import util.Constants;
 import util.Counter;
+
+import static util.SpriteConstants.INDICATOR_TXT_SIZE;
+import static util.SpriteConstants.LIVES_X;
+import static util.SpriteConstants.LIVES_Y;
+import static util.SpriteConstants.TEXT_COLOR;
 
 /**
  * Class to represent the lives a user have left.
@@ -35,9 +39,9 @@ public class LivesIndicator implements Sprite {
 
     @Override
     public void drawOn(DrawSurface d) {
-        d.setColor(Constants.TEXT_COLOR);
+        d.setColor(TEXT_COLOR);
         String livesText = "Lives: " + this.livesCounter.toString();
-        d.drawText(Constants.LIVES_X, Constants.LIVES_Y, livesText, Constants.TEXT_SIZE);
+        d.drawText(LIVES_X, LIVES_Y, livesText, INDICATOR_TXT_SIZE);
     }
 
     @Override

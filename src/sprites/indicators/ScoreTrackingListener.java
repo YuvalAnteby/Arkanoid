@@ -23,7 +23,7 @@ public class ScoreTrackingListener implements HitListener {
     }
 
     @Override
-    public void hitEvent(Block beingHit, Ball hitter) {
+    public void onHit(Block beingHit, Ball hitter) {
         if (!beingHit.isDeathBlock()) {
             this.currentScore.increase(5);
         }
