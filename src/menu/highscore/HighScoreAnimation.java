@@ -10,25 +10,18 @@ import util.GameConstants;
 import java.awt.Color;
 import java.util.List;
 
+import static util.SpriteConstants.HORIZONTAL_SPACING;
+import static util.SpriteConstants.SCORE_RETURN_FONT_SIZE;
+import static util.SpriteConstants.SCORE_TXT_SIZE;
+import static util.SpriteConstants.VERTICAL_SPACING;
+import static util.TextValuesEng.SCOREBOARD_HEADER;
+
 /**
  * Class for the high score screen animation.
  *
  * @author Yuval Anteby
  */
 public class HighScoreAnimation implements Animation {
-
-    /**
-     * Spacing between rows and column.
-     */
-    private static final int VERTICAL_SPACING = 30, HORIZONTAL_SPACING = 120;
-    /**
-     * Font sizes.
-     */
-    private static final int RETURN_FONT_SIZE = 30, FONT_SIZE = 18;
-    /**
-     * Key to return to the main menu.
-     */
-    private static final String RETURN_KEY = "space";
 
     private final GUI gui;
     private final KeyboardSensor keyboardSensor;
@@ -63,10 +56,8 @@ public class HighScoreAnimation implements Animation {
         //Set text color
         d.setColor(Color.WHITE);
         //Show the header of the high score table.
-        List<String> header = List.of("NAME", "SCORE", "DATE");
-        drawScoreRow(d, header, xValue, yValue);
+        drawScoreRow(d, SCOREBOARD_HEADER, xValue, yValue);
         yValue += VERTICAL_SPACING;
-
         //Show the scores.
         for (HighScore hs : this.highScores) {
             //Set each row to contain the attributes of a high score.
@@ -75,7 +66,6 @@ public class HighScoreAnimation implements Animation {
             drawScoreRow(d, row, xValue, yValue);
             yValue += VERTICAL_SPACING;
         }
-        //
         drawReturnOption(d, xValue, yValue);
         shouldStop = checkForReturnToMenu();
     }
@@ -89,21 +79,21 @@ public class HighScoreAnimation implements Animation {
      */
     private void drawReturnOption(DrawSurface d, int x, int y) {
         y += VERTICAL_SPACING / 2;
-        d.drawText(x, y, "Press " + RETURN_KEY + " to return", RETURN_FONT_SIZE);
+        d.drawText(x, y, "Press space to return", SCORE_RETURN_FONT_SIZE);
     }
 
     /**
-     * Check if the user presses the return key to stop the animation and return to the main menu.
+     * Check if the user presses the return key (space) to stop the animation and return to the main menu.
      *
      * @return true if the user pressed the return key, otherwise false.
      */
     private boolean checkForReturnToMenu() {
-        if (keyboardSensor.isPressed(RETURN_KEY) && !isAlreadyPressed) {
+        if (keyboardSensor.isPressed(KeyboardSensor.SPACE_KEY) && !isAlreadyPressed) {
             this.isAlreadyPressed = true;
             return true;
         }
         // Reset when key is released
-        if (!keyboardSensor.isPressed(RETURN_KEY)) {
+        if (!keyboardSensor.isPressed(KeyboardSensor.SPACE_KEY)) {
             this.isAlreadyPressed = false;
         }
         return false;
@@ -120,7 +110,7 @@ public class HighScoreAnimation implements Animation {
      */
     private void drawScoreRow(DrawSurface d, List<String> rowText, int x, int y) {
         for (String s : rowText) {
-            d.drawText(x, y, s, FONT_SIZE);
+            d.drawText(x, y, s, SCORE_TXT_SIZE);
             x += HORIZONTAL_SPACING;
         }
     }

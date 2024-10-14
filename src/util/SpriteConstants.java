@@ -27,6 +27,15 @@ public final class SpriteConstants {
      * Vertical spacing between menu objects.
      */
     public static final int MENU_VERTICAL_SPACING = 85;
+    //Scoreboard constants
+    /**
+     * Spacing between rows and column of the scoreboard.
+     */
+    public static final int VERTICAL_SPACING = 30, HORIZONTAL_SPACING = 120;
+    /**
+     * Font sizes.
+     */
+    public static final int SCORE_RETURN_FONT_SIZE = 30, SCORE_TXT_SIZE = 18;
     //Boundaries constants
     /**
      * Boundaries default size.

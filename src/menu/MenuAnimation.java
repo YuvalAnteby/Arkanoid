@@ -4,12 +4,12 @@ import game.animation.AnimationRunner;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
-import util.GameConstants;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.GameConstants.GAME_IMAGE;
 import static util.SpriteConstants.MENU_FONT_SIZE;
 import static util.SpriteConstants.MENU_VERTICAL_SPACING;
 
@@ -97,7 +97,7 @@ public class MenuAnimation<T> implements Menu<T> {
         d.setColor(Color.BLACK);
         d.fillRectangle(0, 0, d.getWidth(), d.getHeight());
         //Add Arkanoid logo.
-        d.drawImage(0, 0, GameConstants.GAME_IMAGE);
+        d.drawImage(0, 0, GAME_IMAGE);
     }
 
     @Override

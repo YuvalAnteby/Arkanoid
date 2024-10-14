@@ -110,4 +110,15 @@ public class HighScoreManager {
         }
         saveHighScores();
     }
+
+    /**
+     * Get the highest high score saved.
+     * @return highest high score (high score having the highest score).
+     */
+    public HighScore getHighestScore() {
+        if (this.highScores == null || this.highScores.get(0) == null) {
+            return null;
+        }
+        return this.highScores.get(0);
+    }
 }

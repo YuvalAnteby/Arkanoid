@@ -34,6 +34,6 @@ public final class GameConstants {
     /**
      * Amount of starting lives of the user.
      */
-    public static final int STARTING_LIVES = 1;
+    public static final int STARTING_LIVES = 0;
     //TODO change to 4
 }

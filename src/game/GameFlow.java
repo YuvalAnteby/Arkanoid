@@ -33,6 +33,7 @@ public class GameFlow {
     private final Counter scoreCounter;
     private final Counter livesCounter;
     private HighScore highScore;
+    private HighScoreManager scoreManager;
 
     /**
      * Constructor to take basic parameters in order for the game to run.
@@ -48,6 +49,7 @@ public class GameFlow {
         this.keyboardSensor = gui.getKeyboardSensor();
         this.scoreCounter = scoreCounter;
         this.livesCounter = livesCounter;
+        this.scoreManager = new HighScoreManager();
     }
 
     /**
@@ -84,19 +86,35 @@ public class GameFlow {
             //If the user lost (no lives remain and no balls on screen) then show the "lost" end screen.
             if (level.shouldStop() && level.getLevelStatus().equals("lose")) {
                 didWin = false;
-                this.animationRunner.run(
-                        new KeyPressStoppableAnimation(keyboardSensor, "space",
-                                new EndScreen(scoreCounter.getValue(), false)));
-                saveScore();
+                handleDefeat();
                 break;
             }
         }
         if (didWin) {
-            saveScore();
-            this.animationRunner.run(
-                    new KeyPressStoppableAnimation(keyboardSensor, "space",
-                            new EndScreen(scoreCounter.getValue(), true)));
+            handleVictory();
         }
+    }
+
+    /**
+     * Show the end screen of player's defeat.
+     * Will be shown if no balls remain and no additional lives.
+     */
+    private void handleDefeat() {
+        saveScore();
+        this.animationRunner.run(
+                new KeyPressStoppableAnimation(keyboardSensor, "space",
+                        new EndScreen(highScore, false, scoreManager.getHighestScore())));
+    }
+
+    /**
+     * Show the end screen of player's victory.
+     * Will be shown if player finished all levels.
+     */
+    private void handleVictory() {
+        saveScore();
+        this.animationRunner.run(
+                new KeyPressStoppableAnimation(keyboardSensor, "space",
+                        new EndScreen(highScore, true, scoreManager.getHighestScore())));
     }
 
     /**
@@ -106,7 +124,6 @@ public class GameFlow {
         //Update the score variable in the high score.
         this.highScore.setScore(this.scoreCounter.getValue());
         //Update the scores file if needed.
-        HighScoreManager scoreManager = new HighScoreManager();
         scoreManager.addNewScore(highScore);
     }
 }

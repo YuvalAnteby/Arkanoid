@@ -1,5 +1,7 @@
 package util;
 
+import java.util.List;
+
 /**
  * Immutable and singleton class for default constant String (English) values to use across the project.
  *
@@ -35,6 +37,10 @@ public final class TextValuesEng {
      */
     public static final String NEW_GAME = "New Game", SCOREBOARD_TABLE = "High-Score table", QUIT_GAME = "Quit game";
     /**
+     *
+     */
+    public static final List<String > SCOREBOARD_HEADER = List.of("NAME", "SCORE", "DATE");
+    /**
      * Default player's name.
      */
     public static final String DEFAULT_NAME = "Player";
@@ -50,6 +56,18 @@ public final class TextValuesEng {
      * Score indicator english text.
      */
     public static final String SCORE_TEXT = "Score: ";
+    /**
+     * Text to appear in the end screen if the player won.
+     */
+    public static final String VICTORY_TEXT = "YOU WIN! your score: ";
+    /**
+     * Text to appear in the end screen if the player won.
+     */
+    public static final String DEFEAT_TEXT = "Game Over! your score: ";
+    /**
+     * Text to show when player got a new high score in 1st place.
+     */
+    public static final String NEW_HIGHEST_SCORE = "New High score! you're 1st place!";
     /**
      * Text to appear when the game is paused.
      */

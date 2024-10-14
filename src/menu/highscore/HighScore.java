@@ -71,4 +71,16 @@ public class HighScore {
         this.score = score;
     }
 
+    /**
+     * High scores are equal if they belong to the same user, have the same score from the same date.
+     * @param obj high score object.
+     * @return false if the given object isn't a high score or if the name/ score/ date are unequal. Otherwise, true.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof HighScore other)) {
+            return false;
+        }
+        return this.name.equals(other.getName()) && this.score == other.getScore() && this.date.equals(other.date);
+    }
 }
