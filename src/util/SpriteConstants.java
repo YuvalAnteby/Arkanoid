@@ -79,7 +79,7 @@ public final class SpriteConstants {
     /**
      * Indicators color.
      */
-    public static final Color TEXT_COLOR = Color.BLACK, INDICATOR_BACKGROUND_COLOR = Color.LIGHT_GRAY;
+    public static final Color DARK_TEXT_COLOR = Color.BLACK, INDICATOR_BACKGROUND_COLOR = Color.LIGHT_GRAY;
     /**
      * Level name indicator location.
      */

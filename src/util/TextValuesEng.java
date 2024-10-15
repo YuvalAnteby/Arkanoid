@@ -57,9 +57,17 @@ public final class TextValuesEng {
      */
     public static final String KEY_STOPPABLE_CONTINUE = " to continue", KEY_STOPPABLE_QUIT = " to quit";
     /**
+     * High score screen action text.
+     */
+    public static final String HIGH_SCORE_RETURN = " to return";
+    /**
      * Score indicator english text.
      */
     public static final String SCORE_TEXT = "Score: ";
+    /**
+     * Lives indicator english text.
+     */
+    public static final String LIVES_TEXT = "Lives: ";
     /**
      * Text to appear in the end screen if the player won.
      */

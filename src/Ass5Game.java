@@ -19,6 +19,10 @@ import java.util.ArrayList;
 
 import static util.GameConstants.isSoundEnabled;
 import static util.GameConstants.swapSoundEnabled;
+import static util.KeymapConstants.HIGH_SCORE_KEY;
+import static util.KeymapConstants.MUTE_KEY;
+import static util.KeymapConstants.NEW_GAME_KEY;
+import static util.KeymapConstants.QUIT_GAME_MENU_KEY;
 import static util.TextValuesEng.GUI_NAME;
 import static util.TextValuesEng.NEW_GAME;
 import static util.TextValuesEng.QUIT_GAME;
@@ -96,7 +100,6 @@ public class Ass5Game {
      * @param gui    GUI in use.
      */
     private static void addNewGameOption(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui) {
-        String keyPress = "n";
         Task newGame = () -> {
             Counter scoreCounter = new Counter();
             Counter livesCounter = new Counter();
@@ -106,7 +109,7 @@ public class Ass5Game {
             gameFlow.runLevels(getListOfLevels());
             return null;
         };
-        menu.addMenuSelection(keyPress, NEW_GAME, newGame);
+        menu.addMenuSelection(NEW_GAME_KEY, NEW_GAME, newGame);
     }
 
     /**
@@ -116,13 +119,12 @@ public class Ass5Game {
      * @param gui  GUI in use.
      */
     private static void addHighScoreOption(Menu<Task<Void>> menu, GUI gui) {
-        String keyPress = "h";
         Task highScore = () -> {
             HighScoreAnimation highScoreAnimation = new HighScoreAnimation(gui);
             highScoreAnimation.run();
             return null;
         };
-        menu.addMenuSelection(keyPress, SCOREBOARD_TABLE, highScore);
+        menu.addMenuSelection(HIGH_SCORE_KEY, SCOREBOARD_TABLE, highScore);
     }
 
     /**
@@ -131,7 +133,6 @@ public class Ass5Game {
      * @param menu animation.menu variable.
      */
     private static void addQuitOption(Menu<Task<Void>> menu) {
-        String keyPress = "q";
         Task quit = () -> {
             shouldRun = false;
             SoundConstants.MENU_THEME.stop();
@@ -139,7 +140,7 @@ public class Ass5Game {
             System.exit(0);
             return null;
         };
-        menu.addMenuSelection(keyPress, QUIT_GAME, quit);
+        menu.addMenuSelection(QUIT_GAME_MENU_KEY, QUIT_GAME, quit);
     }
 
     /**
@@ -153,8 +154,7 @@ public class Ass5Game {
             SoundConstants.MENU_THEME.loop();
         }
         //Mute or unmute the game.
-        if (keyboard.isPressed("m") || keyboard.isPressed("M")) {
-            System.out.println("m");
+        if (keyboard.isPressed(MUTE_KEY.toLowerCase()) || keyboard.isPressed(MUTE_KEY.toUpperCase())) {
             swapSoundEnabled();
         }
         if (!isSoundEnabled()) {

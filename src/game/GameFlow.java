@@ -15,6 +15,8 @@ import util.MuteManager;
 import java.time.LocalDate;
 import java.util.List;
 
+import static util.KeymapConstants.EMPTY_KEY;
+import static util.KeymapConstants.RETURN_TO_MENU;
 import static util.SoundConstants.NAME_ENTRY;
 import static util.TextValuesEng.ASK_NAME_TEXT;
 import static util.TextValuesEng.ASK_NAME_TITLE;
@@ -107,7 +109,7 @@ public class GameFlow {
     private void handleDefeat() {
         saveScore();
         this.animationRunner.run(
-                new KeyPressStoppableAnimation(keyboardSensor, "space", "",
+                new KeyPressStoppableAnimation(keyboardSensor, RETURN_TO_MENU, EMPTY_KEY,
                         new EndScreen(highScore, false, scoreManager.getHighestScore())));
     }
 
@@ -118,7 +120,7 @@ public class GameFlow {
     private void handleVictory() {
         saveScore();
         this.animationRunner.run(
-                new KeyPressStoppableAnimation(keyboardSensor, "space", "",
+                new KeyPressStoppableAnimation(keyboardSensor, RETURN_TO_MENU, EMPTY_KEY,
                         new EndScreen(highScore, true, scoreManager.getHighestScore())));
     }
 

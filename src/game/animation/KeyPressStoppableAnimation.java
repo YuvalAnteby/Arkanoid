@@ -4,8 +4,13 @@ import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 import util.MuteManager;
 
-import static util.SpriteConstants.*;
-import static util.TextValuesEng.*;
+import static util.SpriteConstants.KEY_STOPPABLE_FONT_SIZE;
+import static util.SpriteConstants.KEY_STOPPABLE_MAIN_TXT_Y;
+import static util.SpriteConstants.KEY_STOPPABLE_SECOND_TXT_Y;
+import static util.SpriteConstants.KEY_STOPPABLE_TXT_X;
+import static util.TextValuesEng.KEY_STOPPABLE_CONTINUE;
+import static util.TextValuesEng.KEY_STOPPABLE_PRESS;
+import static util.TextValuesEng.KEY_STOPPABLE_QUIT;
 
 /**
  * Class to represent animation of all stoppable screens. (Screens we can get to and return from using single button).
@@ -87,7 +92,7 @@ public class KeyPressStoppableAnimation implements Animation {
      *
      * @return true if user pressed the second key, otherwise false.
      */
-    public boolean DidPressSecondKey() {
+    public boolean didPressSecondKey() {
         return this.didPressSecondKey;
     }
 

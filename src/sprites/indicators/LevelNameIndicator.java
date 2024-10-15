@@ -7,7 +7,7 @@ import sprites.Sprite;
 import static util.SpriteConstants.INDICATOR_TXT_SIZE;
 import static util.SpriteConstants.LEVEL_NAME_X;
 import static util.SpriteConstants.LEVEL_NAME_Y;
-import static util.SpriteConstants.TEXT_COLOR;
+import static util.SpriteConstants.DARK_TEXT_COLOR;
 
 /**
  * Class to represent the level's name currently played.
@@ -38,7 +38,7 @@ public class LevelNameIndicator implements Sprite {
 
     @Override
     public void drawOn(DrawSurface d) {
-        d.setColor(TEXT_COLOR);
+        d.setColor(DARK_TEXT_COLOR);
         d.drawText(LEVEL_NAME_X, LEVEL_NAME_Y, levelName, INDICATOR_TXT_SIZE);
     }
 

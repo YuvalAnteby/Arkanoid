@@ -8,7 +8,8 @@ import util.Counter;
 import static util.SpriteConstants.INDICATOR_TXT_SIZE;
 import static util.SpriteConstants.LIVES_X;
 import static util.SpriteConstants.LIVES_Y;
-import static util.SpriteConstants.TEXT_COLOR;
+import static util.SpriteConstants.DARK_TEXT_COLOR;
+import static util.TextValuesEng.LIVES_TEXT;
 
 /**
  * Class to represent the lives a user have left.
@@ -39,8 +40,8 @@ public class LivesIndicator implements Sprite {
 
     @Override
     public void drawOn(DrawSurface d) {
-        d.setColor(TEXT_COLOR);
-        String livesText = "Lives: " + this.livesCounter.toString();
+        d.setColor(DARK_TEXT_COLOR);
+        String livesText = LIVES_TEXT + this.livesCounter.toString();
         d.drawText(LIVES_X, LIVES_Y, livesText, INDICATOR_TXT_SIZE);
     }
 

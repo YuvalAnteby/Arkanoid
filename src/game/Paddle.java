@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.util.List;
 
 import static util.GameConstants.GUI_WIDTH;
+import static util.KeymapConstants.MOVE_LEFT;
+import static util.KeymapConstants.MOVE_RIGHT;
 import static util.SpriteConstants.BOUND_WIDTH;
 
 /**
@@ -52,8 +54,12 @@ public class Paddle implements Sprite, Collidable {
      * @return true if user pressed the keys for left movement, otherwise false.
      */
     private boolean isPressingLeft() {
-        return this.keyboard.isPressed("a") || this.keyboard.isPressed("A")
-                || this.keyboard.isPressed(KeyboardSensor.LEFT_KEY);
+        for (String s : MOVE_LEFT) {
+            if (keyboard.isPressed(s.toLowerCase()) || keyboard.isPressed(s.toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -62,8 +68,12 @@ public class Paddle implements Sprite, Collidable {
      * @return true if user pressed the keys for right movement, otherwise false.
      */
     private boolean isPressingRight() {
-        return this.keyboard.isPressed("d") || this.keyboard.isPressed("D")
-                || this.keyboard.isPressed(KeyboardSensor.RIGHT_KEY);
+        for (String s : MOVE_RIGHT) {
+            if (keyboard.isPressed(s.toLowerCase()) || keyboard.isPressed(s.toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

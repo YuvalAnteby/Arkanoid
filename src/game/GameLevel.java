@@ -29,6 +29,10 @@ import java.util.List;
 
 import static util.GameConstants.GUI_HEIGHT;
 import static util.GameConstants.GUI_WIDTH;
+import static util.GameConstants.LEVEL_VICTORY_POINTS;
+import static util.KeymapConstants.PAUSE_GAME_KEY;
+import static util.KeymapConstants.QUIT_GAME_PAUSE_KEY;
+import static util.KeymapConstants.RETURN_PAUSE_KEY;
 import static util.SpriteConstants.BOUND_COLOR;
 import static util.SpriteConstants.BOUND_HEIGHT;
 import static util.SpriteConstants.BOUND_WIDTH;
@@ -262,8 +266,7 @@ public class GameLevel implements Animation {
      */
     private void handleVictory() {
         //Add extra points for clearing all the blocks (if needed).
-        this.scoreCount.increase(100);
-        System.out.println("Player won! " + scoreCount.getValue());
+        this.scoreCount.increase(LEVEL_VICTORY_POINTS);
         this.running = false;
         this.levelStatus = "win";
     }
@@ -274,7 +277,6 @@ public class GameLevel implements Animation {
     private void handleDefeat() {
         this.running = false;
         this.levelStatus = "lose";
-        System.out.println("Player lost. " + scoreCount.getValue());
     }
 
     /**
@@ -300,19 +302,19 @@ public class GameLevel implements Animation {
      * Function to enable all clicks by the user using the keyboard that aren't paddle movement.
      */
     private void keyboardClickCheck() {
-        //Pause the game on 'p' press.
-        if (this.keyboard.isPressed("p") || this.keyboard.isPressed("P")) {
+        //Pause the game on 'p' press by default.
+        if (keyboard.isPressed(PAUSE_GAME_KEY.toLowerCase()) || keyboard.isPressed(PAUSE_GAME_KEY.toUpperCase())) {
             KeyPressStoppableAnimation pauseStoppableAnimation = new KeyPressStoppableAnimation(keyboard,
-                    "SPACE", "Q" ,new PauseScreen());
+                    RETURN_PAUSE_KEY, QUIT_GAME_PAUSE_KEY, new PauseScreen());
             this.runner.run(pauseStoppableAnimation);
             //Check if the user wants to quit the game.
-            if (pauseStoppableAnimation.DidPressSecondKey()) {
+            if (pauseStoppableAnimation.didPressSecondKey()) {
                 this.levelStatus = "lose";
                 this.running = false;
             }
         }
         //Mute or unmute the game on 'm' press.
-        MuteManager.toggleMutePress(this.keyboard);
+        MuteManager.toggleMutePress(keyboard);
     }
 
     /**

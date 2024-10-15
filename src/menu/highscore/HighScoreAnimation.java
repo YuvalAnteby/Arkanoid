@@ -11,10 +11,14 @@ import util.MuteManager;
 import java.awt.Color;
 import java.util.List;
 
+import static util.KeymapConstants.RETURN_TO_MENU;
+import static util.KeymapConstants.RETURN_PAUSE_KEY;
 import static util.SpriteConstants.HORIZONTAL_SPACING;
 import static util.SpriteConstants.SCORE_RETURN_FONT_SIZE;
 import static util.SpriteConstants.SCORE_TXT_SIZE;
 import static util.SpriteConstants.VERTICAL_SPACING;
+import static util.TextValuesEng.HIGH_SCORE_RETURN;
+import static util.TextValuesEng.KEY_STOPPABLE_PRESS;
 import static util.TextValuesEng.SCOREBOARD_HEADER;
 
 /**
@@ -25,7 +29,7 @@ import static util.TextValuesEng.SCOREBOARD_HEADER;
 public class HighScoreAnimation implements Animation {
 
     private final GUI gui;
-    private final KeyboardSensor keyboardSensor;
+    private final KeyboardSensor sensor;
     private final List<HighScore> highScores;
     private boolean shouldStop = false;
     private boolean isAlreadyPressed = false;
@@ -38,7 +42,7 @@ public class HighScoreAnimation implements Animation {
     public HighScoreAnimation(GUI gui) {
         HighScoreManager manager = new HighScoreManager();
         this.highScores = manager.getHighScores();
-        this.keyboardSensor = gui.getKeyboardSensor();
+        this.sensor = gui.getKeyboardSensor();
         this.gui = gui;
     }
 
@@ -70,7 +74,7 @@ public class HighScoreAnimation implements Animation {
         drawReturnOption(d, xValue, yValue);
         shouldStop = checkForReturnToMenu();
         //Mute or unmute the game on 'm' press.
-        MuteManager.toggleMutePress(this.keyboardSensor);
+        MuteManager.toggleMutePress(this.sensor);
     }
 
     /**
@@ -82,21 +86,24 @@ public class HighScoreAnimation implements Animation {
      */
     private void drawReturnOption(DrawSurface d, int x, int y) {
         y += VERTICAL_SPACING / 2;
-        d.drawText(x, y, "Press space to return", SCORE_RETURN_FONT_SIZE);
+        String msg = KEY_STOPPABLE_PRESS + RETURN_PAUSE_KEY + HIGH_SCORE_RETURN;
+        d.drawText(x, y, msg, SCORE_RETURN_FONT_SIZE);
     }
 
     /**
-     * Check if the user presses the return key (space) to stop the animation and return to the main menu.
+     * Check if the user presses the return key to stop the animation and return to the main menu.
      *
      * @return true if the user pressed the return key, otherwise false.
      */
     private boolean checkForReturnToMenu() {
-        if (keyboardSensor.isPressed(KeyboardSensor.SPACE_KEY) && !isAlreadyPressed) {
-            this.isAlreadyPressed = true;
-            return true;
+        if (sensor.isPressed(RETURN_TO_MENU.toLowerCase()) || sensor.isPressed(RETURN_TO_MENU.toUpperCase())) {
+            if (!isAlreadyPressed) {
+                this.isAlreadyPressed = true;
+                return true;
+            }
         }
         // Reset when key is released
-        if (!keyboardSensor.isPressed(KeyboardSensor.SPACE_KEY)) {
+        if (!sensor.isPressed(RETURN_TO_MENU.toLowerCase()) && !sensor.isPressed(RETURN_TO_MENU.toUpperCase())) {
             this.isAlreadyPressed = false;
         }
         return false;

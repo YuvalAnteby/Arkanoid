@@ -12,7 +12,7 @@ import static util.SpriteConstants.INDICATOR_TXT_SIZE;
 import static util.SpriteConstants.INDICATOR_WIDTH;
 import static util.SpriteConstants.SCORE_X;
 import static util.SpriteConstants.SCORE_Y;
-import static util.SpriteConstants.TEXT_COLOR;
+import static util.SpriteConstants.DARK_TEXT_COLOR;
 import static util.TextValuesEng.SCORE_TEXT;
 
 /**
@@ -45,7 +45,7 @@ public class ScoreIndicator implements Sprite {
     public void drawOn(DrawSurface d) {
         d.setColor(INDICATOR_BACKGROUND_COLOR);
         d.fillRectangle(INDICATORS_BLOCK_X, INDICATORS_BLOCK_Y, INDICATOR_WIDTH, INDICATOR_TXT_SIZE);
-        d.setColor(TEXT_COLOR);
+        d.setColor(DARK_TEXT_COLOR);
         String scoreText = SCORE_TEXT + this.scoreCounter.toString();
         d.drawText(SCORE_X, SCORE_Y, scoreText, INDICATOR_TXT_SIZE);
     }

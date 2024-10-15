@@ -6,7 +6,6 @@ import java.awt.Color;
 
 import static util.GameConstants.GAME_IMAGE;
 import static util.SpriteConstants.KEY_STOPPABLE_FONT_SIZE;
-import static util.SpriteConstants.TEXT_COLOR;
 import static util.TextValuesEng.PAUSE_MESSAGE;
 
 /**

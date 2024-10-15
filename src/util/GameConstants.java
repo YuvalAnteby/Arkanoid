@@ -54,7 +54,13 @@ public final class GameConstants {
     /**
      * Amount of starting lives of the user.
      */
-    public static final int STARTING_LIVES = 1;
-    //TODO change to 4
-
+    public static final int STARTING_LIVES = 1; //TODO change to 4
+    /**
+     * Points to receive for each block removed.
+     */
+    public static final int BLOCK_REMOVAL_POINTS = 5;
+    /**
+     * Points to receive for removing all blocks in a level.
+     */
+    public static final int LEVEL_VICTORY_POINTS = 100;
 }

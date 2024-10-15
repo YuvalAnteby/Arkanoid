@@ -5,6 +5,8 @@ import game.Block;
 import sprites.geometry.Ball;
 import util.Counter;
 
+import static util.GameConstants.BLOCK_REMOVAL_POINTS;
+
 /**
  * Class to keep track of the user's score.
  *
@@ -25,7 +27,7 @@ public class ScoreTrackingListener implements HitListener {
     @Override
     public void onHit(Block beingHit, Ball hitter) {
         if (!beingHit.isDeathBlock()) {
-            this.currentScore.increase(5);
+            this.currentScore.increase(BLOCK_REMOVAL_POINTS);
         }
     }
 
