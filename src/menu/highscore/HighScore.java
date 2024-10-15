@@ -83,4 +83,9 @@ public class HighScore {
         }
         return this.name.equals(other.getName()) && this.score == other.getScore() && this.date.equals(other.date);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

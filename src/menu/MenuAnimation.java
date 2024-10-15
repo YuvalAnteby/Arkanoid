@@ -4,6 +4,8 @@ import game.animation.AnimationRunner;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
+import util.MuteManager;
+import util.SoundConstants;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import static util.SpriteConstants.MENU_VERTICAL_SPACING;
  */
 public class MenuAnimation<T> implements Menu<T> {
 
+    private boolean isSoundPlayingNow = true;
     private boolean shouldStop;
     private final List<Selection> list;
     private final KeyboardSensor keyboard;
@@ -85,6 +88,7 @@ public class MenuAnimation<T> implements Menu<T> {
                 this.shouldStop = true;
             }
         }
+        handleMenuSound();
     }
 
     /**
@@ -106,9 +110,19 @@ public class MenuAnimation<T> implements Menu<T> {
     }
 
     /**
-     * Sets shouldStop boolean to false.
+     * Handle the menu's sound. Waiting for mute/ unmute clicks and playing/ stopping the sound.
      */
-    public void setFalse() {
-        this.shouldStop = false;
+    private void handleMenuSound() {
+        //Mute or unmute the game on 'm' press.
+        MuteManager.toggleMutePress(this.keyboard);
+        // Play or stop the menu theme based on the sound state
+        if (MuteManager.isSoundEnabled() && !isSoundPlayingNow) {
+            SoundConstants.MENU_THEME.loop();
+            isSoundPlayingNow = true;
+        } else if (!MuteManager.isSoundEnabled() && isSoundPlayingNow) {
+            SoundConstants.MENU_THEME.stop();
+            isSoundPlayingNow = false;
+        }
     }
+
 }

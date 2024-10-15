@@ -9,6 +9,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 
+import static util.GameConstants.isSoundEnabled;
+
 /**
  * Class to handle playing sounds (.wav files) using java built in tools.
  * @author Yuval Anteby
@@ -55,7 +57,7 @@ public class SoundPlayer {
      * Should be used for files needed to play when calling them from doOneFrame function.
      */
     public void playOnce() {
-        if (clip != null && shouldPlay) {
+        if (isSoundEnabled() && clip != null && shouldPlay) {
             // Reset the clip to the start
             clip.setFramePosition(0);
             clip.start();
@@ -67,11 +69,20 @@ public class SoundPlayer {
      * Play the loaded sound file.
      */
     public void play() {
-        if (clip != null) {
+        if (isSoundEnabled() && clip != null) {
             // Reset the clip to the start
             clip.setFramePosition(0);
             clip.start();
             shouldPlay = true;
+        }
+    }
+
+    /**
+     * Pause the sound if it's playing.
+     */
+    public void pause() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
         }
     }
 
@@ -81,6 +92,7 @@ public class SoundPlayer {
     public void stop() {
         if (clip != null && clip.isRunning()) {
             clip.stop();
+            clip.setFramePosition(0);
         }
     }
 

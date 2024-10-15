@@ -20,4 +20,5 @@ public interface Animation {
      * @return true if it should stop, otherwise false.
      */
     boolean shouldStop();
+
 }

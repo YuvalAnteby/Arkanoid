@@ -39,7 +39,7 @@ public final class TextValuesEng {
     /**
      *
      */
-    public static final List<String > SCOREBOARD_HEADER = List.of("NAME", "SCORE", "DATE");
+    public static final List<String> SCOREBOARD_HEADER = List.of("NAME", "SCORE", "DATE");
     /**
      * Default player's name.
      */

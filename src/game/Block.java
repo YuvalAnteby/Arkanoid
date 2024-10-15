@@ -9,6 +9,7 @@ import sprites.collision.Collidable;
 import sprites.collision.HitListener;
 import sprites.collision.HitNotifier;
 import sprites.Velocity;
+import util.MuteManager;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -157,7 +158,10 @@ public class Block implements Collidable, Sprite, HitNotifier {
                 || this.rectangle.getRightLine().isContaining(collisionPoint)) {
             dx *= -1;
         }
-        playRandomImpactSound();
+        //Play a random impact sound if sound is enabled.
+        if (MuteManager.isSoundEnabled()) {
+            playRandomImpactSound();
+        }
         //Remove the ball if the color of the ball is different from the block.
         if (!ballColorMatch(hitter)) {
             this.notifyHit(hitter);

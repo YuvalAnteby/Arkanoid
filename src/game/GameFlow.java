@@ -10,6 +10,7 @@ import game.animation.EndScreen;
 import game.animation.KeyPressStoppableAnimation;
 import util.GameConstants;
 import util.Counter;
+import util.MuteManager;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +22,7 @@ import static util.TextValuesEng.DEFAULT_NAME;
 import static util.TextValuesEng.INVALID_NAME_TEXT;
 
 /**
- * Class to manage to flow between levels in the game.
+ * Class to manage the flow between levels in the game.
  *
  * @author Yuval Anteby
  */
@@ -33,7 +34,7 @@ public class GameFlow {
     private final Counter scoreCounter;
     private final Counter livesCounter;
     private HighScore highScore;
-    private HighScoreManager scoreManager;
+    private final HighScoreManager scoreManager;
 
     /**
      * Constructor to take basic parameters in order for the game to run.
@@ -56,7 +57,9 @@ public class GameFlow {
      * Get the user's name for saving the score and get current date.
      */
     private void initializeHighScore() {
-        NAME_ENTRY.playOnce();
+        if (MuteManager.isSoundEnabled()) {
+            NAME_ENTRY.playOnce();
+        }
         String name = this.gui.getDialogManager().showQuestionDialog(ASK_NAME_TITLE, ASK_NAME_TEXT, DEFAULT_NAME);
         //A name must have a text different from numbers only and must not be empty.
         while (name == null || name.isBlank() || name.chars().allMatch(Character::isDigit)) {
@@ -64,7 +67,9 @@ public class GameFlow {
         }
         LocalDate currentDate = LocalDate.now();
         highScore = new HighScore(name, currentDate);
-        NAME_ENTRY.stop();
+        if (MuteManager.isSoundEnabled()) {
+            NAME_ENTRY.stop();
+        }
     }
 
     /**

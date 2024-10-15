@@ -22,6 +22,7 @@ import sprites.indicators.LivesIndicator;
 import sprites.indicators.ScoreIndicator;
 import sprites.indicators.ScoreTrackingListener;
 import util.Counter;
+import util.MuteManager;
 import util.SoundConstants;
 
 import java.util.List;
@@ -230,7 +231,9 @@ public class GameLevel implements Animation {
         //Start animation. End the animation when there are no blocks remaining.
         this.runner = new AnimationRunner(this.gui);
         this.running = true;
-        SoundConstants.LEVEL_START.play();
+        if (MuteManager.isSoundEnabled()) {
+            SoundConstants.LEVEL_START.play();
+        }
         this.runner.run(new CountdownAnimation(2, 3, sprites));
         this.runner.run(this);
     }
@@ -282,7 +285,9 @@ public class GameLevel implements Animation {
         if (livesRemaining.getValue() <= 0) {
             handleDefeat();
         } else {
-            SoundConstants.EXTRA_LIFE.playOnce();
+            if (MuteManager.isSoundEnabled()) {
+                SoundConstants.EXTRA_LIFE.play();
+            }
             //Restart the level.
             this.paddle.movePaddleToCenter();
             generateBalls();
@@ -299,6 +304,8 @@ public class GameLevel implements Animation {
         if (this.keyboard.isPressed("p") || this.keyboard.isPressed("P")) {
             this.runner.run(new KeyPressStoppableAnimation(keyboard, "space", new PauseScreen()));
         }
+        //Mute or unmute the game on 'm' press.
+        MuteManager.toggleMutePress(this.keyboard);
     }
 
     /**

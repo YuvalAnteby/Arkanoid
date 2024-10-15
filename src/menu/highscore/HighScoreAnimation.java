@@ -6,6 +6,7 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import util.GameConstants;
+import util.MuteManager;
 
 import java.awt.Color;
 import java.util.List;
@@ -68,6 +69,8 @@ public class HighScoreAnimation implements Animation {
         }
         drawReturnOption(d, xValue, yValue);
         shouldStop = checkForReturnToMenu();
+        //Mute or unmute the game on 'm' press.
+        MuteManager.toggleMutePress(this.keyboardSensor);
     }
 
     /**

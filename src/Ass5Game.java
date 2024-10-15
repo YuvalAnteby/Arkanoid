@@ -17,6 +17,8 @@ import util.SoundConstants;
 
 import java.util.ArrayList;
 
+import static util.GameConstants.isSoundEnabled;
+import static util.GameConstants.swapSoundEnabled;
 import static util.TextValuesEng.GUI_NAME;
 import static util.TextValuesEng.NEW_GAME;
 import static util.TextValuesEng.QUIT_GAME;
@@ -28,8 +30,8 @@ import static util.TextValuesEng.SCOREBOARD_TABLE;
  * @author Yuval Anteby
  */
 public class Ass5Game {
-
     private static boolean shouldRun = true;
+    private static boolean isSoundPlayingNow = false;
 
     /**
      * Main function.
@@ -40,10 +42,12 @@ public class Ass5Game {
         //Create the gui and sensors.
         GUI gui = new GUI(GUI_NAME, GameConstants.GUI_WIDTH, GameConstants.GUI_HEIGHT);
         SoundConstants.MENU_THEME.loop();
+        isSoundPlayingNow = true;
         KeyboardSensor keyboard = gui.getKeyboardSensor();
         AnimationRunner animationRunner = new AnimationRunner(gui);
         while (shouldRun) {
-            //Set up the animation.menu.
+            handleSoundManagement(keyboard);
+            //Set up the menu.
             Menu<Task<Void>> menu = new MenuAnimation<>(keyboard, gui);
             addMenuOptions(menu, animationRunner, gui);
             //Run the animation.menu.
@@ -97,6 +101,7 @@ public class Ass5Game {
             Counter scoreCounter = new Counter();
             Counter livesCounter = new Counter();
             SoundConstants.MENU_THEME.stop();
+            isSoundPlayingNow = false;
             GameFlow gameFlow = new GameFlow(gui, runner, scoreCounter, livesCounter);
             gameFlow.runLevels(getListOfLevels());
             return null;
@@ -114,7 +119,6 @@ public class Ass5Game {
         String keyPress = "h";
         Task highScore = () -> {
             HighScoreAnimation highScoreAnimation = new HighScoreAnimation(gui);
-            SoundConstants.MENU_THEME.stop();
             highScoreAnimation.run();
             return null;
         };
@@ -131,10 +135,30 @@ public class Ass5Game {
         Task quit = () -> {
             shouldRun = false;
             SoundConstants.MENU_THEME.stop();
+            isSoundPlayingNow = false;
             System.exit(0);
             return null;
         };
         menu.addMenuSelection(keyPress, QUIT_GAME, quit);
     }
 
+    /**
+     * Handle the management of sound in the main menu.
+     *
+     * @param keyboard keyboard sensor.
+     */
+    private static void handleSoundManagement(KeyboardSensor keyboard) {
+        //Resume playing the main theme upon return to the menu and if game isn't muted.
+        if (!isSoundPlayingNow && isSoundEnabled()) {
+            SoundConstants.MENU_THEME.loop();
+        }
+        //Mute or unmute the game.
+        if (keyboard.isPressed("m") || keyboard.isPressed("M")) {
+            System.out.println("m");
+            swapSoundEnabled();
+        }
+        if (!isSoundEnabled()) {
+            SoundConstants.MENU_THEME.stop();
+        }
+    }
 }

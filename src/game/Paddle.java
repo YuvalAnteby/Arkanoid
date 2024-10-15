@@ -9,6 +9,7 @@ import sprites.geometry.Rectangle;
 import sprites.Sprite;
 import sprites.collision.Collidable;
 import sprites.Velocity;
+import util.MuteManager;
 
 import java.awt.Color;
 import java.util.List;
@@ -130,7 +131,9 @@ public class Paddle implements Sprite, Collidable {
         if (collisionPoint == null) {
             return currentVelocity;
         }
-        this.block.playRandomImpactSound();
+        if (MuteManager.isSoundEnabled()) {
+            this.block.playRandomImpactSound();
+        }
         //divide the top line to 5 parts
         List<Line> divide = this.shape.getTopLine().divideTo5();
         // check if the point is on the top line

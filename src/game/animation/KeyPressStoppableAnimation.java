@@ -2,6 +2,7 @@ package game.animation;
 
 import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
+import util.MuteManager;
 
 import static util.SpriteConstants.KEY_STOPPABLE_FONT_SIZE;
 import static util.SpriteConstants.KEY_STOPPABLE_TXT_X;
@@ -39,15 +40,19 @@ public class KeyPressStoppableAnimation implements Animation {
     @Override
     public void doOneFrame(DrawSurface d) {
         animation.doOneFrame(d);
-        if (keyboardSensor.isPressed(key)) {
+        //Main key handling.
+        if (keyboardSensor.isPressed(key.toLowerCase()) || keyboardSensor.isPressed(key.toUpperCase())) {
             if (!isAlreadyPressed) {
                 this.isRunning = false;
             } else {
                 this.isAlreadyPressed = false;
             }
         }
+        //Draw main message.
         d.drawText(KEY_STOPPABLE_TXT_X, KEY_STOPPABLE_TXT_Y, KEY_STOPPABLE_PRESS + key + KEY_STOPPABLE_CONTINUE,
                 KEY_STOPPABLE_FONT_SIZE);
+        //Mute or unmute the game on 'm' press.
+        MuteManager.toggleMutePress(this.keyboardSensor);
     }
 
     @Override

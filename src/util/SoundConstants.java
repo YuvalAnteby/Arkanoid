@@ -12,22 +12,18 @@ public final class SoundConstants {
      */
     private SoundConstants() {
     }
-
-    /**
-     * Main menu sound.
-     */
-    public static final SoundPlayer MENU_THEME = new SoundPlayer("./resources/sounds/menu_theme.wav");
-
-    /**
-     * Sound to play when players enter their name.
-     */
-    public static final SoundPlayer NAME_ENTRY = new SoundPlayer("./resources/sounds/name_entry.wav");
-
     /**
      * Default volume level of sounds. Default is 75%.
      */
     public static final float DEFAULT_VOLUME_LEVEL = 0.75f;
-
+    /**
+     * Main menu sound.
+     */
+    public static final SoundPlayer MENU_THEME = new SoundPlayer("./resources/sounds/menu_theme.wav");
+    /**
+     * Sound to play when players enter their name.
+     */
+    public static final SoundPlayer NAME_ENTRY = new SoundPlayer("./resources/sounds/name_entry.wav");
     /**
      * Sound to play when all balls removed and user still has extra lives (restarting level).
      */

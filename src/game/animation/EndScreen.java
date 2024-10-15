@@ -2,6 +2,7 @@ package game.animation;
 
 import biuoop.DrawSurface;
 import menu.highscore.HighScore;
+import util.MuteManager;
 import util.SoundPlayer;
 
 import java.awt.Color;
@@ -9,8 +10,13 @@ import java.awt.Color;
 import static util.GameConstants.GAME_IMAGE;
 import static util.SoundConstants.DEFEAT_SOUND;
 import static util.SoundConstants.WIN_SOUND;
-import static util.SpriteConstants.*;
-import static util.TextValuesEng.*;
+import static util.SpriteConstants.KEY_STOPPABLE_FONT_SIZE;
+import static util.SpriteConstants.MENU_VERTICAL_SPACING;
+import static util.SpriteConstants.MESSAGE_X;
+import static util.SpriteConstants.MESSAGE_Y;
+import static util.TextValuesEng.DEFEAT_TEXT;
+import static util.TextValuesEng.NEW_HIGHEST_SCORE;
+import static util.TextValuesEng.VICTORY_TEXT;
 
 
 /**
@@ -27,7 +33,9 @@ public class EndScreen implements Animation {
     /**
      * Constructor.
      *
-     * @param isVictory true if the user won the game, otherwise false.
+     * @param currentHighScore  current high score of the user.
+     * @param isVictory         true if the user won the game, otherwise false.
+     * @param highestScore      the highest score that was saved.
      */
     public EndScreen(HighScore currentHighScore, boolean isVictory, HighScore highestScore) {
         this.currentHighScore = currentHighScore;
@@ -39,6 +47,7 @@ public class EndScreen implements Animation {
     public void doOneFrame(DrawSurface d) {
         drawBackground(d);
         d.setColor(Color.WHITE);
+        //Show correct end screen.
         if (isVictory) {
             handleGameEnding(WIN_SOUND, VICTORY_TEXT + currentHighScore.getScore(), d);
         } else {
@@ -71,7 +80,9 @@ public class EndScreen implements Animation {
      * @param d     surface to draw on.
      */
     private void handleGameEnding(SoundPlayer sound, String text, DrawSurface d) {
-        sound.playOnce();
+        if (MuteManager.isSoundEnabled()) {
+            sound.playOnce();
+        }
         d.drawText(MESSAGE_X, MESSAGE_Y, text, KEY_STOPPABLE_FONT_SIZE);
     }
 
