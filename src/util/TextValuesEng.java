@@ -49,9 +49,13 @@ public final class TextValuesEng {
      */
     public static final String COUNTDOWN_END = "Go!";
     /**
-     * Key stoppable pressing text.
+     * Key stoppable press button text.
      */
-    public static final String KEY_STOPPABLE_PRESS = "Press ", KEY_STOPPABLE_CONTINUE = " to continue";
+    public static final String KEY_STOPPABLE_PRESS = "Press ";
+    /**
+     * Key stoppable actions text.
+     */
+    public static final String KEY_STOPPABLE_CONTINUE = " to continue", KEY_STOPPABLE_QUIT = " to quit";
     /**
      * Score indicator english text.
      */

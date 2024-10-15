@@ -102,9 +102,17 @@ public final class SpriteConstants {
      */
     public static final int KEY_STOPPABLE_TXT_X = BOUND_WIDTH;
     /**
+     * Vertical spacing between messages of key stoppable screen.
+     */
+    public static final int KEY_STOPPABLE_TXT_SPACING = 50;
+    /**
      * Main text of key stoppable screen y value.
      */
-    public static final int KEY_STOPPABLE_TXT_Y = GUI_HEIGHT - KEY_STOPPABLE_FONT_SIZE;
+    public static final int KEY_STOPPABLE_MAIN_TXT_Y = GUI_HEIGHT - KEY_STOPPABLE_FONT_SIZE - KEY_STOPPABLE_TXT_SPACING;
+    /**
+     * Second text of key stoppable screen y value.
+     */
+    public static final int KEY_STOPPABLE_SECOND_TXT_Y = GUI_HEIGHT - KEY_STOPPABLE_FONT_SIZE;
     //Countdown constants
     /**
      * Location of the countdown text.

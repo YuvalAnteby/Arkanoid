@@ -302,7 +302,14 @@ public class GameLevel implements Animation {
     private void keyboardClickCheck() {
         //Pause the game on 'p' press.
         if (this.keyboard.isPressed("p") || this.keyboard.isPressed("P")) {
-            this.runner.run(new KeyPressStoppableAnimation(keyboard, "space", new PauseScreen()));
+            KeyPressStoppableAnimation pauseStoppableAnimation = new KeyPressStoppableAnimation(keyboard,
+                    "SPACE", "Q" ,new PauseScreen());
+            this.runner.run(pauseStoppableAnimation);
+            //Check if the user wants to quit the game.
+            if (pauseStoppableAnimation.DidPressSecondKey()) {
+                this.levelStatus = "lose";
+                this.running = false;
+            }
         }
         //Mute or unmute the game on 'm' press.
         MuteManager.toggleMutePress(this.keyboard);

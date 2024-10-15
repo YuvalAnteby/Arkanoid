@@ -107,7 +107,7 @@ public class GameFlow {
     private void handleDefeat() {
         saveScore();
         this.animationRunner.run(
-                new KeyPressStoppableAnimation(keyboardSensor, "space",
+                new KeyPressStoppableAnimation(keyboardSensor, "space", "",
                         new EndScreen(highScore, false, scoreManager.getHighestScore())));
     }
 
@@ -118,7 +118,7 @@ public class GameFlow {
     private void handleVictory() {
         saveScore();
         this.animationRunner.run(
-                new KeyPressStoppableAnimation(keyboardSensor, "space",
+                new KeyPressStoppableAnimation(keyboardSensor, "space", "",
                         new EndScreen(highScore, true, scoreManager.getHighestScore())));
     }
 
