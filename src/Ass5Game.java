@@ -24,9 +24,9 @@ import static util.KeymapConstants.MUTE_KEY;
 import static util.KeymapConstants.NEW_GAME_KEY;
 import static util.KeymapConstants.QUIT_GAME_MENU_KEY;
 import static util.TextValuesEng.GUI_NAME;
-import static util.TextValuesEng.NEW_GAME;
-import static util.TextValuesEng.QUIT_GAME;
-import static util.TextValuesEng.SCOREBOARD_TABLE;
+import static util.TextValuesEng.NEW_GAME_TEXT;
+import static util.TextValuesEng.QUIT_GAME_TEXT;
+import static util.TextValuesEng.SCOREBOARD_TABLE_TEXT;
 
 /**
  * Class containing the main function to initialize and start the menu and game.
@@ -52,12 +52,12 @@ public class Ass5Game {
         while (shouldRun) {
             handleSoundManagement(keyboard);
             //Set up the menu.
-            Menu<Task<Void>> menu = new MenuAnimation<>(keyboard, gui);
+            Menu<Task> menu = new MenuAnimation<>(keyboard);
             addMenuOptions(menu, animationRunner, gui);
             //Run the animation.menu.
             animationRunner.run(menu);
             //Wait for user's choice and run it.
-            Task<Void> task = menu.getStatus();
+            Task task = menu.getStatus();
             task.run();
         }
     }
@@ -83,7 +83,7 @@ public class Ass5Game {
      * @param runner animation runner of the animation.menu.
      * @param gui    GUI in use.
      */
-    private static void addMenuOptions(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui) {
+    private static void addMenuOptions(Menu<Task> menu, AnimationRunner runner, GUI gui) {
         //New complete game using our list of game.levels.
         addNewGameOption(menu, runner, gui);
         //View the high score table.
@@ -99,17 +99,15 @@ public class Ass5Game {
      * @param runner animation runner of the animation.menu.
      * @param gui    GUI in use.
      */
-    private static void addNewGameOption(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui) {
-        Task<Void> newGame = () -> {
+    private static void addNewGameOption(Menu<Task> menu, AnimationRunner runner, GUI gui) {
+        menu.addMenuSelection(NEW_GAME_KEY, NEW_GAME_TEXT, () -> {
             Counter scoreCounter = new Counter();
             Counter livesCounter = new Counter();
             SoundConstants.MENU_THEME.stop();
             isSoundPlayingNow = false;
             GameFlow gameFlow = new GameFlow(gui, runner, scoreCounter, livesCounter);
             gameFlow.runLevels(getListOfLevels());
-            return null;
-        };
-        menu.addMenuSelection(NEW_GAME_KEY, NEW_GAME, newGame);
+        });
     }
 
     /**
@@ -118,13 +116,11 @@ public class Ass5Game {
      * @param menu animation.menu variable.
      * @param gui  GUI in use.
      */
-    private static void addHighScoreOption(Menu<Task<Void>> menu, GUI gui) {
-        Task<Void> highScore = () -> {
+    private static void addHighScoreOption(Menu<Task> menu, GUI gui) {
+        menu.addMenuSelection(HIGH_SCORE_KEY, SCOREBOARD_TABLE_TEXT, () -> {
             HighScoreAnimation highScoreAnimation = new HighScoreAnimation(gui);
             highScoreAnimation.run();
-            return null;
-        };
-        menu.addMenuSelection(HIGH_SCORE_KEY, SCOREBOARD_TABLE, highScore);
+        });
     }
 
     /**
@@ -132,15 +128,13 @@ public class Ass5Game {
      *
      * @param menu animation.menu variable.
      */
-    private static void addQuitOption(Menu<Task<Void>> menu) {
-        Task<Void> quit = () -> {
+    private static void addQuitOption(Menu<Task> menu) {
+        menu.addMenuSelection(QUIT_GAME_MENU_KEY, QUIT_GAME_TEXT, () -> {
             shouldRun = false;
             SoundConstants.MENU_THEME.stop();
             isSoundPlayingNow = false;
             System.exit(0);
-            return null;
-        };
-        menu.addMenuSelection(QUIT_GAME_MENU_KEY, QUIT_GAME, quit);
+        });
     }
 
     /**

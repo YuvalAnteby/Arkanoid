@@ -33,9 +33,17 @@ public final class TextValuesEng {
      */
     public static final String INVALID_NAME_TEXT = "Invalid name. Enter your name";
     /**
-     * Text for the menu options (starting a game, viewing the scoreboard etc.).
+     * Text for the menu option of starting a new game.
      */
-    public static final String NEW_GAME = "New Game", SCOREBOARD_TABLE = "High-Score table", QUIT_GAME = "Quit game";
+    public static final String NEW_GAME_TEXT = "New Game";
+    /**
+     * Text for the menu option of viewing the scoreboard table.
+     */
+    public static final String SCOREBOARD_TABLE_TEXT = "High-Score table";
+    /**
+     * Text for the menu option of quitting the game.
+     */
+    public static final String QUIT_GAME_TEXT = "Quit game";
     /**
      *
      */

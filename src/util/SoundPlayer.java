@@ -8,8 +8,11 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static util.GameConstants.isSoundEnabled;
+import static util.MuteManager.isSoundEnabled;
+
 
 /**
  * Class to handle playing sounds (.wav files) using java built in tools.
@@ -19,6 +22,8 @@ public class SoundPlayer {
 
     private Clip clip;
     private boolean shouldPlay = true;
+
+    private static final Logger logger = Logger.getLogger(SoundPlayer.class.getName());
 
     /**
      * Constructor for SoundPlayer. Loads the sound file into a clip.
@@ -38,7 +43,7 @@ public class SoundPlayer {
             clip.open(audioStream);
             setVolume(volumeLevel);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, "Error loading or playing sound file: " + filePath, e);
         }
     }
 
@@ -74,15 +79,6 @@ public class SoundPlayer {
             clip.setFramePosition(0);
             clip.start();
             shouldPlay = true;
-        }
-    }
-
-    /**
-     * Pause the sound if it's playing.
-     */
-    public void pause() {
-        if (clip != null && clip.isRunning()) {
-            clip.stop();
         }
     }
 

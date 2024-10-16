@@ -129,8 +129,4 @@ public class Green3 implements LevelInformation {
         return List.of(Color.GRAY, Color.RED, Color.YELLOW, Color.BLUE, Color.WHITE);
     }
 
-    @Override
-    public int numberOfBlocksToRemove() {
-        return this.blocks().size();
-    }
 }

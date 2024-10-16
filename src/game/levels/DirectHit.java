@@ -79,11 +79,6 @@ public class DirectHit implements LevelInformation {
         return List.of(new Block(new Rectangle(new Point(X_BLOCK, Y_BLOCK), BLOCK_WIDTH, BLOCK_HEIGHT), BLOCK_COLOR));
     }
 
-    @Override
-    public int numberOfBlocksToRemove() {
-        return blocks().size();
-    }
-
     /**
      * Generate a black background by default for this level.
      *

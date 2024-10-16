@@ -27,12 +27,4 @@ public interface Menu<T> extends Animation {
      */
     T getStatus();
 
-    /**
-     * Add new sub animation.menu.
-     *
-     * @param key     key to press.
-     * @param text    text to appear.
-     * @param subMenu the return value.
-     */
-    void addSubMenu(String key, String text, Menu<T> subMenu);
 }

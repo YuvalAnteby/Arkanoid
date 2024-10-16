@@ -83,19 +83,6 @@ public class HighScoreManager {
      * Add a new score to the file.
      * Will keep at most {@value MAX_HIGH_SCORES}, only the top values are kept.
      *
-     * @param name  player's name.
-     * @param score player's score.
-     */
-    public void addNewScore(String name, int score) {
-        //Set the default date as today.
-        HighScore newScore = new HighScore(name, score, LocalDate.now());
-        addNewScore(newScore);
-    }
-
-    /**
-     * Add a new score to the file.
-     * Will keep at most {@value MAX_HIGH_SCORES}, only the top values are kept.
-     *
      * @param newScore new High score to add.
      */
     public void addNewScore(HighScore newScore) {

@@ -45,7 +45,7 @@ public class FinalFour implements LevelInformation {
 
     @Override
     public List<Velocity> initialBallVelocities() {
-        List<Velocity> list = new ArrayList<Velocity>();
+        List<Velocity> list = new ArrayList<>();
         int angle = 30;
         for (int i = 0; i < this.numberOfBalls(); i++) {
             list.add(Velocity.fromAngleAndSpeed(angle, 4));
@@ -158,8 +158,4 @@ public class FinalFour implements LevelInformation {
                 new Color(255, 180, 255), new Color(0, 220, 255));
     }
 
-    @Override
-    public int numberOfBlocksToRemove() {
-        return this.blocks().size();
-    }
 }

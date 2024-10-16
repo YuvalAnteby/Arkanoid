@@ -1,8 +1,6 @@
 package menu;
 
-import game.animation.AnimationRunner;
 import biuoop.DrawSurface;
-import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import util.MuteManager;
 import util.SoundConstants;
@@ -25,46 +23,29 @@ public class MenuAnimation<T> implements Menu<T> {
 
     private boolean isSoundPlayingNow = true;
     private boolean shouldStop;
-    private final List<Selection> list;
+    private final List<Selection<T>> list;
     private final KeyboardSensor keyboard;
     private T status;
-    private final GUI gui;
-    //Currently not in use, meant for sub menus.
-    private Menu subMenu;
-
 
     /**
      * Instantiates a new Menu animation.
      *
      * @param keyboard keyboard sensor.
-     * @param gui      GUI in use.
      */
-    public MenuAnimation(KeyboardSensor keyboard, GUI gui) {
+    public MenuAnimation(KeyboardSensor keyboard) {
         this.list = new ArrayList<>();
         this.keyboard = keyboard;
         this.shouldStop = false;
-        this.gui = gui;
     }
 
     @Override
     public void addMenuSelection(String key, String text, T returnVal) {
-        this.list.add(new Selection(key, text, returnVal));
+        this.list.add(new Selection<>(key, text, returnVal));
     }
 
     @Override
     public T getStatus() {
-        if (this.status instanceof MenuAnimation) {
-            AnimationRunner runner = new AnimationRunner(this.gui);
-            runner.run(this.subMenu);
-            return (T) subMenu.getStatus();
-        }
         return this.status;
-    }
-
-    @Override
-    public void addSubMenu(String key, String text, Menu<T> subMenu) {
-        this.list.add(new Selection<>(key, text, subMenu));
-        this.subMenu = subMenu;
     }
 
     @Override
@@ -75,16 +56,16 @@ public class MenuAnimation<T> implements Menu<T> {
         d.setColor(Color.WHITE);
         yPosition += 100;
         //Show all animation.menu selections.
-        for (Selection selection : this.list) {
+        for (Selection<T> selection : this.list) {
             String text = "(" + selection.getKey().toUpperCase() + ") - " + selection.getText();
             d.drawText(xPosition, yPosition, text, MENU_FONT_SIZE);
             yPosition += MENU_VERTICAL_SPACING;
         }
         //Listen to user keyboard input for all animation.menu selections.
-        for (Selection selection : this.list) {
+        for (Selection<T> selection : this.list) {
             String key = selection.getKey();
             if (this.keyboard.isPressed(key.toLowerCase()) || this.keyboard.isPressed(key.toUpperCase())) {
-                this.status = (T) selection.getValue();
+                this.status = selection.getValue();
                 this.shouldStop = true;
             }
         }

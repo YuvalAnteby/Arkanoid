@@ -3,15 +3,12 @@ package menu;
 /**
  * Interface to represent a menu task. Will be used as a lambda.
  *
- * @param <T> generic for the task we want to do.
  * @author Yuval Anteby
  */
-public interface Task<T> {
+public interface Task {
 
     /**
      * Run the selected task.
-     *
-     * @return generic task.
      */
-    T run();
+    void run();
 }

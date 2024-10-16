@@ -90,11 +90,6 @@ public class WideEasy implements LevelInformation {
         return blocks;
     }
 
-    @Override
-    public int numberOfBlocksToRemove() {
-        return blocks().size();
-    }
-
     /**
      * Generate a blue background by default for this level.
      *

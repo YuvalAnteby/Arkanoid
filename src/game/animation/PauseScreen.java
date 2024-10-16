@@ -15,7 +15,7 @@ import static util.TextValuesEng.PAUSE_MESSAGE;
  */
 public class PauseScreen implements Animation {
 
-    private boolean shouldStop;
+    private final boolean shouldStop;
 
     /**
      * Constructor for the screen.

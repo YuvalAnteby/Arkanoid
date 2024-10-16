@@ -51,11 +51,4 @@ public interface LevelInformation {
      */
     List<Block> blocks();
 
-    /**
-     * The number of blocks that will be required to consider this level as "cleared" (a win of the user).
-     * This number should be <= blocks.size();
-     *
-     * @return number of blocks that should be removed.
-     */
-    int numberOfBlocksToRemove();
 }

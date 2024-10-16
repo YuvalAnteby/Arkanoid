@@ -232,9 +232,11 @@ public class Ball implements Sprite, HitNotifier {
     public void removeFromGame(GameLevel gameLevel) {
         if (gameLevel != null) {
             gameLevel.removeSprite(this);
+            // Make a copy of the hitListeners list before iterating
+            List<HitListener> listenersCopy = new ArrayList<>(this.hitListeners);
             //Changing to iterator for (enhanced for) requires further code changes for it.
-            for (int i = 0; i < this.hitListeners.size(); i++) {
-                removeHitListener(this.hitListeners.get(i));
+            for (HitListener hitListener : listenersCopy) {
+                removeHitListener(hitListener);
             }
         }
     }
