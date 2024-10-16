@@ -3,7 +3,7 @@ package sprites;
 import biuoop.DrawSurface;
 
 /**
- * Interface to be used for objects that take part in animations and drawing (E.G paddle and balls).
+ * Interface to be used for objects that take part in animations and drawing. (
  *
  * @author Yuval Anteby
  */

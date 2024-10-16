@@ -180,7 +180,6 @@ public class Block implements Collidable, Sprite, HitNotifier {
         int index = rnd.nextInt(HITS_SOUNDS.length);
         HITS_SOUNDS[index].play();
     }
-    
     @Override
     public void drawOn(DrawSurface d) {
         int xTopLeft = (int) rectangle.getUpperLeft().getX(), yTopLeft = (int) rectangle.getUpperLeft().getY();

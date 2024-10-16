@@ -23,8 +23,6 @@ public class SoundPlayer {
     private Clip clip;
     private boolean shouldPlay = true;
 
-    private static final Logger logger = Logger.getLogger(SoundPlayer.class.getName());
-
     /**
      * Constructor for SoundPlayer. Loads the sound file into a clip.
      * Note: the built-in library works better with .wav files.
@@ -43,6 +41,7 @@ public class SoundPlayer {
             clip.open(audioStream);
             setVolume(volumeLevel);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            Logger logger = Logger.getLogger(SoundPlayer.class.getName());
             logger.log(Level.INFO, "Error loading or playing sound file: " + filePath, e);
         }
     }

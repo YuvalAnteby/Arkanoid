@@ -33,7 +33,7 @@ import static util.TextValuesEng.SCOREBOARD_TABLE_TEXT;
  *
  * @author Yuval Anteby
  */
-public class Ass5Game {
+public class Main {
     private static boolean shouldRun = true;
     private static boolean isSoundPlayingNow = false;
 

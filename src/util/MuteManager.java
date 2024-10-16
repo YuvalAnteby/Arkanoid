@@ -2,8 +2,11 @@ package util;
 
 import biuoop.KeyboardSensor;
 
+import static util.KeymapConstants.MUTE_KEY;
+
 /**
  * Class to manage the mute/ unmute state of the game. By, default enabling/disabling the sound is by 'M' key.
+ *
  * @author Yuval Anteby
  */
 public class MuteManager {
@@ -27,7 +30,7 @@ public class MuteManager {
      * @param keyboard the KeyboardSensor object to detect key presses.
      */
     public static void toggleMutePress(KeyboardSensor keyboard) {
-        if (keyboard.isPressed("m") || keyboard.isPressed("M")) {
+        if (keyboard.isPressed(MUTE_KEY.toLowerCase()) || keyboard.isPressed(MUTE_KEY.toUpperCase())) {
             if (!isAlreadyPressed) {
                 soundEnabled = !soundEnabled;  // Toggle sound state
                 isAlreadyPressed = true;  // Prevent multiple toggles on long press

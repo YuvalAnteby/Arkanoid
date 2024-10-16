@@ -41,24 +41,6 @@ public class Velocity {
     }
 
     /**
-     * Change the velocity of the x-axis.
-     *
-     * @param dx the new double value for the velocity of the x-axis.
-     */
-    public void setDx(double dx) {
-        this.dx = dx;
-    }
-
-    /**
-     * Change the velocity of the y-axis.
-     *
-     * @param dy the new double value for the velocity of the y-axis.
-     */
-    public void setDy(double dy) {
-        this.dy = dy;
-    }
-
-    /**
      * Set the velocity using angle and speed.
      * using vectors and sin, cos definitions we set values to the dx,dy variables (assuming up is 0 degrees).
      *

@@ -47,7 +47,6 @@ public class SpriteCollection {
      */
     public void notifyAllTimePassed() {
         List<Sprite> spritesCopy = new ArrayList<>(this.spriteList);
-        //Changing to iterator for (enhanced for) requires further code changes for it.
         for (Sprite sprite : spritesCopy) {
             sprite.timePassed();
         }
