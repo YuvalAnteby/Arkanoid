@@ -4,7 +4,8 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 
 /**
- * Immutable and singleton class for default constant values related to game management to use across the project.
+ * Class for default constant values related to game management to use across the project.
+ * Following immutable and singleton design patterns.
  *
  * @author Yuval Anteby
  */

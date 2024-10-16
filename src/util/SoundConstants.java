@@ -1,7 +1,8 @@
 package util;
 
 /**
- * Immutable and singleton class for constants related to sound files to use across the project.
+ * Class for constants related to sound files to use across the project.
+ * Following immutable and singleton design patterns.
  *
  * @author Yuval Anteby
  */
@@ -12,6 +13,7 @@ public final class SoundConstants {
      */
     private SoundConstants() {
     }
+
     /**
      * Default volume level of sounds. Default is 75%.
      */

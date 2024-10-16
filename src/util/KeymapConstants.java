@@ -1,7 +1,8 @@
 package util;
 
 /**
- * Immutable and singleton class for default keyboard keys to use across the project by the player.
+ * Class for default keyboard keys to use across the project by the player.
+ * Following immutable and singleton design patterns.
  *
  * @author Yuval Anteby
  */
@@ -27,7 +28,7 @@ public final class KeymapConstants {
      */
     public static final String HIGH_SCORE_KEY = "H";
     /**
-     * Keys to quit the game.
+     * Keys to quit the game in the main menu and pause screen respectively.
      */
     public static final String QUIT_GAME_MENU_KEY = "Q", QUIT_GAME_PAUSE_KEY = "Q";
     /**

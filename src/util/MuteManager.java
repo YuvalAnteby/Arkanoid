@@ -9,7 +9,7 @@ import static util.KeymapConstants.MUTE_KEY;
  *
  * @author Yuval Anteby
  */
-public class MuteManager {
+public final class MuteManager {
     // Centralized mute/unmute state
     private static boolean soundEnabled = true;
     // To prevent multiple toggles on long press

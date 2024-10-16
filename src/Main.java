@@ -27,7 +27,6 @@ import static util.TextValuesEng.GUI_NAME;
 import static util.TextValuesEng.NEW_GAME_TEXT;
 import static util.TextValuesEng.QUIT_GAME_TEXT;
 import static util.TextValuesEng.SCOREBOARD_TABLE_TEXT;
-
 /**
  * Class containing the main function to initialize and start the menu and game.
  *

@@ -3,7 +3,7 @@ package sprites;
 import biuoop.DrawSurface;
 
 /**
- * Interface to be used for objects that take part in animations and drawing. (
+ * Interface to be used for objects that take part in animations and drawing.
  *
  * @author Yuval Anteby
  */

@@ -16,12 +16,15 @@ import static util.MuteManager.isSoundEnabled;
 
 /**
  * Class to handle playing sounds (.wav files) using java built in tools.
+ *
  * @author Yuval Anteby
  */
 public class SoundPlayer {
 
     private Clip clip;
     private boolean shouldPlay = true;
+    private final String filePath;
+    private final float volumeLevel;
 
     /**
      * Constructor for SoundPlayer. Loads the sound file into a clip.
@@ -31,19 +34,9 @@ public class SoundPlayer {
      * @param volumeLevel a value between 0.0f (mute) and 1.0f (maximum volume).
      */
     public SoundPlayer(String filePath, float volumeLevel) {
-        try {
-            // Load the sound file
-            File soundFile = new File(filePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
-            // Get a clip resource
-            clip = AudioSystem.getClip();
-            // Open the audio stream in the clip
-            clip.open(audioStream);
-            setVolume(volumeLevel);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            Logger logger = Logger.getLogger(SoundPlayer.class.getName());
-            logger.log(Level.INFO, "Error loading or playing sound file: " + filePath, e);
-        }
+        this.filePath = filePath;
+        this.volumeLevel = volumeLevel;
+        initializeClip();
     }
 
     /**
@@ -57,11 +50,36 @@ public class SoundPlayer {
     }
 
     /**
+     * Reload a sound file that was closed.
+     */
+    private void initializeClip() {
+        try {
+            // Load the sound file
+            File soundFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            // Get a new clip resource
+            clip = AudioSystem.getClip();
+            // Open the audio stream in the clip
+            clip.open(audioStream);
+            //Set the volume.
+            setVolume(volumeLevel);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            Logger logger = Logger.getLogger(SoundPlayer.class.getName());
+            logger.log(Level.SEVERE, "Error reloading sound: " + filePath, e);
+        }
+
+    }
+
+    /**
      * Play the loaded sound file once.
      * Should be used for files needed to play when calling them from doOneFrame function.
      */
     public void playOnce() {
         if (isSoundEnabled() && clip != null && shouldPlay) {
+            // Check if the clip is closed, and reinitialize if necessary
+            if (!clip.isOpen()) {
+                initializeClip();
+            }
             // Reset the clip to the start
             clip.setFramePosition(0);
             clip.start();
@@ -73,8 +91,12 @@ public class SoundPlayer {
      * Play the loaded sound file.
      */
     public void play() {
-        if (isSoundEnabled() && clip != null) {
-            // Reset the clip to the start
+        if (isSoundEnabled()) {
+            // Check if the clip is closed, and reinitialize if necessary
+            if (!clip.isOpen()) {
+                initializeClip();
+            }
+            // Reset the clip to the start and play
             clip.setFramePosition(0);
             clip.start();
             shouldPlay = true;
@@ -88,14 +110,20 @@ public class SoundPlayer {
         if (clip != null && clip.isRunning()) {
             clip.stop();
             clip.setFramePosition(0);
+            clip.close();  // Free up the resources after stopping
         }
     }
+
 
     /**
      * Loop the sound continuously.
      */
     public void loop() {
-        if (clip != null) {
+        if (clip != null && isSoundEnabled()) {
+            // Check if the clip is closed, and reinitialize if necessary
+            if (!clip.isOpen()) {
+                initializeClip();
+            }
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }

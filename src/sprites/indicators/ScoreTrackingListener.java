@@ -26,6 +26,9 @@ public class ScoreTrackingListener implements HitListener {
 
     @Override
     public void onHit(Block beingHit, Ball hitter) {
+        if (beingHit == null || hitter == null) {
+            return;
+        }
         if (!beingHit.isDeathBlock()) {
             this.currentScore.increase(BLOCK_REMOVAL_POINTS);
         }
