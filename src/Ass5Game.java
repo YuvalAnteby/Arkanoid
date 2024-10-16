@@ -11,14 +11,14 @@ import menu.Task;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
 import game.GameFlow;
-import util.GameConstants;
 import util.Counter;
+import util.MuteManager;
 import util.SoundConstants;
 
 import java.util.ArrayList;
 
-import static util.GameConstants.isSoundEnabled;
-import static util.GameConstants.swapSoundEnabled;
+import static util.GameConstants.GUI_HEIGHT;
+import static util.GameConstants.GUI_WIDTH;
 import static util.KeymapConstants.HIGH_SCORE_KEY;
 import static util.KeymapConstants.MUTE_KEY;
 import static util.KeymapConstants.NEW_GAME_KEY;
@@ -44,7 +44,7 @@ public class Ass5Game {
      */
     public static void main(String[] args) {
         //Create the gui and sensors.
-        GUI gui = new GUI(GUI_NAME, GameConstants.GUI_WIDTH, GameConstants.GUI_HEIGHT);
+        GUI gui = new GUI(GUI_NAME, GUI_WIDTH, GUI_HEIGHT);
         SoundConstants.MENU_THEME.loop();
         isSoundPlayingNow = true;
         KeyboardSensor keyboard = gui.getKeyboardSensor();
@@ -100,7 +100,7 @@ public class Ass5Game {
      * @param gui    GUI in use.
      */
     private static void addNewGameOption(Menu<Task<Void>> menu, AnimationRunner runner, GUI gui) {
-        Task newGame = () -> {
+        Task<Void> newGame = () -> {
             Counter scoreCounter = new Counter();
             Counter livesCounter = new Counter();
             SoundConstants.MENU_THEME.stop();
@@ -119,7 +119,7 @@ public class Ass5Game {
      * @param gui  GUI in use.
      */
     private static void addHighScoreOption(Menu<Task<Void>> menu, GUI gui) {
-        Task highScore = () -> {
+        Task<Void> highScore = () -> {
             HighScoreAnimation highScoreAnimation = new HighScoreAnimation(gui);
             highScoreAnimation.run();
             return null;
@@ -133,7 +133,7 @@ public class Ass5Game {
      * @param menu animation.menu variable.
      */
     private static void addQuitOption(Menu<Task<Void>> menu) {
-        Task quit = () -> {
+        Task<Void> quit = () -> {
             shouldRun = false;
             SoundConstants.MENU_THEME.stop();
             isSoundPlayingNow = false;
@@ -150,14 +150,14 @@ public class Ass5Game {
      */
     private static void handleSoundManagement(KeyboardSensor keyboard) {
         //Resume playing the main theme upon return to the menu and if game isn't muted.
-        if (!isSoundPlayingNow && isSoundEnabled()) {
+        if (!isSoundPlayingNow && MuteManager.isSoundEnabled()) {
             SoundConstants.MENU_THEME.loop();
         }
         //Mute or unmute the game.
         if (keyboard.isPressed(MUTE_KEY.toLowerCase()) || keyboard.isPressed(MUTE_KEY.toUpperCase())) {
-            swapSoundEnabled();
+            MuteManager.toggleMutePress(keyboard);
         }
-        if (!isSoundEnabled()) {
+        if (!MuteManager.isSoundEnabled()) {
             SoundConstants.MENU_THEME.stop();
         }
     }

@@ -18,26 +18,6 @@ public final class GameConstants {
     }
 
     /**
-     * True if game should play sounds, false if the game should be muted.
-     */
-    private static boolean soundEnabled = true;
-
-    /**
-     * Get the soundEnabled boolean.
-     * @return true if game sounds should play, false if the game is muted.
-     */
-    public static boolean isSoundEnabled() {
-        return soundEnabled;
-    }
-
-    /**
-     * Change the soundEnabled boolean to the opposite it was before.
-     * if the game is muted then resume playing sounds, if not muted then mute the game.
-     */
-    public static void swapSoundEnabled() {
-        soundEnabled = !soundEnabled;
-    }
-    /**
      * GUI size constants.
      **/
     public static final int GUI_WIDTH = 800, GUI_HEIGHT = 600;
