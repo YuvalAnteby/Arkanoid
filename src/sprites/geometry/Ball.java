@@ -14,10 +14,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.GameConstants.GUI_WIDTH;
 import static util.SpriteConstants.BALL_RADIUS;
-import static util.SpriteConstants.BOUND_HEIGHT;
-import static util.SpriteConstants.BOUND_WIDTH;
 import static util.SpriteConstants.DEFAULT_COLOR;
 import static util.SpriteConstants.X_BALL;
 import static util.SpriteConstants.Y_BALL;
@@ -149,7 +146,6 @@ public class Ball implements Sprite, HitNotifier {
             this.center = moveToCollision(hitInfo.collisionPoint(), this.velocity);
             this.velocity = newVelocity;
         }
-        checkBoundaryCollision();
     }
 
     /**
@@ -173,31 +169,6 @@ public class Ball implements Sprite, HitNotifier {
             adjustedY -= this.radius;
         }
         return new Point(adjustedX, adjustedY);
-    }
-
-    /**
-     * Check collision on GUI boundaries and adjust accordingly the center and velocity.
-     * The ball must stay entirely in the GUI, including the boundaries.
-     */
-    private void checkBoundaryCollision() {
-        //Check top boundary.
-        int minY = BOUND_HEIGHT + this.radius;
-        if (this.center.getY() <= minY) {
-            this.velocity.setDy(-this.velocity.getDy());
-            this.center.setY(this.radius + BOUND_HEIGHT);
-        }
-        //Check right boundary.
-        int maxX = GUI_WIDTH - BOUND_WIDTH - this.radius;
-        if (this.center.getX() >= maxX) {
-            this.velocity.setDx(-this.velocity.getDx());
-            this.center.setX(GUI_WIDTH - this.radius - BOUND_WIDTH);
-        }
-        //Check left boundary.
-        int minX = BOUND_WIDTH + this.radius;
-        if (this.center.getX() <= minX) {
-            this.velocity.setDx(-this.velocity.getDx());
-            this.center.setX(this.radius + BOUND_WIDTH);
-        }
     }
 
     /**
