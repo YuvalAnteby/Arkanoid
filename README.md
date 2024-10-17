@@ -12,8 +12,8 @@ Feel free to visit my [GitHub profile](https://github.com/YuvalAnteby) for more 
 - [Main Features](#main-features)
 - [Technologies Used](#technologies-used)
 - Installation and Running:
-   - [From Terminal/Command Prompt](#running-from-terminalcmd)
-   - [Using Jar File](#running-using-jar-file)
+   - [macOS and linux](#macos-and-linux)
+   - [Windows](#windows)
 - [Future Plans](#future-plans)
 - [Credits](#credits)
 
@@ -35,11 +35,8 @@ Feel free to visit my [GitHub profile](https://github.com/YuvalAnteby) for more 
 * Javax Sound API: Used for handling the game's sound effects.
 
 ## Installation and Running
+Installing and running the game will depend on your operating system. Using the built-in terminal of macOS/ linux and built in cmd of windows you can follow these steps to easily run the game. 
 
-There are two main ways to run the game:
-
-### Running from terminal/cmd
-Using the built-in terminal of macOS/ linux and built in cmd of windows you can follow these steps to easily run the game. 
 #### macOS and linux
 
 <details>
@@ -85,10 +82,6 @@ for /R src %f in (*.java) do javac -cp "lib/*" -d out "%f"
 java -cp "out;lib/*" Main
 ```
 </details>
-
-### Running using jar file
-
-//Coming soon
 
 ## Future Plans
 
