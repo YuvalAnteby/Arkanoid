@@ -3,7 +3,7 @@
 <img src="https://github.com/YuvalAnteby/Arkanoid/blob/main/resources/logo.jpg" alt="logo">
 
 This project is an implementation of the classic Arkanoid game with slight alternations, developed as a project for the OOP course in Bar-Ilan university.
-The game features a GUI, multiple levels, score tracking, sound effects and file management while adhering to OOP principles and design patterns.
+The game features a GUI, multiple levels, score tracking, sound effects and file management while adhering to OOP principles and design patterns.<br />
 Feel free to visit my [GitHub profile](https://github.com/YuvalAnteby) for more projects and my [LinkedIn](https://www.linkedin.com/in/yuval-anteby/) for professional details.
 
 ## Contents
