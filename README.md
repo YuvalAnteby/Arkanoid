@@ -1,6 +1,6 @@
 # Arkanoid - Java
 
-<img src="https://github.com/YuvalAnteby/Arkanoid/blob/main/resources/logo.jpg" alt="logo">
+<img src="https://github.com/YuvalAnteby/Arkanoid/blob/main/resources/logo.png" alt="logo">
 
 This project is an implementation of the classic Arkanoid game with slight alternations, developed as a project for the OOP course in Bar-Ilan university.
 The game features a GUI, multiple levels, score tracking, sound effects and file management while adhering to OOP principles and design patterns.<br />
