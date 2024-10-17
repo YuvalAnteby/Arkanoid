@@ -10,7 +10,7 @@ The game features a GUI, multiple levels, score tracking, sound effects and file
 ## Main Features
 1. GUI: Built using Java and the biuoop-1.4.jar given by the course's lecturer and TAs.
 2. File Management: High-scores are saved locally using JSON files.
-3. Sound Effects: Both original Arkanoid and custom made sound effects were incorporated into the game using java built in tools.
+3. Sound Effects: Both original Arkanoid and custom-made sound effects were incorporated into the game using java built in tools.
 4. Levels and difficulties: The game consists of several levels, with progressively increasing difficulty.
 5. Design Patterns:
     * Singleton: Managing global game settings and resources.
