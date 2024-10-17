@@ -8,7 +8,10 @@ The game features a GUI, multiple levels, score tracking, sound effects and file
 [Description](#arkanoid---java) <br />
 [Main Features](#main-features) <br />
 [Technologies Used](#technologies-used) <br />
-[Running from terminal/cmd](#running-from-terminalcmd)
+[Running from terminal/cmd](#running-from-terminalcmd)<br />
+[Running using jar file](#running-using-jar-file)<br />
+[Future Plans](#future-plans)<br />
+[Credits](#credits)
 
 ## Main Features
 
@@ -24,8 +27,8 @@ The game features a GUI, multiple levels, score tracking, sound effects and file
 ## Technologies Used
 * Java: Core programming language, used version 17.
 * biuoop library: Provided by Bar-Ilan's course staff for handling GUI components and sensors.
-* GSON: Used for reading and writing JSON files.
-* Javax Sound API: for handling the game's sound effects.
+* GSON: For reading and writing JSON files used in the high score management code.  
+* Javax Sound API: Used for handling the game's sound effects.
 
 ## Installation and Setup
 
@@ -86,5 +89,11 @@ java -cp "out;lib/*" Main
 ## Future Plans
 
 This project is complete, and there are currently no plans to expand its features. Further contributions or suggestions for improvements are welcome.
+
+## Credits
+- Impact Sounds: The impact sounds used in this project were sourced from "The Essential Retro Video Game Sound Effects Collection [512 sounds]" by Juhani Junkala.<br />
+All rights for these sounds remain with the original creator.<br />
+  You can find the collection [here](https://opengameart.org/content/512-sound-effects-8-bit-style)
+- biuoop-1.4.jar: The GUI library used in this project was provided by the Object-Oriented Programming (OOP) course staff at Bar-Ilan University.
 
 Feel free to visit my [GitHub profile](https://github.com/YuvalAnteby) for more projects and my [LinkedIn](https://www.linkedin.com/in/yuval-anteby/) for professional details.
