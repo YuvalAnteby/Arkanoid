@@ -3,8 +3,9 @@ This project is an implementation of the classic Arkanoid game with slight alter
 The game features a GUI, multiple levels, score tracking, sound effects and file managment while adhering to OOP principles and design patterns.
 
 ## Contents
-[Description](#Arkanoid-Java)
-## Main features
+[Description](#arkanoid---java) <br />
+[Main Features](#main-features)
+## Main Features
 1. GUI: Built using Java and the biuoop-1.4.jar given by the course's lecturer and TAs.
 2. File Management: High-scores are saved locally using JSON files.
 3. Sound Effects: Both original Arkanoid and custom made sound effects were incorporated into the game using java built in tools.
