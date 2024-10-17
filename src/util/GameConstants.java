@@ -26,7 +26,7 @@ public final class GameConstants {
     /**
      * Game logo as an image.
      */
-    public static final Image GAME_IMAGE = new ImageIcon("./resources/arkanoid-logo.jpg").getImage();
+    public static final Image GAME_IMAGE = new ImageIcon("./resources/logo.jpg").getImage();
 
     /**
      * FPS of the game.
