@@ -1,17 +1,21 @@
 # Arkanoid - Java
 
+<img src="https://github.com/YuvalAnteby/Arkanoid/blob/main/resources/logo.jpg" alt="logo">
+
 This project is an implementation of the classic Arkanoid game with slight alternations, developed as a project for the OOP course in Bar-Ilan university.
 The game features a GUI, multiple levels, score tracking, sound effects and file management while adhering to OOP principles and design patterns.
+Feel free to visit my [GitHub profile](https://github.com/YuvalAnteby) for more projects and my [LinkedIn](https://www.linkedin.com/in/yuval-anteby/) for professional details.
 
 ## Contents
 
-[Description](#arkanoid---java) <br />
-[Main Features](#main-features) <br />
-[Technologies Used](#technologies-used) <br />
-[Running from terminal/cmd](#running-from-terminalcmd)<br />
-[Running using jar file](#running-using-jar-file)<br />
-[Future Plans](#future-plans)<br />
-[Credits](#credits)
+- [Description](#arkanoid---java)
+- [Main Features](#main-features)
+- [Technologies Used](#technologies-used)
+- Installation and Running:
+   - [From Terminal/Command Prompt](#running-from-terminalcmd)
+   - [Using Jar File](#running-using-jar-file)
+- [Future Plans](#future-plans)
+- [Credits](#credits)
 
 ## Main Features
 
@@ -30,7 +34,7 @@ The game features a GUI, multiple levels, score tracking, sound effects and file
 * GSON: For reading and writing JSON files used in the high score management code.  
 * Javax Sound API: Used for handling the game's sound effects.
 
-## Installation and Setup
+## Installation and Running
 
 There are two main ways to run the game:
 
@@ -95,5 +99,3 @@ This project is complete, and there are currently no plans to expand its feature
 All rights for these sounds remain with the original creator.<br />
   You can find the collection [here](https://opengameart.org/content/512-sound-effects-8-bit-style)
 - biuoop-1.4.jar: The GUI library used in this project was provided by the Object-Oriented Programming (OOP) course staff at Bar-Ilan University.
-
-Feel free to visit my [GitHub profile](https://github.com/YuvalAnteby) for more projects and my [LinkedIn](https://www.linkedin.com/in/yuval-anteby/) for professional details.
