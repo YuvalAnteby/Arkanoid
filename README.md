@@ -6,6 +6,13 @@ This project is an implementation of the classic Arkanoid game with slight alter
 The game features a GUI, multiple levels, score tracking, sound effects and file management while adhering to OOP principles and design patterns.<br />
 Feel free to visit my [GitHub profile](https://github.com/YuvalAnteby) for more projects and my [LinkedIn](https://www.linkedin.com/in/yuval-anteby/) for professional details.
 
+<p align="center">
+   
+![alt text](https://github.com/YuvalAnteby/Arkanoid/blob/main/resources/all_lvls.gif 'Gameplay')
+
+</p>
+
+
 ## Contents
 
 - [Description](#arkanoid---java)
